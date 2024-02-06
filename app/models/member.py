@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import Column, Integer, String, Float, DateTime, func, Sequence, Date, DECIMAL
@@ -14,4 +14,4 @@ class Member(Base):
     passwd = Column(String(18), nullable=False)
     name = Column(String(10), nullable=False)
     email = Column(String(50), nullable=False)
-    regdate = Column(DateTime, default=datetime.datetime.now(), nullable=True)
+    regdate = Column(DateTime, default=datetime.now(), nullable=True)
