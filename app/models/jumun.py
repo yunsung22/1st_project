@@ -11,7 +11,7 @@ class Jumun(Base):
     __tablename__ = 'jumun'
 
     jmno = Column(Integer,primary_key=True, autoincrement=True)
-    userid = Column(String(18), nullable=False, unique=True)
+    userno = Column(Integer, nullable=False, unique=True)
     userloca = Column(String(50), nullable=False)
     prno = Column(Integer, nullable=False)
     quantity = Column(Integer,nullable=False, unique=True)
