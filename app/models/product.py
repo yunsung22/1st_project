@@ -7,7 +7,7 @@ from sqlalchemy.orm import DeclarativeBase
 class Base(DeclarativeBase):
     pass
 
-class Member(Base):
+class Product(Base):
     __tablename__ = 'product'
 
     prdno = Column(Integer, primary_key=True, autoincrement=True)
