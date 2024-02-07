@@ -20,10 +20,16 @@
         #submitbtn button {margin: 0}
 
         {#테이블 내 form요소 사이즈#}
-        .formnum {width:80%; height : 30px; margin : 5px 0}
+        .numinfrm {width:80%; height : 30px; margin : 5px 0}
 
         /* 페이지네이션 스타일*/
         .pagination a:link {color : darkslategray}
+
+        td img {height: 100px; width: 100px; margin: 0}
+        .nameform {width : 60%}
+        .name {padding: 0; text-align: left}
+
+
     </style>
 </head>
 <body>
@@ -83,37 +89,31 @@
             <tr>
                 <td><input type="checkbox"></td>
                 <td>11</td>
-                <td><input type="text" class="formnum" value="옥스포드셔츠"></td>
+                <td class="name">
+                    <img src="../../static/img/sweatshirt_black.jpg" alt="">
+                    <input type="text" class="nameform" value="옥스포드셔츠">
+                </td>
                 <td>옥스포드</td>
                 <td>500</td>
-                <td><input type="text" class="formnum" value="0"></td>
+                <td><input type="text" class="numinfrm" value="0"></td>
                 <td>35000</td>
-                <td><input type="text" class="formnum" value="0"></td>
-                <td><input type="text" class="formnum" value="0.0"></td>
+                <td><input type="text" class="numinfrm" value="0"></td>
+                <td><input type="text" class="numinfrm" value="0.0"></td>
                 <td>30000</td>
             </tr>
             <tr>
                 <td><input type="checkbox"></td>
-                <td>11</td>
-                <td><input type="text" class="formnum" value="옥스포드셔츠"></td>
+                <td>12</td>
+                <td class="name">
+                    <img src="../../static/img/sweatshirt_black.jpg" alt="">
+                    <input type="text" class="nameform" value="옥스포드셔츠">
+                </td>
                 <td>옥스포드</td>
                 <td>500</td>
-                <td><input type="text" class="formnum" value="0"></td>
+                <td><input type="text" class="numinfrm" value="0"></td>
                 <td>35000</td>
-                <td><input type="text" class="formnum" value="0"></td>
-                <td><input type="text" class="formnum" value="0.0"></td>
-                <td>30000</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>11</td>
-                <td><input type="text" class="formnum" value="옥스포드셔츠"></td>
-                <td>옥스포드</td>
-                <td>500</td>
-                <td><input type="text" class="formnum" value="0"></td>
-                <td>35000</td>
-                <td><input type="text" class="formnum" value="0"></td>
-                <td><input type="text" class="formnum" value="0.0"></td>
+                <td><input type="text" class="numinfrm" value="0"></td>
+                <td><input type="text" class="numinfrm" value="0.0"></td>
                 <td>30000</td>
             </tr>
         </table>
