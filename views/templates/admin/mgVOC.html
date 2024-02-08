@@ -3,8 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>고객문의 관리</title>
+    <style>
+        table {border : 1px solid black; border-collapse: collapse; width : 800px; table-layout: fixed}
+        th, td {border : 1px solid black; overflow: hidden; white-space: nowrap;
+            text-overflow: ellipsis}
+
+        {#제목빼고 가운데 정렬#}
+        tr > td {text-align: center}
+        tr > td:nth-child(3) {text-align: left}
+
+        #searchbar {width: 800px;}
+        #searchbar > div:first-child {width: 400px; display: inline-block}
+        #searchbar > div:last-child {width: 380px; display: inline-block; text-align: right}
+
+
+    </style>
 </head>
 <body>
+    <main>
+        <h1>고객문의 관리 페이지</h1>
 
+        <section>
+            <h2>고객문의 목록</h2>
+            <div id="searchbar">
+                <div>
+                    <select class="form-select" name="category" id="category" >
+                        <option value="all">전체</option>
+                        <option value="delivery">배송문의</option>
+                        <option value="product">상품문의</option>
+                        <option value="etc">기타</option>
+                    </select>
+                    <input type="text" name="search" id="search" placeholder="이름">
+                    <button type="button" id="searchbtn"> 검색 </button>
+                </div>
+                <div>
+                    <button type="button"> 비회원글 보기 </button>
+                    <button type="button"> 미답변 보기 </button>
+                    <button type="button"> 전체선택 </button>
+                    <button type="button"> 삭제 </button>
+                </div>
+            </div>
+            <table>
+                <colgroup>
+                    <col style="width:5%">
+                    <col style="width:7%">
+                    <col style="width:30%">
+                    <col style="width:18%">
+                    <col style="width:10%">
+                    <col style="width:8%">
+                    <col style="width:7%">
+                </colgroup>
+                <tr>
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>제목</th>
+                    <th>날짜</th>
+                    <th>답변자</th>
+                    <th>답변여부</th>
+                    <th>선택</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>홍길동</td>
+                    <td><a href="#">[제품문의] 환불해주세요</a></td>
+                    <td>2024-01-28 13:05:43</td>
+                    <td>  </td>
+                    <td> N </td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>홍길순</td>
+                    <td><a href="#">[배송문의] 일주일전에 시켰는데 안 도착했어요</a></td>
+                    <td>2024-01-26 13:05:43</td>
+                    <td> seungjae </td>
+                    <td> Y </td>
+                    <td><input type="checkbox"></td>
+                </tr>
+            </table>
+
+        </section>
+    </main>
 </body>
 </html>
