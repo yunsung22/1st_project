@@ -15,7 +15,8 @@ admin_router.mount('/static', StaticFiles(directory='views/static'), name='stati
 
 @admin_router.get('/mgproduct', response_class=HTMLResponse)
 def mgproduct(req: Request):
-    return templates.TemplateResponse('admin/mgproduct.html', {'request': req})
+    pdlist = ProductService.select_product()
+    return templates.TemplateResponse('admin/mgproduct.html', {'request': req, 'pdlist':pdlist})
 
 
 @admin_router.get('/rgproduct', response_class=HTMLResponse)

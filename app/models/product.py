@@ -16,5 +16,5 @@ class Product(Base):
     img = Column(String(100))
     stack = Column(Integer, nullable=False)
     price = Column(Integer, nullable=False)
-    salepoint = Column(Float)
+    salepoint = Column(Float, default=0.0)
     regdate = Column(DateTime, default=datetime.now(), nullable=True) # 상품등록일
