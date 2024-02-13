@@ -17,3 +17,4 @@ class Product(Base):
     stack = Column(Integer, nullable=False)
     price = Column(Integer, nullable=False)
     salepoint = Column(Float, nullable=False, unique=True)
+    regdate = Column(DateTime, default=datetime.now(), nullable=True) # 상품등록일
