@@ -11,10 +11,10 @@ class Product(Base):
     __tablename__ = 'product'
 
     prdno = Column(Integer, primary_key=True, autoincrement=True)
-    prdname = Column(String(18), nullable=False, unique=True)
-    category = Column(DateTime, default=datetime.now)
-    img = Column(String(100), unique=True)
+    prdname = Column(String(50), nullable=False, unique=True)
+    category = Column(String(30), nullable=False)
+    img = Column(String(100))
     stack = Column(Integer, nullable=False)
     price = Column(Integer, nullable=False)
-    salepoint = Column(Float, nullable=False, unique=True)
+    salepoint = Column(Float)
     regdate = Column(DateTime, default=datetime.now(), nullable=True) # 상품등록일

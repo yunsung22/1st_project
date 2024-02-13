@@ -1,7 +1,10 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, status
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
+
+from app.schemas.product import NewProduct
+from app.services.product import ProductService
 
 admin_router = APIRouter()
 
@@ -15,10 +18,17 @@ def mgproduct(req: Request):
     return templates.TemplateResponse('admin/mgproduct.html', {'request': req})
 
 
-# @admin_router.post('/mgproduct')
-# def mgproduct(mdto: NewMember):
-#     result = MemberService.insert_member(mdto)
-#     return result.rowcount
+@admin_router.get('/rgproduct', response_class=HTMLResponse)
+def rgproduct(req: Request):
+    return templates.TemplateResponse('admin/rgproduct.html', {'request': req})
+
+
+@admin_router.post('/rgproduct')
+def rgproductok(pdto: NewProduct):
+    result = ProductService.insert_product(pdto)
+    res_url = '/error'
+    if result.rowcount > 0: res_url = '/admin/mgproduct'
+    return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
 
 @admin_router.get('/mguser', response_class=HTMLResponse)

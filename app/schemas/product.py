@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -17,8 +18,9 @@ class Product(BaseModel):
         from_attributes = True
 
 
-class NewMember(BaseModel):
-    userid: str
-    passwd: str
-    name: str
-    email: str
+class NewProduct(BaseModel):
+    prdname: str
+    category: str
+    img: Optional[str]
+    stack: int
+    price: int
