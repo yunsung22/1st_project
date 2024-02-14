@@ -19,7 +19,7 @@ h1 {
 
 .center {
     order: 2;
-    margin-left: -16%;
+    margin-left: -12%;
 }
 
 .right {
@@ -71,6 +71,12 @@ footer div{
     margin: 0;
     display: flex; /* 요소들을 좌에서 우로 나열 */
     margin-left: 10px;
+}
+
+#footer1{
+    font-size: 14px;
+    margin-bottom: -18px;
+    margin-left: 20px;
 }
 
 #footerLinks li {
