@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block style %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+        nav,main,footer {
+            font-family: 'Courier Prime';
+            color:black;
+        }
+    </style>
+{% endblock%}
+{% block main %}
+<main>
+    <h1>About</h1>
+    <div id="lb2">
+    <h>Gitman Vintage is an American made shirt</h><br>
+    <h>collection that pays tribute to the brand’s</h><br>
+    <h>rich heritage with a considered interpretation</h><br>
+    <h>of the past and present.</h>
+    </div>
+
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slide"><img src="../static/img/about1.png" alt="about1"></div>
+            <div class="slide"><img src="../static/img/about2.png" alt="about2"></div>
+            <div class="slide"><img src="../static/img/about3.png" alt="about3"></div>
+            <div class="slide"><img src="../static/img/about4.png" alt="about4"></div>
+        </div>
+
+        <div class="content">
+            <h2>A Tribute to Our Past</h2>
+            <p>In 1932, Brooklyn based shirt-maker Max Gitman left New York and opened the Ashland Shirt & Pajama Company in the coal mining town of Ashland, Pennsylvania.</p>
+            <p>With his two sons, Alfred & Sheldon, he ran the factory as a contract shop until 1978 when the Gitman Bros. brand was born.</p>
+            <p>Today, we are one of the few remaining shirt-makers with all our production based in the USA.</p>
+            <p>Launched in 2008, Gitman Vintage pays tribute to the brand’s rich heritage with a unique interpretation of the past.</p>
+            <p>Each season, we return to the company archives and select fabrics from old line books, tweaking them with dyes and reworking patterns, scale and construction.</p>
+            <p>Our philosophy has always been to bridge the old and the new.</p>
+            <p>So we continue to honor the importance of the button down Oxford and classic chambray while continually pushing the boundaries of</p>
+            <p>a traditional shirt-based collection with everything from pineapple prints to Japanese indigos and rip-stop nylon.</p>
+            <p>Through each iteration, our commitment to quality is as important today as it was when Max Gitman and his sons first set up shop in Ashland.</p>
+            <p>Many of our sewers are third and fourth generation shirt makers and their collective expertise is always our most valuable asset.</p>
+            <br>
+            <p><a href="/lookbook">Explore this Season’s Look BookExplore this Season’s Look Book</a></p>
+        </div>
+    </div>
+
+</main>
+
+
+{% endblock %}
+
+{% block script %}
+    <script src="../static/js/Lookbook_script.js"></script>
+{% endblock %}
