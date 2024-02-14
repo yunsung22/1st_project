@@ -18,9 +18,35 @@ form {
 form textarea {
     padding: 5px;
 }
-#ul2 {
-    margin: 50px 0 auto;
+
+.cart {
+    margin-top: 100px;
 }
+#price {
+    margin-left: -50px;
+}
+#li1 {
+    font-size: 200%;
+}
+
+#ul2 li:first-child{
+    margin-left: -80px;
+}
+
+#ul2 li:nth-child(2){
+    margin-left: -20px;
+    margin-right: 70px;
+
+}
+
+
+
+
+#ul2 li:nth-child(4){
+    margin-left: 60px;
+    margin-right: -70px;
+}
+
 p {
     font-size: small;
     margin-top: 10px;
@@ -74,3 +100,10 @@ h {
     border: 1px solid black; height: 38px; width: 100px
 }
 
+#boardfrm {
+    margin-top: -20px;
+}
+
+#price1 {
+    font-size: 500%;
+}

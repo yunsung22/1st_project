@@ -16,9 +16,9 @@
             </div>
             <div class="container--m">
                 <div class="cart w1">
-                    <ul>
+                    <ul id="li1">
                         <li class="col-5" style="text-align: left";>Item</li>
-                        <li class="col-2">Price</li>
+                        <li id='price' class="col-2">Price</li>
                         <li class="col-2">Quantity</li>
                         <li class="col-2">Total</li>
                     </ul>
@@ -44,7 +44,7 @@
                     </ul>
                 </div>
 
-                <form name="boardfrm">
+                <form name="boardfrm" id="boardfrm">
                     <div class="row">
                         <div class="col-auto" style="margin-bottom: 0; font-size: small">
                             <label for="contents" class="dragup" class="col-form-label">Special Instructions</label>
@@ -56,7 +56,7 @@
                 </form>
 
                 <div>
-                    <h2>Subtotal : $120</h2>
+                    <h1>Subtotal : $120</h1>
                 </div>
                 <p>Total excludes shipping and taxes.
                     <a href="#" id="shippingCalculatorToggle" class="link">Show shipping calculator.</a>
