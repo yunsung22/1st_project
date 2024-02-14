@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+    nav,main,footer {
+        font-family: 'Courier Prime';
+        color:black;
+    }
+    #bdfrm {
+        margin-top: -70px;
+    }
+    #writebtn{
+        margin-top: -30px;
+    }
+</style>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer>
+</script>
+<script type="text/javascript">
+    var onloadCallback = () => {
+        grecaptcha.render('captcha', {
+            'sitekey' : '6LcQ1HApAAAAAA6z0YvkLz8vTit0NnEBU0p9hrAg'
+        });
+    };
+</script>
+{% endblock%}
+{% block main %}
+
+<main>
+    <form name="bdfrm" id="bdfrm">
+        <div class="container mt-5">
+            <div class="row mb-3">
+                <div class="col-md-9">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="Enter title">
+                </div>
+                <div class="col-md-3">
+                    <label for="author" class="form-label">Writer</label>
+                    <input type="text" class="form-control" name="userid" id="userid" placeholder="Enter Writer">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Text</label>
+                <textarea name="contents" id="contents" cols="45" rows="7" class="form-control" placeholder="Enter text"></textarea>
+            </div>
+            <div class="row mb-3">
+                <div class="col-auto">
+                    <label for="captcha" class="form-label">자동작성방지</label>
+                </div>
+                <div class="col-auto">
+                    <div id="captcha"></div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" id="writebtn">Submit</button>
+        </div>
+    </form>
+
+</main>
+
+{% endblock %}
+
+
+{% block script %}
+<script>
+    let writebtn = document.querySelector('#writebtn');
+    let bdfrm = document.bdfrm;
+    writebtn.addEventListener('click', () => {
+
+        // 캡챠 체크 - 캡챠 응답토큰 생성 여부 확인
+        // console.log(grecaptcha.getResponse());
+        // alert('잠시 대기중...')
+
+        if (grecaptcha.getResponse() === ''){
+            alert('자동가입방지를 확인하세요!');
+            return;
+        }
+
+        const formData = new FormData(bdfrm);
+
+        let jsondata = {};
+        formData.forEach(function (val,key) {
+            jsondata[key] = val;
+        });
+
+        jsondata['response'] = grecaptcha.getResponse();
+
+        fetch('http://127.0.0.1:8000/write', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(jsondata),
+            redirect: 'follow'
+        })
+            .then((res) => {
+                if (res.redirected) location.href = res.url;
+            })
+            .catch((err) => console.log(err));
+    });
+
+</script>
+<script src="../../static/js/index_script.js"></script>
+{% endblock %}

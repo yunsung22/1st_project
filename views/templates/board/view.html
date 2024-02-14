@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+    nav,main,footer {
+        font-family: 'Courier Prime';
+        color:black;
+    }
+    .content-box{
+        padding-top: 10px;
+        padding-bottom: 450px;
+    }
+</style>
+{% endblock%}
+
+{% block main %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="post-box p-4 mb-4">
+                <div class="info-box mb-2 d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Writer:</strong> {{ bd.userid }}
+                    </div>
+                    <div>
+                        <strong>Date:</strong> {{ bd.regdate.strftime('%Y-%m-%d %H:%M:%S') }}
+
+                    </div>
+                    <div>
+                        <strong>Views:</strong> {{ bd.views }}
+                    </div>
+                </div>
+                <h2 class="mb-3 text-center" ><strong></strong>제목</h2>
+                <div class="post-content mb-8">
+                    <div class="content-box p-8">
+                        <p>{{ bd.contents }}</p>
+                    </div>
+                </div>
+                <div class="comment-box mt-4">
+                    <h3>comment</h3>
+                    <form>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="1" placeholder="댓글을 작성해주세요...">{{ bd.contents }}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block script %}
+<script src="../../static/js/index_script.js"></script>{% endblock %}
