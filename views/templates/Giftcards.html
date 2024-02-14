@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+    nav,main,footer {
+        font-family: 'Courier Prime';
+        color:black;
+    }
+</style>
+{% endblock%}
+{% block main %}
+
+<main>
+    <div style="float: left; width: 50%;">
+        <h1>Gift Card</h1>
+        <div id="lb">
+    <h>Shopping for someone else but not sure</h><br>
+    <h>what to give them? Give them the gift of </h><br>
+    <h>choice with a Gitman Vintage gift card. </h><br><br><br>
+    <h>Our gift cards are delivered by email, </h><br>
+    <h>which you can then print or forward </h><br>
+    <h>directly to the recipient. They never </h><br>
+    <h>expire and can be used over multiple </h><br>
+    <h>purchases. For more information, read</h><br>
+            <h>our <a href="#">Gift Card FAQ.</a></h><br>
+        </div>
+    </div>
+    <div style="float: right; width: 50%;">
+        <img src="../static/img/gift%20card.png" alt="Your Image" style="width: 100%;">
+    </div>
+    <div style="clear: both;"></div>
+    <div>
+        <label for="amount">Select Amount:</label>
+        <select id="amount">
+            <option value="25">$25</option>
+            <option value="50">$50</option>
+            <option value="100">$100</option>
+            <!-- Add more options as needed -->
+        </select>
+    </div>
+    <div>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1">
+    </div>
+    <button type="button">Add To Bag</button>
+
+
+</main>
+{% endblock %}
+
+{% block script %}
+<script src="../static/js/Lookbook_script.js"></script>
+{% endblock %}
