@@ -38,6 +38,12 @@ def accessibility(req: Request):
 @main_router.get('/giftcards', response_class=HTMLResponse)
 def giftcards(req: Request):
     return templates.TemplateResponse('Giftcards.html', {'request': req})
+
+
+@main_router.get('/legal', response_class=HTMLResponse)
+def legal(req: Request):
+    return templates.TemplateResponse('legal.html', {'request': req})
+
 # 장바구니 #
 @main_router.get('/bag', response_class=HTMLResponse)
 def giftcards(req: Request):
