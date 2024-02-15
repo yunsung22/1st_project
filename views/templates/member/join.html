@@ -140,23 +140,26 @@
             jsonData[key] = val;
         })
 
-        let apiUrl = `http://127.0.0.1:8000/member/join`;
-        fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(jsonData)
-        }).then(res => res.text()).then(data => {
+        if(confirm('회원 가입을 진행 하시겠습니까?')){
 
-            if (data > 0) {
-                location.href = '/member/joinok';
-            } else {
-                location.href = '/member/join';
-            }
+            let apiUrl = `http://127.0.0.1:8000/member/join`;
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            }).then(res => res.text()).then(data => {
 
-        }).catch(err => console.log(err));
+                if (data > 0) {
+                    location.href = '/member/joinok';
+                } else {
+                    location.href = '/member/join';
+                }
+
+            }).catch(err => console.log(err));
+        }
 
     })
 </script>
