@@ -35,9 +35,17 @@ def about(req: Request):
 def accessibility(req: Request):
     return templates.TemplateResponse('Accessibility.html', {'request': req})
 
+
 @main_router.get('/giftcards', response_class=HTMLResponse)
 def giftcards(req: Request):
     return templates.TemplateResponse('Giftcards.html', {'request': req})
+
+
+@main_router.get('/faq', response_class=HTMLResponse)
+def faq(req: Request):
+    return templates.TemplateResponse('FAQ.html', {'request': req})
+
+
 # 장바구니 #
 @main_router.get('/bag', response_class=HTMLResponse)
 def giftcards(req: Request):

@@ -38,7 +38,6 @@ def write(req: Request):
     return templates.TemplateResponse('board/write.html', {'request': req})
 
 
-# 고객센터 글 쓰기
 @board_router.post('/write')
 def writeok(bdto: NewBoard):
     res_url = '/captcha_error'
@@ -50,7 +49,6 @@ def writeok(bdto: NewBoard):
 
 
 
-# 고객센터 글읽기
 @board_router.get('/view/{bno}', response_class=HTMLResponse)
 def view(req: Request, bno: str):
     bd = BoardService.selectone_board(bno)[0]
