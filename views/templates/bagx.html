@@ -1,43 +1,43 @@
 {% extends 'base.html' %}
 {% block style %}
-<style >
+    <style >
 
-    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
-    nav,main,footer {
-        font-family: 'Courier Prime';
-        color:black;
-    }
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+        nav,main,footer {
+            font-family: 'Courier Prime';
+            color:black;
+        }
 
-    main div {text-align: center; }
-    img {max-width: 100%;height: auto;}
+        main div {text-align: center; }
+        img {max-width: 100%;height: auto;}
 
-    .button{text-align: center; padding-bottom: 80px}
-    button:hover{box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); background: #1E5E14;
-        transition: 0.3s ease;;}
-    button {background: #16400B; border: darkgreen; font-family:Courier ;
-    width: 250px; height: 50px; transition: 0.3s ease}
-    #radius :first-child{border-radius: 5px;}
-
-
+        .button{text-align: center; padding-bottom: 80px}
+        button:hover{box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); background: #1E5E14;
+            transition: 0.3s ease;;}
+        button {background: #16400B; border: darkgreen; font-family:Courier ;
+            width: 250px; height: 50px; transition: 0.3s ease}
+        #radius :first-child{border-radius: 5px;}
 
 
-</style>
+
+
+    </style>
 {% endblock%}
 {% block main %}
 
-<main>
-    <div class="image-container">
-        <img src="{{ url_for('static',path='/img/yourbagx.png')}}">
+    <main>
+        <div class="image-container">
+            <img src="{{ url_for('static',path='/img/yourbagx.png')}}">
 
-    </div>
+        </div>
 
-    <div id="radius">
-        <a href="/index" >
-            <button type="button" class="text text-white">Shop New Arrivals</button>
-        </a>
-    </div>
+        <div id="radius">
+            <a href="/index" >
+                <button type="button" class="text text-white">Shop New Arrivals</button>
+            </a>
+        </div>
 
-</main>
+    </main>
 {% endblock %}
 
 {% block script %}

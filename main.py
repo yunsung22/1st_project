@@ -6,6 +6,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.dbfactory import db_startup
+from app.routes.jumun import jumun_router
 from app.routes.main import  main_router
 from app.routes.board import board_router
 from app.routes.member import member_router
@@ -21,6 +22,7 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(member_router)
 app.include_router(board_router)
 app.include_router(main_router)
+app.include_router(jumun_router)
 
 
 

@@ -42,3 +42,7 @@ def giftcards(req: Request):
 @main_router.get('/bag', response_class=HTMLResponse)
 def giftcards(req: Request):
     return templates.TemplateResponse('bag.html', {'request': req})
+
+@main_router.get('/jumun', response_class=HTMLResponse)
+def giftcards(req: Request):
+    return templates.TemplateResponse('jumun.html', {'request': req})
