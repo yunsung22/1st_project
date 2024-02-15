@@ -48,6 +48,10 @@ def fqa(req: Request):
 def legal(req: Request):
     return templates.TemplateResponse('legal.html', {'request': req})
 
+
+@main_router.get('/policy', response_class=HTMLResponse)
+def policy(req: Request):
+    return templates.TemplateResponse('policy.html', {'request': req})
 # 장바구니 #
 @main_router.get('/bag', response_class=HTMLResponse)
 def giftcards(req: Request):
