@@ -1,11 +1,38 @@
-<header><h1>세미 프로젝트 v1</h1></header>
+<style>
+    .center{
+        margin-right: -80px;
+    }
+</style>
+<header></header>
 <nav>
-    <ul class="list-inline row text-center justify-content-evenly mt-5">
-        <li class="col-2"><a href="/">Home</a></li>
-        <li class="col-2"><a href="/join">회원가입</a></li>
-        <li class="col-2"><a href="/login">로그인</a></li>
-        <li class="col-2"><a href="/board/list">게시판</a></li>
-        <li class="col-2"><a href="/myinfo">회원정보</a></li>
-    </ul>
-    <hr>
+    <div class="left">
+        <ul>
+            <li id="shop">
+                <a href="/index">Shop ▼</a>
+                <ul id="shopDropdown" class="dropdown">
+                    <li><a href="/index">Winter Sale</a></li>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">FW23</a></li>
+                    <li><a href="#">Web Exclusives</a></li>
+                    <li><a href="#">Oxfords</a></li>
+                    <li><a href="#">Knitwear</a></li>
+                    <li><a href="#">Neckwear</a></li>
+                    <li><a href="#">carryover</a></li>
+                </ul>
+            </li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/lookbook">Lookbook</a></li>
+
+        </ul>
+    </div>
+    <div class="center">
+        <h1><a href="/index"><img src="{{ url_for('static', path='/img/logo.png')}}" alt="Logo"></a></h1>
+    </div>
+    <div class="right">
+        <ul id="right1">
+            <li><a href="/member/login">Sign In</a></li>
+            <li><a href="/list/1">Q&A</a></li>
+            <li><a href="/bag">Bag</a></li>
+        </ul>
+    </div>
 </nav>

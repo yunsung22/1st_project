@@ -1,0 +1,113 @@
+
+
+{% extends 'base.html' %}
+{% block style %}
+    <link rel="stylesheet" href="../static/css/bag.css">
+{% endblock %}
+
+{% block main %}
+
+<main>
+    <div>
+        <section data-reactroot="" class="outer">
+            <div class="page__title mt2">
+                <div class="container--m">
+                    <h1 class="h1 mb075 align-c">Your Bag</h1></div>
+            </div>
+            <div class="container--m">
+                <div class="cart w1">
+                    <ul id="li1">
+                        <li class="col-5" style="text-align: left";>Item</li>
+                        <li id='price' class="col-2">Price</li>
+                        <li class="col-2">Quantity</li>
+                        <li class="col-2">Total</li>
+                    </ul>
+                    <ul id="ul2" class="quantity-list" style="list-style-type: none; padding: 0;">
+                        <li class="col-5 item-details" style=" text-align: left">
+                            <div style="display: flex; align-items: center;">
+                                <img src="{{ url_for('static',path='/img/shirt2.png')}}" alt="Ecru Reverse-Denim Western">
+                                <div style="text-align: left; margin-left: 10px;" class="pt-5">
+                                    <p>Ecru Reverse-Denim Western</p><br>
+                                    <p>Size : s</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col-2 inline-block">$142</li>
+                        <li class="col-2 inline-block" id = "quanbox"  >
+                            <button type="button" id="decrease_btn" name="decrease_btn" style="border:None">
+                                <i class="bi bi-caret-down-fill"></i></button>
+                            <p class="quantity">1</p>
+                            <button type="button" id="increase_btn" name="increase_btn" style="border:None">
+                                <i class="bi bi-caret-up-fill"></i></button>
+                        </li>
+                        <li class="col-2">$142</li>
+                    </ul>
+                </div>
+
+                <form name="boardfrm" id="boardfrm">
+                    <div class="row">
+                        <div class="col-auto" style="margin-bottom: 0; font-size: small">
+                            <label for="contents" class="dragup" class="col-form-label">Special Instructions</label>
+                        </div>
+                        <div class="col-auto">
+                            <textarea style="border: 1px solid #000;border-radius: 2px;" name="contents" id="contents" cols="50" rows="4" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </form>
+
+                <div>
+                    <h1>Subtotal : $120</h1>
+                </div>
+                <p>Total excludes shipping and taxes.
+                    <a href="#" id="shippingCalculatorToggle" class="link">Show shipping calculator.</a>
+                </p><br>
+                <p>
+                    <a href="/" class="link">Keep Shopping</a>
+                </p>
+                <p id="radius1">
+                    <a href="/index">
+                        <button type="button" id="radius" style="font-size: large">
+                            <i class="bi bi-success"></i>Checkout
+                        </button>
+                    </a>
+                </p>
+            </div>
+
+
+        </section>
+
+
+
+        <form name = "foot" style="height: 300px; padding-top: 100px" >
+            <h3>STAY UP TO DATE</h3>
+            <h>Sign up for our newsletter to be the first to</h><br>
+            <h>know about new products, exclusive releases</h><br>
+            <h>and promotions.</h>
+
+            <div class = "colspan 2" style="padding-left: 90px; margin: 10px;">
+
+                <div class = "input-group" id="submit1">
+                    <input id="Email-Address" class="inline-block" placeholder="Email Address">
+                    <input type="submit" value="Submit" class="button" id="submitbtn">
+                </div>
+            </div>
+        </form>
+    </div>
+
+</main>
+{% endblock %}
+
+{% block script %}
+    <script src="../static/js/Lookbook_script.js"></script>
+    <script>
+        let increase_btn = document.querySelector('#increase_btn')
+        let decrease_btn = document.querySelector('#decrease_btn')
+        increase_btn.addEventListener('click', ()=>{
+
+        })
+
+
+    </script>
+
+{% endblock %}
+

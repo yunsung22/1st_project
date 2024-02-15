@@ -1,0 +1,369 @@
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    display: inline;
+    margin: 0 10px;
+}
+
+h1 {
+    margin: 0;
+}
+
+.left {
+    order: 1;
+}
+
+.center {
+    order: 2;
+    margin-left: -12%;
+}
+
+.right {
+    margin-top: -10px;
+    order: 3;
+    border: 1px solid black ;
+}
+
+#right1 {
+    margin-left: -300px;
+}
+
+nav {
+    top: 0;
+    border-bottom: 1px solid lightgrey; /* 헤더 아래 라인 추가 */
+    margin-bottom: -10%;
+}
+
+/* 헤더와 푸터 공통 스타일 */
+nav, footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff; /* 배경을 흰색으로 */
+    color: black; /* 글자색을 검정색으로 */
+    padding: 10px 0;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none !important; /* 밑줄 제거 */
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+
+}
+
+footer {
+    border-top: 1px solid lightgrey; /* 푸터 위 라인 추가 */
+    transition: transform 0.3s ease; /* 변환 효과 추가 */
+    border-top: 1px solid lightgrey;
+}
+footer div{
+    margin-right: 30px;
+}
+
+#footerLinks {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* 요소들을 좌에서 우로 나열 */
+    margin-left: 10px;
+}
+
+#footer1{
+    font-size: 14px;
+    margin-bottom: -18px;
+    margin-left: 20px;
+}
+
+#footerLinks li {
+    margin-right: 20px; /* 링크들 사이 간격 조정 */
+}
+
+#socialMedia {
+    display: flex;
+}
+
+#socialMedia a {
+    margin-left: 20px; /* 소셜 미디어 아이콘들 사이 간격 조정 */
+}
+
+
+/* 헤더와 푸터 내부의 방문한 링크 스타일 */
+nav a:visited,
+footer a:visited {
+    color: inherit; /* 부모 요소의 색상 상속 */
+    text-decoration: none; !important; /* 밑줄 제거 */
+}
+
+/* shop에 마우스 올리면 드롭다운 되도록 함*/
+.dropdown {
+    display: none;
+    position: absolute;
+    background-color: #fff; /* 배경을 흰색으로 */
+    border: 1px solid black;
+    padding: 5px;
+    top: calc(100% - 1px); /* 드롭다운이 부모 요소 아래에 위치하도록 함 */
+    z-index: 1; /* 헤더보다 위에 표시되도록 함 */
+    margin-left: 11px;
+    margin-top: -5px;
+    left: -1px; /* 좌측 정렬되도록 함 */
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+
+.dropdown li {
+    display: block; /* 각 항목을 수직으로 나열 */
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+#shop:hover .dropdown {
+    display: block;
+}
+
+#shop:hover {
+    border: 1px solid black; /* 검은색 border 추가 */
+}
+
+#shop {
+    padding: 10px 5px 20px 5px; /* 위아래 10px, 좌우 20px의 안쪽 여백 설정 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경하여 사용자에게 클릭 가능함을 나타냄 */
+    width: 70px; /* 고정된 너비 할당 */
+    display: inline-block; /* 인라인 요소로 설정하여 다른 요소와 같은 줄에 표시 */
+}
+
+
+/* Footer 링크 색상 및 밑줄 제거 */
+footer #footerLinks a {
+    color: black; /* 글자색을 검정색으로 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+/* 소셜 미디어 아이콘들의 색상 설정 */
+footer #socialMedia a i {
+    color: black; /* 아이콘 색상을 검정색으로 */
+}
+nav, nav a {
+    color: black;
+}
+
+/* 헤더의 밑줄 제거 */
+nav a {
+    text-decoration: none;
+}
+
+/* main 옷 한줄에 3개 구현*/
+
+.clothing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 한 줄에 3개의 열을 가지도록 설정합니다. */
+    gap: 20px; /* 각 아이템 사이의 간격을 설정합니다. */
+}
+
+.clothing-item {
+    text-align: center;
+}
+
+.clothing-item img {
+    max-width: 100%; /* 이미지가 부모 요소에 맞게 조정되도록 합니다. */
+    height: auto;
+}
+
+.clothing-item h3 {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+main {
+    padding-top: 70px; /* 메인 내용과 상하좌우 여백 설정 */
+    text-align: center;
+
+}
+
+main h1 {
+    font-size: 50px;
+    font-weight: lighter;
+}
+nav {
+    /* 기존 스타일 유지 */
+    height: 60px; /* 높이를 적절한 값으로 조정 */
+    padding: 5px; /* 상하좌우의 안쪽 여백을 조정하여 내부 요소가 헤더 내에 더 잘 맞도록 함 */
+}
+
+nav h1 {
+    font-size: 24px; /* 헤더 제목의 글꼴 크기를 조정 */
+}
+
+nav ul {
+    margin-top: 10px; /* 내비게이션 항목들과 로고 간의 간격을 설정 */
+}
+
+nav li {
+    margin: 0 5px; /* 내비게이션 항목들 간의 간격을 조정 */
+}
+.clothing-item {
+    margin-bottom: 120px; /* 원하는 만큼의 간격으로 조정합니다. */
+}
+
+.clothing-item {
+    margin-bottom: 90px; /* 위아래 여백을 더 늘립니다. */
+    padding: 10px; /* 좌우 여백을 좁힙니다. */
+}
+
+.clothing-item img {
+    display: block; /* 이미지의 위아래 여백을 조정하기 위해 블록 요소로 설정합니다. */
+    margin: 0 auto; /* 이미지를 가운데 정렬합니다. */
+}
+
+.clothing-item {
+    margin-bottom: 50px; /* 위아래 여백을 늘립니다. */
+    padding: 20px 10px; /* 위아래 여백을 더 넓혀줍니다. */
+    position: relative; /* 부모 요소 기준으로 자식 요소를 배치합니다. */
+}
+
+.clothing-item img {
+    position: absolute; /* 이미지를 절대 위치로 설정합니다. */
+    top: 0; /* 부모 요소의 상단에 배치합니다. */
+    left: 50%; /* 부모 요소의 가운데를 기준으로 좌우 정렬합니다. */
+    transform: translateX(-50%); /* 이미지를 수평으로 가운데 정렬합니다. */
+}
+
+
+
+/* 여기부턴 Lookbook css*/
+
+.image-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+main div{
+    margin-bottom: 50px;
+}
+main h1 {
+    margin-top: 30px;
+}
+#lb {
+    margin-top: 40px;
+    margin-bottom: 80px;
+    font-size: 15px;
+}
+
+/* 여기부턴 About css*/
+#lb2 {
+    margin-top: 40px;
+    margin-bottom: 80px;
+    font-size: 30px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* 수평 스크롤 막기 */
+}
+
+
+.content {
+    font-size:15px
+}
+
+
+/* 테이블 헤더 스타일 */
+table th {
+    background-color: #f2f2f2;
+}
+
+/* 테이블 셀 스타일 */
+table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* 검색 상자와 버튼 정렬 */
+.searchbox {
+    display: flex;
+    align-items: center;
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+    list-style-type: none;
+    padding: 0;
+}
+
+.pagination li {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.pagination li a {
+    text-decoration: none;
+    color: #000;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.pagination li.active a {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+
+
+/* 고객센터 본문 스타일*/
+.container1 {
+    padding-top: 10px;
+
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.post-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.info-box {
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+.content-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 20px; /* 상하 여백을 20px로 설정 */
+}
+
+h2 {
+    color: #333;
+}
+
+.post-content {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.post-info {
+    padding-top: 20px;
+}
+
+.comment-box {
+    margin-top: 20px; /* 댓글 창과의 간격을 추가 */
+    padding-bottom: 20px; /* 댓글 창의 하단 여백을 추가 */
+    border-top: 1px solid #ccc; /* 댓글 창 위에 구분선을 추가 */
+}
+.mb-3 {
+    text-align: left;
+
+}

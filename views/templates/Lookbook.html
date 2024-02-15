@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+    nav,main,footer {
+        font-family: 'Courier Prime';
+        color:black;
+    }
+</style>
+{% endblock%}
+{% block main %}
+
+<main>
+    <div>
+    <h1>Fall / Winter 2023</h1>
+        <div id="lb">
+    <h>In our FW23 collection we continue our exploration of fabrics through texture</h><br>
+    <h>and color stories. Earth tones, off-whites, brushing processes, and knits</h><br>
+    <h>beget a tour de force of autumnal shirting and knitwear. A new family of</h><br>
+    <h>Brushed Fall Oxfords set the pace of the collection with hopsacks,</h><br>
+    <h>herringbone tweeds, and Jumbo Corduroy following suit. Vintage prints and</h><br>
+    <h>retro-inspired Triple Yarns embrace our affection for Americana, while</h><br>
+    <h>intricately constructed patchwork fabrics nod to our history of</h><br>
+    <h>manufacturing. Accompanying our shirts is an array of Alpaca wool sweaters</h><br>
+    <h>and a capsule of Brushed Oxford neckwear.</h><br>
+        </div>
+    </div>
+
+
+    <div class="image-grid">
+        <div class="image-row">
+            <div class="image-item">
+                <img src="../static/img/lookbook-1.webp" alt="Image 1" style="width: 100%; max-width: 600px;">
+            </div>
+            <div class="image-item">
+                <img src="../static/img/lookbook-2.webp" alt="Image 2" style="width: 100%; max-width: 600px;">
+            </div>
+        </div>
+    </div>
+
+    <div class="image-grid">
+        <div class="image-item">
+            <img src="../static/img/lookbook-3.webp" alt="Image 3" style="width: 100%; max-width: 600px;">
+        </div>
+    </div>
+
+    <div class="image-grid">
+        <div class="image-row">
+            <div class="image-item">
+                <img src="../static/img/lookbook-4.webp" alt="Image 1" style="width: 100%; max-width: 600px;">
+            </div>
+            <div class="image-item">
+                <img src="../static/img/lookbook-5.webp" alt="Image 2" style="width: 100%; max-width: 600px;">
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block script %}
+<script src="../static/js/Lookbook_script.js"></script>
+{% endblock %}

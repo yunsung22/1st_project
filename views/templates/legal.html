@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% block style %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+        nav, main, footer {
+            font-family: 'Courier Prime';
+            color: black;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <main>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Section</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Terms of Use</td>
+                <td>This website is operated by Gitman Vintage. Throughout the site, the terms “we”, “us” and “our” refer to Gitman Vintage...</td>
+            </tr>
+            <tr>
+                <td>Online Store Terms</td>
+                <td>By agreeing to these Terms of Service, you represent that you are at least the age of majority in your state or province of residence...</td>
+            </tr>
+            <tr>
+                <td>General Conditions</td>
+                <td>We reserve the right to refuse service to anyone for any reason at any time...</td>
+            </tr>
+            <tr>
+                <td>Accuracy, Completeness and Timeliness of Information</td>
+                <td>We are not responsible if information made available on this site is not accurate, complete or current...</td>
+            </tr>
+            <tr>
+                <td>Modifications to the Service and Prices</td>
+                <td>Prices for our products are subject to change without notice...</td>
+            </tr>
+            <tr>
+                <td>Products</td>
+                <td>Certain products or services may be available exclusively online through the website...</td>
+            </tr>
+            <tr>
+                <td>Accuracy of Billing and Account Information</td>
+                <td>We reserve the right to refuse any order you place with us...</td>
+            </tr>
+            <tr>
+                <td>Optional Tools</td>
+                <td>We may provide you with access to third-party tools over which we neither monitor nor have any control...</td>
+            </tr>
+            <tr>
+                <td>Third-Party Links</td>
+                <td>Certain content, products and services available via our Service may include materials from third-parties...</td>
+            </tr>
+            <tr>
+                <td>User Comments, Feedback and Other Submissions</td>
+                <td>If, at our request, you send certain specific submissions (for example contest entries) or without a request from us you send creative ideas...</td>
+            </tr>
+            <tr>
+                <td>Personal Information</td>
+                <td>Your submission of personal information through the store is governed by our Privacy Policy...</td>
+            </tr>
+            <tr>
+                <td>Errors, Inaccuracies and Omissions</td>
+                <td>Occasionally there may be information on our site or in the Service that contains typographical errors, inaccuracies or omissions...</td>
+            </tr>
+            <tr>
+                <td>Prohibited Uses</td>
+                <td>You are prohibited from using the site or its content for any unlawful purpose...</td>
+            </tr>
+            <tr>
+                <td>Disclaimer of Warranties; Limitation of Liability</td>
+                <td>We do not guarantee, represent or warrant that your use of our service will be uninterrupted, timely, secure or error-free...</td>
+            </tr>
+            <tr>
+                <td>Indemnification</td>
+                <td>You agree to indemnify, defend and hold harmless Gitman Vintage and our parent, subsidiaries...</td>
+            </tr>
+            <tr>
+                <td>Severability</td>
+                <td>In the event that any provision of these Terms of Service is determined to be unlawful, void or unenforceable...</td>
+            </tr>
+            <tr>
+                <td>Termination</td>
+                <td>The obligations and liabilities of the parties incurred prior to the termination date shall survive the termination of this agreement for all purposes...</td>
+            </tr>
+            <tr>
+                <td>Entire Agreement</td>
+                <td>The failure of us to exercise or enforce any right or provision of these Terms of Service shall not constitute a waiver of such right or provision...</td>
+            </tr>
+            <tr>
+                <td>Governing Law</td>
+                <td>These Terms of Service and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the laws of our corporate office...</td>
+            </tr>
+            <tr>
+                <td>Changes to Terms of Service</td>
+                <td>We reserve the right, at our sole discretion, to update, change or replace any part of these Terms of Service...</td>
+            </tr>
+            <tr>
+                <td>Contact Information</td>
+                <td>Questions about the Terms of Service should be sent to us at mail@gitman.com...</td>
+            </tr>
+            <tr>
+                <td>What Do We Do With Your Information?</td>
+                <td>When you purchase something from our store, as part of the buying and selling process, we collect the personal information you give us...</td>
+            </tr>
+            <tr>
+                <td>Consent</td>
+                <td>When you provide us with personal information to complete a transaction, verify your credit card, place an order...</td>
+            </tr>
+            <tr>
+                <td>Disclosure</td>
+                <td>We may disclose your personal information if we are required by law to do so or if you violate our Terms of Service...</td>
+            </tr>
+            <tr>
+                <td>Shopify</td>
+                <td>Our store is hosted on Shopify Inc. They provide us with the online e-commerce platform...</td>
+            </tr>
+            <tr>
+                <td>Third-Party Services</td>
+                <td>In general, the third-party providers used by us will only collect, use and disclose your information to the extent necessary to allow them to perform the services they provide to us...</td>
+            </tr>
+            <tr>
+                <td>Security</td>
+                <td>To protect your personal information, we take reasonable precautions and follow industry best practices...</td>
+            </tr>
+            <tr>
+                <td>Cookies</td>
+                <td>When browsing our website, we may store some information on your computer in the form of a "cookie" or similar file...</td>
+            </tr>
+            <tr>
+                <td>Age of Consent</td>
+                <td>By using this site, you represent that you are at least the age of majority in your state or province of residence...</td>
+            </tr>
+            <tr>
+                <td>Changes to This Privacy Policy</td>
+                <td>We reserve the right to modify this privacy policy at any time...</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </main>
+{% endblock %}
+
+{% block script %}
+    <script src="../static/js/Lookbook_script.js"></script>
+{% endblock %}

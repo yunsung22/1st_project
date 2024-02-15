@@ -8,6 +8,9 @@ class Member(BaseModel):
     passwd: str
     name: str
     email: str
+    addr: str
+    birth: str
+    phone: str
     regdate: datetime
 
 class Config:
@@ -19,3 +22,14 @@ class NewMember(BaseModel):
     passwd: str
     name: str
     email: str
+    addr: str
+    birth: str
+    phone: str
+
+class ModifyMember(BaseModel):
+    passwd: str
+    name: str
+    email: str
+    addr: str
+    birth: str
+    phone: str
