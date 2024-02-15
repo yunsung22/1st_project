@@ -113,7 +113,7 @@
 
         let useridRegex = /^[a-zA-Z0-9]{6,50}$/; // 영문자와 숫자로 이루어진 6자 이상, 50자 이하의 문자열을 허용하는 정규표현식
 
-        if (useridRegex.test(userId)) {
+        if (!useridRegex.test(userId)) {
             alert('아이디는 영문자와 숫자로 이루어진 6자 이상, 50자 이하의 형태로 입력해주세요.');
             joinfrm.userid.focus();
             return;
