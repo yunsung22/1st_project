@@ -4,11 +4,13 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.dbfactory import db_startup
+from app.routes.admin import admin_router
 from app.routes.member import member_router
 
 app = FastAPI()
 
 app.include_router(member_router)
+app.include_router(admin_router, prefix='/admin')
 
 # jinja2 설정
 templates = Jinja2Templates(directory='views/templates')
