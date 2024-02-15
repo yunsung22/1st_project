@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% block style %}
+    <!-- Bootstrap CSS -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+        nav, main, footer {
+            font-family: 'Courier Prime', monospace;
+            color: black;
+        }
+        /* Custom CSS */
+        body {
+            background-color: #ffffff; /* 배경색 흰색 */
+        }
+        .btn {
+            background-color: transparent;
+            border: none;
+            color: #000000; /* 버튼 텍스트 색상 검정색 */
+            font-size: 35px; /* 텍스트 크기 조정 */
+            text-align: left; /* 텍스트 좌측 정렬 */
+            font-weight: 300; /* 글씨체 얇게 */
+            text-decoration: none; /* 밑줄 제거 */
+            width: 100%;
+            padding: 0; /* 버튼 내부 패딩 제거 */
+        }
+        .content {
+            display: none;
+            color: #000000; /* 콘텐츠 텍스트 색상 검정색 */
+            padding: 10px; /* 내부 여백 추가 */
+            border: 1px solid #ffffff; /* 하늘색 테두리 제거 */
+        }
+        .active {
+            display: block;
+        }
+        .btn::after {
+            content: "+"; /* 버튼 오른쪽에 + 표시 */
+            float: right;
+        }
+        body.modal-open {
+            overflow: hidden;
+        }
+        .modal-open .modal {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    </style>
+{% endblock%}
+
+{% block main %}
+    <main>
+        <h1>FAQ</h1>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col">
+                    <button class="btn mb-3">Shipping</button>
+                    <div class="content">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td colspan="3"><strong>WHAT SHIPPING METHODS DO YOU OFFER?</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Shipping Method</td>
+                                <td>Delivery Time</td>
+                                <td>Rate</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>All orders within the USA are shipped via UPS at the following rates:</strong></td>
+                            </tr>
+                            <tr>
+                                <td>UPS Ground</td>
+                                <td>1-5 business days</td>
+                                <td>Free</td>
+                            </tr>
+                            <tr>
+                                <td>2nd Day Air</td>
+                                <td>1-2 business days</td>
+                                <td>$18.95</td>
+                            </tr>
+                            <tr>
+                                <td>Next Day Air</td>
+                                <td>1 business day</td>
+                                <td>$24.95</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>All international orders are shipped via USPS at the following rates:</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Orders under $300</td>
+                                <td>3-5 business days</td>
+                                <td>$30</td>
+                            </tr>
+                            <tr>
+                                <td>Orders over $300</td>
+                                <td>3-5 business days</td>
+                                <td>Free</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn mb-3">Returns</button>
+                    <div class="content">
+                        <h4>WHAT IS OUR RETURNS POLICY?</h4>
+                        <p>Our returns and exchanges policy is designed to have all unwanted items</p>
+                        <p>back in our inventory as soon as possible, ensuring more opportunities to</p>
+                        <p>shop our styles and sizes. Our policy is as follows:</p>
+                        <br><br>
+                        <p>Return Authorization (RA) numbers must be requested via email within the</p>
+                        <p>following time periods:</p>
+                        <br><br>
+                        <p>Full-priced items: 14 days of receipt</p>
+                        <br><br>
+                        <p>First seasonal markdown: 7 days of receipt</p>
+                        <br><br>
+                        <p>Made to Order, warehouse sale, and items discounted more than 40% are final sale.</p>
+                        <br><br>
+                        <p>Returns and exchanges can only be accepted where the product has not been</p>
+                        <p>worn, altered, damaged, or washed, and has all original tags attached.</p>
+                        <br><br>
+                        <p>If returned items are not shipped back to our facility within 10 days of</p>
+                        <p>receiving a return authorization number, the return will only qualify for</p>
+                        <p>store credit.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn mb-3">Products</button>
+                    <div class="content">
+                        <p><strong>HOW SHOULD I CARE FOR MY ITEMS?</strong><br>
+                            We strongly recommend following the instructions listed on the care tag inside our products since different items may require specific methods of cleaning. For more detailed instructions, please feel free to contact us.</p>
+                        <br><br>
+                        <p><strong>HOW DO I KNOW WHAT SIZE TO ORDER?</strong><br>
+                            On each of our product pages, you will find a sizing chart listing the measurements for each item. If you are still unsure of your size and need additional assistance, please contact us.</p>
+                        <br><br>
+
+                        <p><strong>WHERE CAN I SEE YOUR PRODUCTS?</strong><br>
+                            Our collection is available at a wide selection of stores around the world. To see the full list, please check our stockist page.</p>
+                        <br><br>
+
+                        <p><strong>WHAT IS YOUR PRICE ADJUSTMENT POLICY?</strong><br>
+                            We can issue a price adjustment in the form of store credit for orders placed within 48 hours of the first seasonal markdown on the item. The item must still be available in the same size upon reviewing request. There will be no adjustments for any additional markdowns.</p>
+                        <br><br>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn mb-3">Gift Cards</button>
+                    <div class="content">
+                        <!-- Gift Cards 설명 -->
+                        <p><strong>HOW DO I PURCHASE OR SEND A GIFT CARD?</strong><br>
+                            To purchase a gift card, simply select the value you would like applied to the card, add the item to your bag and proceed through the checkout. Upon purchasing a gift card, you will receive an email containing a link to redeem, print or forward the gift card online.</p>
+
+                        <p><strong>HOW DO I USE A GIFT CARD?</strong><br>
+                            Gift cards can be used to purchase any item available at our online store. Simply shop around, select the item you're interested in and use your gift card to pay for it by entering the card number at the checkout.</p>
+
+                        <p><strong>DO I HAVE TO USE THE ENTIRE BALANCE AT ONCE?</strong><br>
+                            No, we always keeps track of the remaining card balance, so you can use it over multiple purchases.</p>
+
+                        <p><strong>WILL THE GIFT CARD EXPIRE?</strong><br>
+                            No, our gift cards never expire.</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+{% endblock %}
+
+{% block script %}
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // JavaScript to toggle content
+        $(document).ready(function(){
+            $(".btn").click(function(){
+                $(this).next(".content").toggleClass("active").slideToggle("slow");
+            });
+        });
+    </script>
+{% endblock %}
