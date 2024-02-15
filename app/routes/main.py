@@ -39,6 +39,10 @@ def accessibility(req: Request):
 def giftcards(req: Request):
     return templates.TemplateResponse('Giftcards.html', {'request': req})
 
+@main_router.get('/faq', response_class=HTMLResponse)
+def fqa(req: Request):
+    return templates.TemplateResponse('FAQ.html', {'request': req})
+
 
 @main_router.get('/legal', response_class=HTMLResponse)
 def legal(req: Request):
