@@ -1,113 +1,222 @@
-
-
 {% extends 'base.html' %}
 {% block style %}
-    <link rel="stylesheet" href="../static/css/bag.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+        nav, main, footer {
+            font-family: 'Courier Prime', monospace;
+            color: black;
+        }
+        ul {
+            list-style-type: none;
+        }
+        li {
+            display: inline-block;
+        }
+        form {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .cart {
+            margin-top: 50px;
+        }
+        .item-details {
+            display: flex;
+            align-items: center;
+        }
+        .item-details img {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+        .item-details p {
+            margin: 0;
+            font-size: 16px;
+        }
+        .cart-table th, .cart-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-table th.col-5 {
+            text-align: left;
+        }
+        .cart-table td.col-2, .cart-table th.col-2 {
+            text-align: center;
+        }
+        .cart-table td.col-2 .quantity {
+            margin: 0;
+            font-size: 16px;
+        }
+        .cart-table td.col-2 button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .cart-table td.col-2 button:focus {
+            outline: none;
+        }
+        .cart-table td.col-2 button:hover {
+            color: #1E5E14;
+        }
+        .cart-table td.col-2 button i {
+            vertical-align: middle;
+        }
+        .subtotal {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        .subtotal span {
+            font-weight: bold;
+        }
+        .btn-reset {
+            margin-top: 10px;
+            background-color: #16400B;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-reset:hover {
+            background-color: #1E5E14;
+        }
+        .link {
+            color: #16400B;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+
+        #boardfrm {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            height: 200px;
+        }
+        #boardfrm textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: -30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #quanbox{
+            margin-bottom: -7px;
+        }
+
+    </style>
 {% endblock %}
 
 {% block main %}
-
-<main>
-    <div>
-        <section data-reactroot="" class="outer">
-            <div class="page__title mt2">
-                <div class="container--m">
-                    <h1 class="h1 mb075 align-c">Your Bag</h1></div>
-            </div>
-            <div class="container--m">
-                <div class="cart w1">
-                    <ul id="li1">
-                        <li class="col-5" style="text-align: left";>Item</li>
-                        <li id='price' class="col-2">Price</li>
-                        <li class="col-2">Quantity</li>
-                        <li class="col-2">Total</li>
-                    </ul>
-                    <ul id="ul2" class="quantity-list" style="list-style-type: none; padding: 0;">
-                        <li class="col-5 item-details" style=" text-align: left">
-                            <div style="display: flex; align-items: center;">
-                                <img src="{{ url_for('static',path='/img/shirt2.png')}}" alt="Ecru Reverse-Denim Western">
-                                <div style="text-align: left; margin-left: 10px;" class="pt-5">
-                                    <p>Ecru Reverse-Denim Western</p><br>
-                                    <p>Size : s</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="col-2 inline-block">$142</li>
-                        <li class="col-2 inline-block" id = "quanbox"  >
-                            <button type="button" id="decrease_btn" name="decrease_btn" style="border:None">
-                                <i class="bi bi-caret-down-fill"></i></button>
+    <main>
+        <div class="container--m">
+            <h1 class="h1 mb075 align-c">Your Bag</h1>
+            <table class="cart-table">
+                <thead>
+                <tr>
+                    <th class="col-5">Item</th>
+                    <th class="col-2">Price</th>
+                    <th class="col-2">Quantity</th>
+                    <th class="col-2">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="col-5 item-details">
+                        <div>
+                            <img src="{{ url_for('static',path='/img/shirt2.png')}}" alt="Ecru Reverse-Denim Western">
+                        </div>
+                        <div>
+                            <p>Ecru Reverse-Denim Western</p>
+                        </div>
+                    </td>
+                    <td class="col-2">$142</td>
+                    <td class="col-2">
+                        <div class="quantity-box" id="quanbox">
+                            <button type="button" id="increase_btn" name="increase_btn"><i class="bi bi-caret-up-fill"></i></button>
                             <p class="quantity">1</p>
-                            <button type="button" id="increase_btn" name="increase_btn" style="border:None">
-                                <i class="bi bi-caret-up-fill"></i></button>
-                        </li>
-                        <li class="col-2">$142</li>
-                    </ul>
-                </div>
-
-                <form name="boardfrm" id="boardfrm">
-                    <div class="row">
-                        <div class="col-auto" style="margin-bottom: 0; font-size: small">
-                            <label for="contents" class="dragup" class="col-form-label">Special Instructions</label>
+                            <button type="button" id="decrease_btn" name="decrease_btn"><i class="bi bi-caret-down-fill"></i></button>
                         </div>
-                        <div class="col-auto">
-                            <textarea style="border: 1px solid #000;border-radius: 2px;" name="contents" id="contents" cols="50" rows="4" class="form-control"></textarea>
-                        </div>
-                    </div>
-                </form>
+                    </td>
+                    <td class="col-2">$142</td>
+                </tr>
+                </tbody>
+            </table>
 
+            <form name="boardfrm" id="boardfrm">
                 <div>
-                    <h1>Subtotal : $120</h1>
+                    <label for="contents" id="contents2">Special Instructions</label>
                 </div>
-                <p>Total excludes shipping and taxes.
-                    <a href="#" id="shippingCalculatorToggle" class="link">Show shipping calculator.</a>
-                </p><br>
-                <p>
-                    <a href="/" class="link">Keep Shopping</a>
-                </p>
-                <p id="radius1">
-                    <a href="/index">
-                        <button type="button" id="radius" style="font-size: large">
-                            <i class="bi bi-success"></i>Checkout
-                        </button>
-                    </a>
-                </p>
+                <div>
+                    <textarea name="contents" id="contents" rows="3" class="form-control"></textarea>
+                </div>
+            </form>
+
+            <div class="subtotal">
+                <h1>Subtotal: <span>$120</span></h1>
+                <p>Total excludes shipping and taxes. <a href="#" id="shippingCalculatorToggle" class="link">Show shipping calculator.</a></p>
             </div>
 
-
-        </section>
-
-
-
-        <form name = "foot" style="height: 300px; padding-top: 100px" >
-            <h3>STAY UP TO DATE</h3>
-            <h>Sign up for our newsletter to be the first to</h><br>
-            <h>know about new products, exclusive releases</h><br>
-            <h>and promotions.</h>
-
-            <div class = "colspan 2" style="padding-left: 90px; margin: 10px;">
-
-                <div class = "input-group" id="submit1">
-                    <input id="Email-Address" class="inline-block" placeholder="Email Address">
-                    <input type="submit" value="Submit" class="button" id="submitbtn">
-                </div>
+            <div>
+                <a href="/" class="link">Keep Shopping</a>
             </div>
-        </form>
-    </div>
-
-</main>
+        </div>
+    </main>
 {% endblock %}
 
 {% block script %}
-    <script src="../static/js/Lookbook_script.js"></script>
     <script>
-        let increase_btn = document.querySelector('#increase_btn')
-        let decrease_btn = document.querySelector('#decrease_btn')
-        increase_btn.addEventListener('click', ()=>{
+        document.addEventListener("DOMContentLoaded", function() {
+            const decreaseBtn = document.getElementById('decrease_btn');
+            const increaseBtn = document.getElementById('increase_btn');
+            const quantityElement = document.querySelector('.quantity');
+            const resetBtn = document.getElementById('reset_btn');
 
-        })
+            let quantity = 1;
 
+            function updateQuantityDisplay() {
+                quantityElement.textContent = quantity;
+            }
 
+            function increaseQuantity() {
+                quantity++;
+                updateQuantityDisplay();
+            }
+
+            function decreaseQuantity() {
+                if (quantity > 1) {
+                    quantity--;
+                    updateQuantityDisplay();
+                }
+            }
+
+            function resetQuantity() {
+                quantity = 1;
+                updateQuantityDisplay();
+            }
+
+            increaseBtn.addEventListener('click', increaseQuantity);
+            decreaseBtn.addEventListener('click', decreaseQuantity);
+            resetBtn.addEventListener('click', resetQuantity);
+        });
     </script>
-
 {% endblock %}
-
