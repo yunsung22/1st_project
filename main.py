@@ -6,6 +6,8 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.dbfactory import db_startup
+
+from app.routes.admin import admin_router
 from app.routes.main import  main_router
 from app.routes.board import board_router
 from app.routes.member import member_router
@@ -19,8 +21,10 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(member_router)
+app.include_router(admin_router, prefix='/admin')
 app.include_router(board_router)
 app.include_router(main_router)
+
 
 
 
