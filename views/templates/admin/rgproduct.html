@@ -60,9 +60,27 @@
             </div>
             <div class="clearfix">
                 <div>
-                    <label for="img">첨부파일</label>
+                    <label for="image1">첨부파일1</label>
                 </div>
-                <input type="text" name="img" id="img">
+                <input type="file" id="image1">
+            </div>
+            <div>
+                <div>
+                    <label for="image2">첨부파일2</label>
+                </div>
+                <input type="file" id="image2">
+            </div>
+            <div>
+                <div>
+                    <label for="image3">첨부파일3</label>
+                </div>
+                <input type="file" id="image3">
+            </div>
+            <div>
+                <div>
+                    <label for="image4">첨부파일4</label>
+                </div>
+                <input type="file" id="image4">
             </div>
             <div>
                 <button type="button">이전 단계로</button>
@@ -73,13 +91,31 @@
     <script>
         let registerbtn = document.querySelector('#registerbtn');
         let productfrm = document.productfrm;
+        let prdname = document.querySelector('#prdname');
+
+
         registerbtn.addEventListener('click', () =>{
-            const formData = new FormData(productfrm);
+            const formData1 = new FormData(productfrm);
+            formData2 = new FormData();
 
             let jsondata = {};
-            formData.forEach((val, key) => {
-                jsondata[key] = val
+            formData1.forEach((val, key) => {
+                if (!(val instanceof File)){
+                    jsondata[key] = val;
+                }
             });
+
+            for (let i = 1; i < 5; i++) {
+                let fileInput = document.getElementById('image' + i);
+                let file = fileInput.files[0];
+                let extenstion = file.name.split('.').pop();
+                let newFileName = prdname.value + i +'.' + extenstion
+
+                jsondata['img' + i] = newFileName;
+                formData2.append('images', file, newFileName);
+            }
+
+
 
             fetch('http://127.0.0.1:8000/admin/rgproduct', {
                 method: 'POST',
@@ -94,6 +130,17 @@
                     if (res.redirected) location.href = res.url
                 })
                 .catch((err) => console.log(err));
+
+
+            fetch('http://127.0.0.1:8000/admin/upload', {
+                method: 'POST',
+                body: formData2
+            })
+                .then((res) => res.json())
+                .then((data) => console.log(data))
+                .catch((err) => console.log(err));
+
+
 
         })
     </script>
