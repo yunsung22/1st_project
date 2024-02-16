@@ -27,5 +27,9 @@ def jumun(req: Request):
 def payment(req: Request):
     return templates.TemplateResponse('payment.html', {'request': req})
 
+@jumun_router.get('/orderhistory', response_class=HTMLResponse)
+def orderhistory(req: Request):
+    return templates.TemplateResponse('orderhistory.html', {'request': req})
+
 
 

@@ -52,8 +52,7 @@ def legal(req: Request):
 @main_router.get('/policy', response_class=HTMLResponse)
 def policy(req: Request):
     return templates.TemplateResponse('policy.html', {'request': req})
-# 장바구니 #
-@main_router.get('/bag', response_class=HTMLResponse)
-def bag(req: Request):
-    return templates.TemplateResponse('bag.html', {'request': req})
+
+
+
 
