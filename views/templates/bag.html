@@ -22,7 +22,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         form textarea {
-            width: 100%;
+            width: calc(100% - 22px);
             padding: 10px;
             margin-top: 10px;
             border: 1px solid #ddd;
@@ -37,42 +37,50 @@
             align-items: center;
         }
         .item-details img {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 60px;
             margin-right: 20px;
             border-radius: 5px;
+
+
         }
         .item-details p {
             margin: 0;
             font-size: 16px;
         }
+        .cart-table {
+            border-collapse: collapse; /* 밑줄이 끊어지는 문제 해결 */
+            width: 100%;
+            padding-bottom: -50px;
+        }
         .cart-table th, .cart-table td {
             padding: 10px;
             border-bottom: 1px solid #ddd;
+            text-align: center;
         }
         .cart-table th.col-5 {
             text-align: left;
         }
-        .cart-table td.col-2, .cart-table th.col-2 {
-            text-align: center;
+        .cart-table td.col-3 .quantity-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 55px;
         }
-        .cart-table td.col-2 .quantity {
-            margin: 0;
-            font-size: 16px;
-        }
-        .cart-table td.col-2 button {
+        .cart-table td.col-3 button {
             background: none;
             border: none;
             cursor: pointer;
             font-size: 20px;
+            margin: 0 5px;
         }
-        .cart-table td.col-2 button:focus {
+        .cart-table td.col-3 button:focus {
             outline: none;
         }
-        .cart-table td.col-2 button:hover {
+        .cart-table td.col-3 button:hover {
             color: #1E5E14;
         }
-        .cart-table td.col-2 button i {
+        .cart-table td.col-3 button i {
             vertical-align: middle;
         }
         .subtotal {
@@ -82,19 +90,7 @@
         .subtotal span {
             font-weight: bold;
         }
-        .btn-reset {
-            margin-top: 10px;
-            background-color: #16400B;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .btn-reset:hover {
-            background-color: #1E5E14;
-        }
+
         .link {
             color: #16400B;
             text-decoration: none;
@@ -109,20 +105,52 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            height: 200px;
         }
         #boardfrm textarea {
             width: 100%;
             padding: 10px;
-            margin-top: -30px;
+            margin-top: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
 
-        #quanbox{
-            margin-bottom: -7px;
+
+        .cart-table {
+            border-collapse: separate; /* collapse에서 separate로 변경 */
+            width: 100%;
+        }
+        .cart-table th, .cart-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd; /* 테이블 아래쪽에만 선을 그립니다. */
+            border-right: 1px solid #ddd; /* 테이블 오른쪽에도 선을 추가합니다. */
+            text-align: center;
+        }
+        .cart-table th.col-5, .cart-table td.col-5 { /* col-5 클래스에도 적용합니다. */
+            border-right: none; /* 오른쪽 선을 제거하여 테이블의 가장 우측 셀에는 선이 그려지지 않도록 합니다. */
         }
 
+        table.cart-table {
+            border-collapse: separate; /* collapse에서 separate로 변경 */
+            width: 100%;
+        }
+        table.cart-table th, table.cart-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd; /* 테이블 아래쪽에만 선을 그립니다. */
+            border-right: 1px solid #ddd; /* 테이블 오른쪽에도 선을 추가합니다. */
+            text-align: center;
+        }
+        table.cart-table th.col-5, table.cart-table td.col-5 { /* col-5 클래스에도 적용합니다. */
+            border-right: none; /* 오른쪽 선을 제거하여 테이블의 가장 우측 셀에는 선이 그려지지 않도록 합니다. */
+        }
+
+        .quantity-box button {
+            display: block; /* 화살표 버튼을 블록 레벨 요소로 변경하여 위아래로 정렬될 수 있도록 합니다. */
+            margin: 5px auto; /* 위아래 여백을 조절하여 화살표가 가운데 정렬되도록 합니다. */
+        }
+
+        .cart-table th.col-5, .cart-table td.col-4 {
+            text-align: left; /* 텍스트를 왼쪽으로 정렬합니다. */
+        }
     </style>
 {% endblock %}
 
@@ -141,16 +169,16 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="col-5 item-details">
-                        <div>
+                    <td class="col-4">
+                        <div class="item-details">
                             <img src="{{ url_for('static',path='/img/shirt2.png')}}" alt="Ecru Reverse-Denim Western">
-                        </div>
-                        <div>
-                            <p>Ecru Reverse-Denim Western</p>
+                            <div>
+                                <p>Ecru Reverse-Denim Western</p>
+                            </div>
                         </div>
                     </td>
                     <td class="col-2">$142</td>
-                    <td class="col-2">
+                    <td class="col-3">
                         <div class="quantity-box" id="quanbox">
                             <button type="button" id="increase_btn" name="increase_btn"><i class="bi bi-caret-up-fill"></i></button>
                             <p class="quantity">1</p>
@@ -164,10 +192,10 @@
 
             <form name="boardfrm" id="boardfrm">
                 <div>
-                    <label for="contents" id="contents2">Special Instructions</label>
+                    <label for="contents">Special Instructions</label>
                 </div>
                 <div>
-                    <textarea name="contents" id="contents" rows="3" class="form-control"></textarea>
+                    <textarea name="contents" id="contents" rows="2" class="form-control"></textarea>
                 </div>
             </form>
 
