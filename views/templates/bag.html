@@ -103,7 +103,7 @@
         #boardfrm {
             margin-top: 20px;
             padding: 10px;
-            border: 1px solid #ddd;
+            border: none;
             border-radius: 5px;
         }
         #boardfrm textarea {
@@ -151,6 +151,13 @@
         .cart-table th.col-5, .cart-table td.col-4 {
             text-align: left; /* 텍스트를 왼쪽으로 정렬합니다. */
         }
+
+        button {background: #16400B; border: darkgreen;
+            transition: 0.3s ease; border-radius: 5px; width: 160px; height: 60px;
+            font-size: x-large;}
+
+        #jumunbtn:hover{background: #1d560f}
+
     </style>
 {% endblock %}
 
@@ -194,47 +201,22 @@
                 <div>
                     <label for="contents">Special Instructions</label>
                 </div>
-
-                <p>Total excludes shipping and taxes.
-                    <a href="#" id="shippingCalculatorToggle" class="link">Show shipping calculator.</a>
-                </p><br>
-                <p>
-                    <a href="/" class="link">Keep Shopping</a>
-                </p>
-                <p id="radius1">
-                    <a href="/jumun">
-                        <button type="button" id="radius" style="font-size: large">
-                            <i class="bi bi-success"></i>Checkout
-                        </button>
-                    </a>
-                </p>
-            </div>
-
-
-        </section>
-
-
-
-        <form name = "foot" style="height: 300px; padding-top: 100px" >
-            <h3>STAY UP TO DATE</h3>
-            <h>Sign up for our newsletter to be the first to</h><br>
-            <h>know about new products, exclusive releases</h><br>
-            <h>and promotions.</h>
-
-            <div style="padding-left: 90px; margin: 10px;">
-                <div class = "input-group" id="submit1">
-                    <input id="Email-Address" class="inline-block" placeholder="Email Address">
-                    <input type="submit" value="Submit" class="button" id="submitbtn">
-
                 <div>
                     <textarea name="contents" id="contents" rows="2" class="form-control"></textarea>
-
                 </div>
             </form>
 
             <div class="subtotal">
-                <h1>Subtotal: <span>$120</span></h1>
-                <p>Total excludes shipping and taxes. <a href="#" id="shippingCalculatorToggle" class="link">Show shipping calculator.</a></p>
+                <h2>Subtotal: <span>$120</span></h2>
+                <h>Total excludes shipping and taxes. <a href="#" id="shippingCalculatorToggle" class="link">Show shipping calculator.</a></h>
+            </div>
+
+            <div>
+                <a href="/jumun">
+                    <button type="button" id="jumunbtn" class="text-white" style="font-size: large;">
+                        <i class="bi bi-success"></i>Checkout
+                    </button>
+                </a>
             </div>
 
             <div>
