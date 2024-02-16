@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<style>
+    /* 회원가입폼에 대한 스타일 */
+    form { width: 365px; margin: 100px auto; }
+    form div { margin-bottom: 5px; }
+    form label { font-weight: bold; width: 110px; text-align: right; }
+    form button:first-child { margin-left: 135px }
+
+    main {
+        padding-top: 0;
+        margin-right: -80px;
+    }
+
+    .mb075 {
+        margin-bottom: .75em;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+<main>
+
+<form name="joinfrm">
+    <div class="row">
+        <h2 class="mb075">Manage Account</h2>
+    </div>
+    <div class="row">
+        <div class="col-auto"><label for="userid" class="col-form-label">User Id</label></div>
+        <div class="col-auto"><input type="text" name="userid" id="userid" value="{{ member.userid }}" maxlength="50" disabled="disabled" autocomplete="off" class="form-control"></div>
+    </div>
+    <div class="row">
+        <div class="col-auto"><label for="passwd" class="col-form-label">Password</label></div>
+        <div class="col-auto"><input type="password" name="passwd" value="{{ member.passwd }}" id="passwd" maxlength="50" autocomplete="off" class="form-control"></div>
+    </div>
+    <div class="row">
+        <div class="col-auto"><label for="name" class="col-form-label">Name</label></div>
+        <div class="col-auto"><input type="text" name="name" id="name" value="{{ member.name }}" maxlength="20" autocomplete="off" class="form-control"></div>
+    </div>
+    <div class="row">
+        <div class="col-auto"><label for="email" class="col-form-label">Email</label></div>
+        <div class="col-auto"><input type="text" name="email" id="email" value="{{ member.email }}" maxlength="50" autocomplete="off" class="form-control"></div>
+    </div>
+    <div class="row">
+        <div class="col-auto"><label for="addr" class="col-form-label">Address</label></div>
+        <div class="col-auto"><input type="text" name="addr" id="addr" value="{{ member.addr }}" maxlength="500" autocomplete="off" class="form-control"></div>
+    </div>
+    <div class="row">
+        <div class="col-auto"><label for="birth" class="col-form-label">Birth</label></div>
+        <div class="col-auto"><input type="date" name="birth" id="birth" value="{{ member.birth }}" maxlength="8" autocomplete="off" class="form-control"></div>
+    </div>
+    <div class="row">
+        <div class="col-auto"><label for="phone" class="col-form-label">Phone Number</label></div>
+        <div class="col-auto"><input type="text" name="phone" id="phone" value="{{ member.phone }}" maxlength="11" autocomplete="off" class="form-control"></div>
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <button type="button" class="btn btn-success btn-lg" id="modifybtn">Modify Account</button>
+        </div>
+    </div>
+</form>
+</main>
+{% endblock %}
+
+{% block script %}
+<script>
+    let modifybtn = document.querySelector('#modifybtn');
+    let joinfrm = document.joinfrm;
+
+    modifybtn.addEventListener('click', ()=>{
+        let formData = new FormData(joinfrm);
+
+        // 유효성 검증
+        let userId = joinfrm.userid.value;
+        let password = joinfrm.passwd.value;
+        let name = joinfrm.name.value;
+        let email = joinfrm.email.value;
+        let birth = joinfrm.birth.value;
+        let phone = joinfrm.phone.value;
+
+        // 필수 필드 확인
+        if (!userId) {
+            alert('userId 를 입력해주세요.');
+            joinfrm.userid.focus();
+            return;
+        }
+
+        if (!password) {
+            alert('password 를 입력해주세요.');
+            joinfrm.password.focus();
+            return;
+        }
+
+        if (!name) {
+            alert('name 를 입력해주세요.');
+            joinfrm.name.focus();
+            return;
+        }
+
+        if (!email) {
+            alert('email 를 입력해주세요.');
+            joinfrm.email.focus();
+            return;
+        }
+
+        if (!phone) {
+            alert('phone 를 입력해주세요.');
+            joinfrm.phone.focus();
+            return;
+        }
+
+        let useridRegex = /^[a-zA-Z0-9]{6,50}$/; // 영문자와 숫자로 이루어진 6자 이상, 50자 이하의 문자열을 허용하는 정규표현식
+
+        if (!useridRegex.test(userId)) {
+            alert('아이디는 영문자와 숫자로 이루어진 6자 이상, 50자 이하의 형태로 입력해주세요.');
+            joinfrm.userid.focus();
+            return;
+        }
+
+        // 이메일 유효성 검사
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('올바른 이메일 주소를 입력해주세요.');
+            joinfrm.email.focus();
+            return;
+        }
+
+        // 전화번호 유효성 검사
+        let phoneRegex = /^\d{10,11}$/;
+        if (!phoneRegex.test(phone)) {
+            alert('올바른 핸드폰 번호를 입력해주세요.');
+            joinfrm.phone.focus();
+            return;
+        }
+
+        let jsonData = {}
+        formData.forEach(function (val, key){
+            jsonData[key] = val;
+        })
+
+        if( confirm('회원 정보를 수정 하시겠습니까?') ){
+            let apiUrl = `http://127.0.0.1:8000/member/modify`;
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            }).then(res => res.json()).then(data => {
+
+                // 서버로부터 받은 JSON 데이터의 update_cnt 속성에 접근
+                let updateCnt = data.update_cnt;
+                console.log('업데이트된 행의 수:', updateCnt);
+
+                if (updateCnt > 0) {
+                    alert('회원정보가 수정 되었습니다.');
+                    location.href = '/member/myinfo';
+                } else {
+                    alert('회원정보 수정에 실패 하였습니다.');
+                }
+
+            }).catch(err => console.log(err));
+        }
+
+
+    })
+</script>
+{% endblock %}

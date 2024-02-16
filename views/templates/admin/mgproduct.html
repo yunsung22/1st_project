@@ -57,6 +57,7 @@
                         <div class="col-auto">
                             <select class="form-select" name="category" id="category" >
                                 <option>전체분류</option>
+                                <option value="noraml">normal</option>
                                 <option value="oxford">oxford</option>
                                 <option value="knitwear">knitwear</option>
                                 <option value="neckwear">neckwear</option>
@@ -71,7 +72,7 @@
                     </div>
                 </td>
                 <td colspan="7">
-                    <a href="#" class="btn btn-dark text-white">상품등록</a>
+                    <a href="/admin/rgproduct" class="btn btn-dark text-white">상품등록</a>
                 </td>
             </tr>
             <tr>
@@ -86,36 +87,23 @@
                 <th>할인율</th>
                 <th>가격</th>
             </tr>
+            {% for pd in pdlist %}
             <tr>
                 <td><input type="checkbox"></td>
-                <td>11</td>
+                <td>{{ pd.prdno }}</td>
                 <td class="name">
-                    <img src="../../static/img/sweatshirt_black.jpg" alt="">
-                    <input type="text" class="nameform" value="옥스포드셔츠">
+                    <img src="http://localhost/cdn/{{ pd.img1 }}" alt="">
+                    <input type="text" class="nameform" value="{{ pd.prdname }}">
                 </td>
-                <td>옥스포드</td>
-                <td>500</td>
+                <td>{{ pd.category }}</td>
+                <td>{{ pd.stack }}</td>
                 <td><input type="text" class="numinfrm" value="0"></td>
-                <td>35000</td>
+                <td>{{ pd.price }}</td>
                 <td><input type="text" class="numinfrm" value="0"></td>
-                <td><input type="text" class="numinfrm" value="0.0"></td>
-                <td>30000</td>
+                <td><input type="text" class="numinfrm" value="{{ pd.salepoint }}"></td>
+                <td>{{ pd.price * (1 - pd.salepoint) | int }} </td>
             </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>12</td>
-                <td class="name">
-                    <img src="../../static/img/sweatshirt_black.jpg" alt="">
-                    <input type="text" class="nameform" value="옥스포드셔츠">
-                </td>
-                <td>옥스포드</td>
-                <td>500</td>
-                <td><input type="text" class="numinfrm" value="0"></td>
-                <td>35000</td>
-                <td><input type="text" class="numinfrm" value="0"></td>
-                <td><input type="text" class="numinfrm" value="0.0"></td>
-                <td>30000</td>
-            </tr>
+            {% endfor %}
         </table>
 
         <div class="container w-75 border border-color-dark" id="submitbtn">

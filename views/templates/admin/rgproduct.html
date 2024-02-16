@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>상품등록</title>
+    <style>
+        form > div {width : 800px}
+        {#form > div > div > div {display: inline-block}#}
+
+        input {padding : 5px; width: 200px; margin-top: 5px}
+        select {padding : 5px; width : 150px; margin-top: 5px}
+
+        #firstline {float : left; width : 700px; margin-bottom: 15px;}
+        #firstline > div {float : left;}
+        #firstline > div:first-child {margin-right: 20px}
+        form > div > div > * {display: block;}
+        {##firstline > div > div:first-child {width:170px}#}
+
+        #secondline {float : left; width : 700px; margin-bottom: 1px;}
+        #secondline > div {float : left;}
+        #secondline > div:first-child {margin-right: 20px}
+
+        form > div:nth-child(3) {padding-top: 10px; padding-bottom : 30px}
+
+
+        {##secondline > div > div:first-child {width:170px}#}
+
+        /* float 성질 제거 */
+        .clearfix { content : ""; display: block;
+            clear: both; }
+    </style>
+</head>
+<body>
+    <main>
+        <h2>상품등록</h2>
+        <form name="productfrm">
+            <div id="firstline">
+                <div>
+                    <label for="prdname">상품이름</label>
+                    <input type="text" name="prdname" id="prdname" placeholder="상품 이름을 입력하세요">
+                </div>
+                <div>
+                    <label for="stack">상품수량</label>
+                    <input type="text" name="stack" id="stack" placeholder="상품 수량을 입력하세요">
+                </div>
+            </div>
+            <div id="secondline" class="clearfix">
+                <div>
+                    <label for="price">상품원가</label>
+                    <input type="text" name="price" id="price" placeholder="상품 원가를 입력하세요">
+                </div>
+                <div>
+                    <label for="category">상품 카테고리</label>
+                    <select name="category" id="category">
+                        <option value="oxford">oxford</option>
+                        <option value="knitwear">knitwear</option>
+                        <option value="neckwear">neckwear</option>
+                    </select>
+                </div>
+            </div>
+            <div class="clearfix">
+                <div>
+                    <label for="image1">첨부파일1</label>
+                </div>
+                <input type="file" id="image1">
+            </div>
+            <div>
+                <div>
+                    <label for="image2">첨부파일2</label>
+                </div>
+                <input type="file" id="image2">
+            </div>
+            <div>
+                <div>
+                    <label for="image3">첨부파일3</label>
+                </div>
+                <input type="file" id="image3">
+            </div>
+            <div>
+                <div>
+                    <label for="image4">첨부파일4</label>
+                </div>
+                <input type="file" id="image4">
+            </div>
+            <div>
+                <button type="button">이전 단계로</button>
+                <button type="button" id="registerbtn">등록하기</button>
+            </div>
+        </form>
+    </main>
+    <script>
+        let registerbtn = document.querySelector('#registerbtn');
+        let productfrm = document.productfrm;
+        let prdname = document.querySelector('#prdname');
+
+
+        registerbtn.addEventListener('click', () =>{
+            const formData1 = new FormData(productfrm);
+            formData2 = new FormData();
+
+            let jsondata = {};
+            formData1.forEach((val, key) => {
+                if (!(val instanceof File)){
+                    jsondata[key] = val;
+                }
+            });
+
+            for (let i = 1; i < 5; i++) {
+                let fileInput = document.getElementById('image' + i);
+                let file = fileInput.files[0];
+                let extenstion = file.name.split('.').pop();
+                let newFileName = prdname.value + i +'.' + extenstion
+
+                jsondata['img' + i] = newFileName;
+                formData2.append('images', file, newFileName);
+            }
+
+
+
+            fetch('http://127.0.0.1:8000/admin/rgproduct', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsondata),
+                redirect: 'follow'
+            })
+                .then((res) => {
+                    if (res.redirected) location.href = res.url
+                })
+                .catch((err) => console.log(err));
+
+
+            fetch('http://127.0.0.1:8000/admin/upload', {
+                method: 'POST',
+                body: formData2
+            })
+                .then((res) => res.json())
+                .then((data) => console.log(data))
+                .catch((err) => console.log(err));
+
+
+
+        })
+    </script>
+</body>
+</html>

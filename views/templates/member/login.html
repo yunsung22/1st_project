@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<style>
+    /* 로그인 박스 스타일 */
+    .card {
+        margin-top: 50px;
+        border-radius: 10px;
+    }
+
+    /* 로그인 버튼 스타일 */
+    .btn-success {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    main div {
+        margin-bottom: 10px;
+    }
+
+    main {
+        padding-top: 0;
+        margin-right: -80px;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+<main>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Login</div>
+                    <div class="card-body">
+                        <form name="loginfrm">
+                            <div class="mb-3">
+                                <label for="userid" class="form-label">User Id</label>
+                                <input type="text" name="userid" class="form-control" id="userid">
+                            </div>
+                            <div class="mb-3">
+                                <label for="passwd" class="form-label">Password</label>
+                                <input type="password" name="passwd" class="form-control" id="passwd">
+                            </div>
+                            <button type="button" id="loginbtn" class="btn btn-success">Sign In</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="mt-3 text-center">
+            <p class="text-muted">Don't have an account? <a href="/member/join">Register now.</a></p>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+
+
+{% block script %}
+<script>
+    let loginfrm = document.loginfrm;
+    let loginbtn = document.querySelector('#loginbtn');
+
+    loginbtn.addEventListener('click', () => {
+
+        // 유효성 검증
+        let userId = loginfrm.userid.value;
+        let password = loginfrm.passwd.value;
+
+        // 필수 필드 확인
+        if (!userId) {
+            alert('userId 를 입력해주세요.');
+            loginfrm.userid.focus();
+            return;
+        }
+
+        if (!password) {
+            alert('password 를 입력해주세요.');
+            loginfrm.password.focus();
+            return;
+        }
+
+        loginfrm.method = 'post';
+        loginfrm.submit();
+    })
+</script>
+{% endblock %}
