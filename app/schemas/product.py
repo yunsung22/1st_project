@@ -39,10 +39,24 @@ class NewData(BaseModel):
     stack: int
     price: int
 
+
 class NewProduct(BaseModel):
     prdname: str
     category: str
     stack: int
     price: int
+
+
+class RowData(BaseModel):
+    data1: str
+    data2: str
+    data3: str
+    data4: str
+    data5: str
+    data6: str
+    data7: str
+    data8: str
+
+
 
 

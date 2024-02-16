@@ -1,11 +1,11 @@
-from typing import List
+from typing import List, Dict
 
 from fastapi import APIRouter, Request, status, UploadFile, File
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from app.schemas.product import NewData, NewProduct, PrdAttach
+from app.schemas.product import NewData, NewProduct, PrdAttach, RowData
 from app.services.product import ProductService
 
 admin_router = APIRouter()
@@ -19,6 +19,13 @@ admin_router.mount('/static', StaticFiles(directory='views/static'), name='stati
 def mgproduct(req: Request):
     pdlist = ProductService.select_product()
     return templates.TemplateResponse('admin/mgproduct.html', {'request': req, 'pdlist':pdlist})
+
+
+@admin_router.post('/mgproduct')
+def mgproductok(rows_data: Dict[int, RowData]):
+    print(rows_data)
+    res_url = '/admin/mgproduct'
+    return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
 
 @admin_router.get('/rgproduct', response_class=HTMLResponse)
