@@ -29,6 +29,7 @@ def about(req: Request):
     return templates.TemplateResponse('About.html', {'request': req})
 
 
+
 # 푸터 #
 
 @main_router.get('/accessibility', response_class=HTMLResponse)
@@ -56,3 +57,7 @@ def policy(req: Request):
 @main_router.get('/bag', response_class=HTMLResponse)
 def giftcards(req: Request):
     return templates.TemplateResponse('bag.html', {'request': req})
+
+@main_router.get('/detail', response_class=HTMLResponse)
+def detail(req: Request):
+    return templates.TemplateResponse('item_detail.html', {'request': req})

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block style %}
+<style>
+    form { margin: 100px auto; width: 510px; /* border: 1px solid black */}
+    form div { margin-bottom: 5px;}
+    form input, form textarea { padding: 5px; }
+    form label { font-weight: bold;  }
+    label { display: inline-block; text-align: right; width: 110px}
+    button:first-child {  display: inline-block; margin-left: 135px }
+    .dragup {vertical-align: top}
+</style>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+            async defer>
+    </script>
+    <script type="text/javascript">
+        var onloadCallback = () => {
+            grecaptcha.render('captcha', {
+                'sitekey' : ''
+            });
+        };
+    </script>
+{% endblock%}
+{% block main %}
+<main>
+    <h2>갤러리 새 글쓰기</h2>
+    <form name="detailfrm">
+        <div class="row">
+            <div class="col-auto"><label for="prdname" class="col-form-label">상품이름</label></div>
+            <div class="col-auto"><input type="text" name="prdname" id="prdname" class="form-control"></div>
+        </div>
+        <div class="row">
+            <div class="col-auto"><label for="price" class="col-form-label">상품가격</label></div>
+            <div class="col-auto"><input type="text" name="price" id="price" class="form-control"></div>
+        </div>
+        <div class="row">
+            <div class="col-auto"><label for="stack" class="col-form-label">수량</label></div>
+            <div class="col-auto"><input type="text" name="stack" id="stack" class="form-control"></div>
+        </div>
+        <div class="row">
+            <div class="col-auto"><label for="salepoint" class="col-form-label">할인율</label></div>
+            <div class="col-auto"><input type="text" name="salepoint" id="salepoint" class="form-control"></div>
+        </div>
+        <div class="row">
+            <div class="col-auto"><label for="contents" class="col-form-label">본문</label></div>
+            <div class="col-auto"> <textarea name="contents" id="contents" cols="45" rows="7" class="form-control"></textarea></div>
+        </div>
+        <div class="row">
+            <div class="col-auto"><label for="attach" class="col-form-label">이미지파일</label></div>
+            <div class="col-auto"><input type="file" id="attach" name="attach"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-auto" >
+                <button type="button" class="btn btn-primary" id="writebtn">입력완료</button>
+                <button type="reset" class="btn btn-danger">다시입력</button></div>
+        </div>
+
+        </div>
+    </form>
+</main>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    let writebtn = document.querySelector('#writebtn');
+    let detailfrm = document.detailfrm;
+
+    writebtn.addEventListener('click', () => {
+        detailfrm.method = 'post';
+        detailfrm.enctype = 'multipart/form-data';
+        detailfrm.submit();
+    });
+
+</script>
+{% endblock %}
