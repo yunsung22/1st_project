@@ -37,13 +37,13 @@
                         <form name="loginfrm">
                             <div class="mb-3">
                                 <label for="userid" class="form-label">User Id</label>
-                                <input type="email" class="form-control" id="userid">
+                                <input type="text" name="userid" class="form-control" id="userid">
                             </div>
                             <div class="mb-3">
                                 <label for="passwd" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="passwd">
+                                <input type="password" name="passwd" class="form-control" id="passwd">
                             </div>
-                            <button type="submit" class="btn btn-success">Sign In</button>
+                            <button type="button" id="loginbtn" class="btn btn-success">Sign In</button>
                         </form>
                     </div>
                 </div>
@@ -58,4 +58,35 @@
     </div>
 </main>
 
+{% endblock %}
+
+
+{% block script %}
+<script>
+    let loginfrm = document.loginfrm;
+    let loginbtn = document.querySelector('#loginbtn');
+
+    loginbtn.addEventListener('click', () => {
+
+        // 유효성 검증
+        let userId = loginfrm.userid.value;
+        let password = loginfrm.passwd.value;
+
+        // 필수 필드 확인
+        if (!userId) {
+            alert('userId 를 입력해주세요.');
+            loginfrm.userid.focus();
+            return;
+        }
+
+        if (!password) {
+            alert('password 를 입력해주세요.');
+            loginfrm.password.focus();
+            return;
+        }
+
+        loginfrm.method = 'post';
+        loginfrm.submit();
+    })
+</script>
 {% endblock %}

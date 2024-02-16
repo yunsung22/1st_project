@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.sessions import SessionMiddleware
 
 from app.dbfactory import db_startup
 
@@ -19,6 +20,11 @@ async def lifespan(app: FastAPI):
     db_startup()
 
 app = FastAPI(lifespan=lifespan)
+
+app.add_middleware(
+    SessionMiddleware,
+    secret_key='test12341234',
+)
 
 app.include_router(member_router)
 app.include_router(admin_router, prefix='/admin')

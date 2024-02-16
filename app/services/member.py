@@ -50,3 +50,21 @@ class MemberService:
             sess.commit()
 
         return result
+
+    @staticmethod
+    def check_login(userid, passwd):
+
+        with Session() as sess:
+            result = sess.query(Member).filter_by(userid=userid).scalar()
+
+            if result and result.passwd == passwd:
+                return result
+            else:
+                return None
+
+    @staticmethod
+    def select_one_member(userid):
+
+        with Session() as sess:
+            result = sess.query(Member).filter_by(userid=userid).scalar()
+            return result

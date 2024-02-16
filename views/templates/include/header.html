@@ -30,7 +30,12 @@
     </div>
     <div class="right">
         <ul id="right1">
-            <li><a href="/member/login">Sign In</a></li>
+            {% if 'm' in request.session %}
+                <li class="col-2"><a href="/member/logout">Log Out</a></li>
+                <li class="col-2"><a href="/member/myinfo">My Account</a></li>
+            {% else %}
+                <li class="col-2"><a href="/member/login">Sign In</a></li>
+            {% endif %}
             <li><a href="/list/1">Q&A</a></li>
             <li><a href="/bag">Bag</a></li>
         </ul>
