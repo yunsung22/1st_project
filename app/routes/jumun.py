@@ -19,10 +19,13 @@ def bag(req: Request):
     return templates.TemplateResponse('bag.html', {'request': req})
 
 
-# 인덱스로 돌아가기
-@jumun_router.get('/index', response_class=HTMLResponse)
-def back(req: Request):
-    return templates.TemplateResponse('index.html', {'request': req})
+@jumun_router.get('/jumun', response_class=HTMLResponse)
+def jumun(req: Request):
+    return templates.TemplateResponse('jumun.html', {'request': req})
+
+@jumun_router.get('/payment', response_class=HTMLResponse)
+def payment(req: Request):
+    return templates.TemplateResponse('payment.html', {'request': req})
 
 
 
