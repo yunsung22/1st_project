@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block style %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+    nav,main,footer {
+        font-family: 'Courier Prime';
+        color:black;
+    }
+    table { table-layout: fixed; border-top-color:white !important;}
+    th, td {text-align: center;}
+    tr:first-child td {border: none; padding: 10px 0;}
+    tr:first-child td:last-child {text-align: right}
+
+    td:nth-child(2) { text-align:left ; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+    .pagination a:link { color: #6f42c1}
+</style>
+{% endblock%}
+{% block main %}
+<main>
+    <h1>Winter Sale</h1>
+    <h>Enjoy deep discounts on all items listed below.</h><br>
+    <h>*Please note items discounted by 50% are final sale.</h>
+
+    {% if 'm' in request.session %}
+        <div class="row justify-content-center mb-4">
+            <div class="col-2 text-end ms-4">
+                <a href="/detail/write" class="btn btn-dark text-white" style="margin-right: -10px;">글쓰기</a>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            {% for gal in galist %}
+                <div class="col-4 col-md-3 mb-4">
+                    <div class="card">
+                        <a href="/detail/view/{{ gal.prdno }}">
+                            <img src="http://localhost/cdn/{{ gal.fname }}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ gal.prdname }}</h5>
+                            <span>{{ gal.price }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+</main>
+{% endblock %}
+
+{% block script %}
+<script>
+    let findbtn = document.querySelector('#findbtn');
+    findbtn.addEventListener('click', () => {
+        let ftype = document.querySelector('#ftype').value;
+        let fkey = document.querySelector('#fkey').value;
+
+        let params = `/${ftype}/${fkey}/1`;
+        let findurl = 'http://127.0.0.1:8000/board/list' + params;
+
+        location.href = findurl;
+    });
+</script>
+
+</script>
+{% endblock %}
