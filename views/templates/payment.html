@@ -6,11 +6,12 @@
             font-family: 'Courier Prime', monospace;
             color: black;}
 
-        button {background: #16400B; border: darkgreen; font-family:Courier;
+        button {background: #16400B; border: darkgreen;
             transition: 0.3s ease; border-radius: 5px; width: 120px; height: 60px;
         font-size: x-large}
-        #submitbtn{background: #16400B; border: darkgreen; font-family:Courier;
+        #submitbtn{background: #16400B; border: darkgreen;
             transition: 0.3s ease; border-radius: 5px;}
+        #cartbtn:hover{background: #1d560f}
 
     </style>
 {% endblock %}
@@ -26,7 +27,7 @@
             <div class="p-3">
 
                 <a href="/index" >
-                    <button type="button" class="text text-white">Cart</button>
+                    <button type="button" id="cartbtn" class="text text-white">Cart</button>
                 </a>
 
             </div>
