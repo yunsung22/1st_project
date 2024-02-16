@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>상품등록</title>
+{% extends 'base.html' %}
+{% block style %}
     <style>
+        main div {margin-bottom: 0}
+        main {text-align: left}
         form > div {width : 800px}
         {#form > div > div > div {display: inline-block}#}
 
@@ -20,7 +19,7 @@
         #secondline > div {float : left;}
         #secondline > div:first-child {margin-right: 20px}
 
-        form > div:nth-child(3) {padding-top: 10px; padding-bottom : 30px}
+        form > div:nth-child(3) {padding-top: 10px;}
 
 
         {##secondline > div > div:first-child {width:170px}#}
@@ -29,8 +28,9 @@
         .clearfix { content : ""; display: block;
             clear: both; }
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block main %}
     <main>
         <h2>상품등록</h2>
         <form name="productfrm">
@@ -88,6 +88,9 @@
             </div>
         </form>
     </main>
+{% endblock %}
+
+{% block script %}
     <script>
         let registerbtn = document.querySelector('#registerbtn');
         let productfrm = document.productfrm;
@@ -144,5 +147,4 @@
 
         })
     </script>
-</body>
-</html>
+{% endblock %}

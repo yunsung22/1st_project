@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>고객문의 답변</title>
+{% extends 'base.html' %}
+{% block style %}
     <style>
         table {border : 1px solid black; border-collapse: collapse; width : 40%; table-layout: fixed}
         td {border : 1px solid black; overflow: hidden; white-space: nowrap;
@@ -11,8 +8,9 @@
         tr > td:first-child {text-align: center}
         tr:nth-child(8) > td:first-child {vertical-align : text-top}
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block main %}
     <main>
         <h2>1:1 고객 문의</h2>
         <div>
@@ -66,5 +64,4 @@
             </tr>
         </table>
     </main>
-</body>
-</html>
+{% endblock %}
