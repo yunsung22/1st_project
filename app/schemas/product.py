@@ -38,6 +38,7 @@ class NewData(BaseModel):
     img4: Optional[str]
     stack: int
     price: int
+    contents: str
 
 
 class NewProduct(BaseModel):
@@ -45,6 +46,7 @@ class NewProduct(BaseModel):
     category: str
     stack: int
     price: int
+    contents: str
 
 
 class RowData(BaseModel):

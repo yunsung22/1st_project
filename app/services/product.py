@@ -16,7 +16,8 @@ class ProductService:
             'prdname': pb.prdname,
             'category': pb.category,
             'stack': pb.stack,
-            'price': pb.price
+            'price': pb.price,
+            'contents': pb.contents
         }
 
         return data
