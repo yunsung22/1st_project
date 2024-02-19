@@ -1,3 +1,4 @@
+from math import ceil
 from typing import List, Dict
 
 from fastapi import APIRouter, Request, status, UploadFile, File
@@ -15,17 +16,20 @@ templates = Jinja2Templates(directory='views/templates')
 admin_router.mount('/static', StaticFiles(directory='views/static'), name='static')
 
 
-@admin_router.get('/mgproduct', response_class=HTMLResponse)
-def mgproduct(req: Request):
-    pdlist = ProductService.select_product()
-    return templates.TemplateResponse('admin/mgproduct.html', {'request': req, 'pdlist':pdlist})
+@admin_router.get('/mgproduct/{cpg}', response_class=HTMLResponse)
+def mgproduct(req: Request, cpg: int):
+    stpg = int((cpg - 1) / 10) * 10 + 1
+    pdlist, cnt = ProductService.select_product(cpg)
+    allpage = ceil(cnt / 15)
+    return templates.TemplateResponse('admin/mgproduct.html', {'request': req, 'pdlist':pdlist,
+        'cpg': cpg, 'stpg': stpg, 'allpage': allpage, 'baseurl': '/admin/mgproduct/'})
 
 
 @admin_router.post('/mgproduct')
 def mgproductok(rows_data: Dict[int, RowData]):
     result = ProductService.update_product(rows_data)
     res_url = '/error'
-    if result.rowcount > 0: res_url = '/admin/mgproduct'
+    if result.rowcount > 0: res_url = '/admin/mgproduct/1'
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
 
@@ -42,7 +46,7 @@ def rgproductok(dto: NewData):
     result = ProductService.insert_prdattach(padto)
 
     res_url = '/error'
-    if result.rowcount > 0: res_url = '/admin/mgproduct'
+    if result.rowcount > 0: res_url = '/admin/mgproduct/1'
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
 
