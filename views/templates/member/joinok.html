@@ -1,49 +1,97 @@
 {% extends 'base.html' %}
 
 {% block style %}
-<style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+        nav, main, footer {
+            font-family: 'Courier Prime';
+            color: black;
+        }
 
-    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
-    nav,main,footer {
-        font-family: 'Courier Prime';
-        color:black;
-    }
-    /* 회원가입폼에 대한 스타일 */
-    form { width: 365px; margin: 100px auto; }
-    form div { margin-bottom: 5px; }
-    form label { font-weight: bold; width: 110px; text-align: right; }
-    form button:first-child { margin-left: 135px }
+        /* 회원가입폼에 대한 스타일 */
+        form {
+            width: 365px;
+            margin: 100px auto;
+        }
 
-    main div {
-        margin-bottom: 10px;
-    }
+        form div {
+            margin-bottom: 5px;
+        }
 
-    main {
-        margin-right: -80px;
-    }
-</style>
+        form label {
+            font-weight: bold;
+            width: 110px;
+            text-align: right;
+        }
+
+        form button:first-child {
+            margin-left: 135px;
+        }
+
+        main div {
+            margin-bottom: 10px;
+        }
+
+        main {
+            margin-right: -80px;
+        }
+
+        /* 이미지 크기 조정 */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* 추가된 스타일 */
+        .btn-container {
+            margin-bottom: 50px; /* 푸터와 버튼 사이의 여백 조절 */
+        }
+    </style>
 {% endblock %}
 
 {% block main %}
-<main>
-    <div class="row">
-        <div class="col-12">
-            <h2>회원가입 완료</h2>
+    <main>
+        <div class="row">
+            <div class="col-12">
+                <h2>Registration Complete</h2>
+            </div>
         </div>
-    </div>
-    <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-success" id="loginbtn">
-            <i class="bi bi-check-all"></i> 로그인</button>
-    </div>
-</main>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Congratulations!</h5>
+                        <p class="card-text">Registration has been successfully completed.</p>
+                        <button type="button" class="btn btn-success" id="loginbtn">
+                            <i class="bi bi-check-all"></i> Log In</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Display -->
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3 text-center">
+                <img src="../../static/img/joinok.png" alt="Registration Complete Image">
+            </div>
+        </div>
+
+        <!-- 버튼과 푸터 사이 여백 추가 -->
+        <div class="row mt-4 btn-container">
+            <div class="col-md-6 offset-md-3 text-center">
+                <p>Explore our site's products!</p>
+                <a href="/oxfords" class="btn btn-primary">Browse Products</a>
+            </div>
+        </div>
+    </main>
 {% endblock %}
 
 {% block script %}
-<script>
-    let loginbtn = document.querySelector('#loginbtn');
+    <script>
+        let loginbtn = document.querySelector('#loginbtn');
 
-    loginbtn.addEventListener('click', ()=>{
-        location.href = '/member/login'
-    })
-</script>
+        loginbtn.addEventListener('click', ()=>{
+            location.href = '/member/login';
+        });
+    </script>
 {% endblock %}
