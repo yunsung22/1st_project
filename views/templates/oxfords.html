@@ -3,15 +3,32 @@
 {% block style %}
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
-        nav,main,footer {
+        nav, main, footer {
             font-family: 'Courier Prime';
-            color:black;
+            color: black;
         }
         /* 링크 색상을 검정색으로 지정 */
         a {
             color: black;
             text-decoration: none;
+        }
+        .card-img-top {
+            max-width: 100%; /* 이미지가 부모 요소를 넘어가지 않도록 최대 너비를 100%로 설정 */
+            height: auto; /* 이미지의 가로세로 비율 유지 */
+        }
 
+        /* 헤더 고정 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white; /* 헤더 배경색 지정 */
+            z-index: 1000; /* 다른 요소 위로 헤더 표시 */
+        }
+        /* 컨텐츠가 헤더 아래로 밀리도록 여백 추가 */
+        main {
+            padding-top: 80px; /* 헤더 높이만큼 여백 추가 */
         }
     </style>
 {% endblock %}
@@ -30,8 +47,7 @@
                         <div><span><a href="/itemview/{{ pd.prdno }}">{{ pd.price }}</a></span></div>
                     </div>
                 </div>
-            {% endfor%}
+            {% endfor %}
         </div>
-
     </main>
 {% endblock %}
