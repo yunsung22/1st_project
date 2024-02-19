@@ -58,10 +58,10 @@
                             <div class="col-auto">
                                 <select class="form-select" name="category" id="category" >
                                     <option>전체분류</option>
-                                    <option value="noraml">normal</option>
                                     <option value="oxford">oxford</option>
                                     <option value="knitwear">knitwear</option>
-                                    <option value="neckwear">neckwear</option>
+                                    <option value="check">check</option>
+                                    <option value="carryover">carryover</option>
                                 </select>
                             </div>
                             <div class="col-auto">
@@ -141,18 +141,46 @@
             <a class="page-link" href="{{ baseurl }}{{ cpg + 1 }}">다음</a></li>
         </ul>
         <div id="lastblock">
-
         </div>
     </main>
 {% endblock %}
 
 {% block script %}
 <script>
+    let searchbtn = document.querySelector('#searchbtn');
+    searchbtn.addEventListener('click', () => {
+        let category = document.querySelector('#category').value;
+        let search = document.querySelector('#search').value;
+
+        let params = `/${category}/${search}/1`
+        let findurl = 'http://127.0.0.1:8000/admin/mgproduct'+params;
+
+        location.href = findurl;
+    })
+</script>
+
+<script>
+    let findurl = location.pathname.split('/');
+
+    if (findurl[4] !== undefined) {
+        // 검색어를 검색 UI에 자동삽입
+        document.querySelector('#search').value = decodeURI(findurl[4]);
+
+        // 검색유형을 select 태그에 반영 : selectedIndex이용
+        let category = document.querySelector('#category');
+        switch (findurl[3]) {
+            case 'oxford' : category.selectedIndex = 1; break;
+            case 'knitwear' : category.selectedIndex = 2; break;
+            case 'check' : category.selectedIndex = 3; break;
+            case 'carryover' : category.selectedIndex = 4; break;
+        }
+    }
+</script>
+
+<script>
 let checkboxes = document.querySelectorAll('.rowCheckbox');
 let updatebtn = document.querySelector('#updatebtn');
-let deletebtn = document.querySelector('#deletebtn');
 let numinfrms = document.querySelectorAll('.numinfrm');
-
 
 {#blur가 발생하면 단가와 할인비율이 실시간으로 반영되어 가격을 나타내는 기능 #}
 numinfrms.forEach((input) => {
@@ -200,6 +228,10 @@ updatebtn.addEventListener('click', ()=> {
         })
         .catch((err) => console.log(err));
 })
+</script>
+
+<script>
+let deletebtn = document.querySelector('#deletebtn');
 
 deletebtn.addEventListener('click', ()=> {
     let jsondata = {};
@@ -210,14 +242,12 @@ deletebtn.addEventListener('click', ()=> {
     };
 
     checkboxes.forEach((checkbox) => {
-        if (checkbox.checked) {      // 체크박스가 체크되었다면 getRowData라는 함수로 그 행의 데이터를 수집
+        if (checkbox.checked) {
             let prdno = getPrdNo(checkbox.closest('tr'));
             listdata.push(prdno);
         }
     });
     jsondata['prdno'] = listdata;
-
-    console.log(jsondata)
 
     fetch('http://127.0.0.1:8000/admin/mgproduct2', {
         method: 'POST',
