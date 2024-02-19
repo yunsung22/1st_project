@@ -72,57 +72,51 @@
 
 {% block script %}
 <script>
-    let joinbtn = document.querySelector('#joinbtn');
-    let joinfrm = document.joinfrm;
-
-    joinbtn.addEventListener('click', ()=>{
-        let formData = new FormData(joinfrm);
-
-        // 유효성 검증
+    // 회원 가입 데이터 체크
+    function validateForm() {
+        let joinfrm = document.joinfrm
         let userId = joinfrm.userid.value;
         let password = joinfrm.passwd.value;
         let name = joinfrm.name.value;
         let email = joinfrm.email.value;
-        let birth = joinfrm.birth.value;
         let phone = joinfrm.phone.value;
 
         // 필수 필드 확인
         if (!userId) {
             alert('userId 를 입력해주세요.');
             joinfrm.userid.focus();
-            return;
+            return false;
         }
 
         if (!password) {
             alert('password 를 입력해주세요.');
             joinfrm.passwd.focus();
-            return;
+            return false;
         }
 
         if (!name) {
             alert('name 를 입력해주세요.');
             joinfrm.name.focus();
-            return;
+            return false;
         }
 
         if (!email) {
             alert('email 를 입력해주세요.');
             joinfrm.email.focus();
-            return;
+            return false;
         }
 
         if (!phone) {
             alert('phone 를 입력해주세요.');
             joinfrm.phone.focus();
-            return;
+            return false;
         }
 
         let useridRegex = /^[a-zA-Z0-9]{6,50}$/; // 영문자와 숫자로 이루어진 6자 이상, 50자 이하의 문자열을 허용하는 정규표현식
-
         if (!useridRegex.test(userId)) {
             alert('아이디는 영문자와 숫자로 이루어진 6자 이상, 50자 이하의 형태로 입력해주세요.');
             joinfrm.userid.focus();
-            return;
+            return false;
         }
 
         // 이메일 유효성 검사
@@ -130,7 +124,7 @@
         if (!emailRegex.test(email)) {
             alert('올바른 이메일 주소를 입력해주세요.');
             joinfrm.email.focus();
-            return;
+            return false;
         }
 
         // 전화번호 유효성 검사
@@ -138,17 +132,54 @@
         if (!phoneRegex.test(phone)) {
             alert('올바른 핸드폰 번호를 입력해주세요.');
             joinfrm.phone.focus();
-            return;
+            return false;
         }
 
-        let jsonData = {}
-        formData.forEach(function (val, key){
+        return true;
+    }
+
+    function submitFormData() {
+        let joinfrm = document.joinfrm;
+        let formData = new FormData(joinfrm);
+        let jsonData = {};
+
+        formData.forEach(function(val, key) {
             jsonData[key] = val;
+        });
+
+        let apiUrl = `http://127.0.0.1:8000/member/join`;
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
         })
+            .then(res => res.text())
+            .then(data => {
+                if (data > 0) {
+                    location.href = '/member/joinok';
+                } else {
+                    location.href = '/member/join';
+                }
+            })
+            .catch(err => alert('회원가입 중 오류가 발생했습니다.'));
+    }
 
-        if(confirm('회원 가입을 진행 하시겠습니까?')){
+    function joinMember() {
 
-            let apiUrl = `http://127.0.0.1:8000/member/join`;
+        if (validateForm()) { // validateForm 검증을 통과
+            let joinfrm = document.joinfrm;
+            let formData = new FormData(joinfrm);
+            let jsonData = {};
+
+            formData.forEach(function(val, key) {
+                jsonData[key] = val;
+            });
+
+            // 회원가입 아이디 중복체크
+            let apiUrl = `http://127.0.0.1:8000/member/check_id`;
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -156,17 +187,26 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(jsonData)
-            }).then(res => res.text()).then(data => {
+            })
+                .then(res => res.text())
+                .then(data => {
 
-                if (data > 0) {
-                    location.href = '/member/joinok';
-                } else {
-                    location.href = '/member/join';
-                }
+                    if (data > 0) { // 중복된 아이디
+                        alert('이미 가입된 User Id 가 있습니다.');
+                        document.joinfrm.userid.focus();
+                    } else { // 중복된 아이디 없을 경우
 
-            }).catch(err => console.log(err));
+                        if(confirm('회원 가입을 진행 하시겠습니까?')){
+                            submitFormData(); // 회원가입
+                        }
+                    }
+                })
+                .catch(err => alert('회원가입 중 오류가 발생했습니다.'));
         }
 
-    })
+    }
+
+    document.querySelector('#joinbtn').addEventListener('click', joinMember);
 </script>
+
 {% endblock %}
