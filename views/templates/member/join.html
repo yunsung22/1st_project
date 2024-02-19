@@ -9,7 +9,7 @@
         color:black;
     }
     /* 회원가입폼에 대한 스타일 */
-    form { width: 365px; margin: 100px auto; }
+    form { max-width: 650px; margin: 100px auto; }
     form div { margin-bottom: 5px; }
     form label { font-weight: bold; width: 110px; text-align: right; }
     form button:first-child { margin-left: 135px }
@@ -95,7 +95,7 @@
 
         if (!password) {
             alert('password 를 입력해주세요.');
-            joinfrm.password.focus();
+            joinfrm.passwd.focus();
             return;
         }
 
