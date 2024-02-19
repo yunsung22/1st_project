@@ -1,5 +1,5 @@
 from app.models.member import Member
-from sqlalchemy import insert, select, update
+from sqlalchemy import insert, select, update, func
 from app.dbfactory import Session
 import hashlib
 
@@ -94,3 +94,12 @@ class MemberService:
         with Session() as sess:
             result = sess.query(Member).filter_by(userid=userid).scalar()
             return result
+
+    @staticmethod
+    def select_user_id_count(mdto):
+        data = MemberService.member_convert(mdto)
+        userid = data['userid']
+
+        with Session() as sess:
+            row_count = sess.query(func.count()).filter(Member.userid == userid).scalar()
+            return row_count

@@ -76,3 +76,8 @@ def modify_member(req: Request, mdto: ModifyMember):
         result = MemberService.update_member(mdto, mno)
         update_cnt = result.rowcount
         return JSONResponse(content={"update_cnt": update_cnt})
+
+@member_router.post('/member/check_id')
+def check_id(req: Request, mdto: NewMember):
+    member_count = MemberService.select_user_id_count(mdto)
+    return member_count
