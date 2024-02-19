@@ -186,7 +186,40 @@ updatebtn.addEventListener('click', ()=> {
     });
     console.log(jsondata)
 
-    fetch('http://127.0.0.1:8000/admin/mgproduct', {
+    fetch('http://127.0.0.1:8000/admin/mgproduct1', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsondata),
+        redirect: 'follow'
+    })
+        .then((res) => {
+            if (res.redirected) location.href = res.url
+        })
+        .catch((err) => console.log(err));
+})
+
+deletebtn.addEventListener('click', ()=> {
+    let jsondata = {};
+    let listdata = [];
+
+    let getPrdNo = (row) => {
+        return row.cells[1].innerText
+    };
+
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {      // 체크박스가 체크되었다면 getRowData라는 함수로 그 행의 데이터를 수집
+            let prdno = getPrdNo(checkbox.closest('tr'));
+            listdata.push(prdno);
+        }
+    });
+    jsondata['prdno'] = listdata;
+
+    console.log(jsondata)
+
+    fetch('http://127.0.0.1:8000/admin/mgproduct2', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
