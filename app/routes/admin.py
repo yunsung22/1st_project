@@ -20,9 +20,18 @@ admin_router.mount('/static', StaticFiles(directory='views/static'), name='stati
 def mgproduct(req: Request, cpg: int):
     stpg = int((cpg - 1) / 10) * 10 + 1
     pdlist, cnt = ProductService.select_product(cpg)
-    allpage = ceil(cnt / 15)
+    allpage = ceil(cnt / 10)
     return templates.TemplateResponse('admin/mgproduct.html', {'request': req, 'pdlist':pdlist,
         'cpg': cpg, 'stpg': stpg, 'allpage': allpage, 'baseurl': '/admin/mgproduct/'})
+
+
+@admin_router.get('/mgproduct/{category}/{search}/{cpg}', response_class=HTMLResponse)
+def mgproduct(req: Request, category: str, search: str, cpg: int):
+    stpg = int((cpg - 1) / 10) * 10 + 1
+    pdlist, cnt = ProductService.find_select_product(category, '%' + search + '%', cpg)
+    allpage = ceil(cnt / 10)
+    return templates.TemplateResponse('admin/mgproduct.html',
+        {'request': req, 'pdlist': pdlist,'cpg': cpg, 'stpg': stpg, 'allpage': allpage, 'baseurl': f'/admin/mgproduct/{category}/{search}/'})
 
 
 @admin_router.post('/mgproduct1')

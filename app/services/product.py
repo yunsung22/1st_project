@@ -1,7 +1,7 @@
 import os
 
 from app.models.product import Product, PrdAttach
-from sqlalchemy import insert, select, update, func, delete
+from sqlalchemy import insert, select, update, func, delete, and_
 from app.dbfactory import Session
 
 UPLOAD_DIR = r'C:\Java\nginx-1.25.3\html\cdn'
@@ -58,13 +58,13 @@ class ProductService:
 
     @staticmethod
     def select_product(cpg):
-        stnum = (cpg - 1) * 15
+        stnum = (cpg - 1) * 10
         with Session() as sess:
             cnt = sess.query(func.count(Product.prdno)).scalar()
             stmt = select(Product.prdno, Product.prdname, Product.category, Product.stack,
                           Product.price, Product.salepoint, PrdAttach.img1)\
             .join_from(Product, PrdAttach) \
-            .order_by(Product.prdno.desc()).offset(stnum).limit(15)
+            .order_by(Product.prdno.desc()).offset(stnum).limit(10)
             result = sess.execute(stmt)
 
         return result, cnt
@@ -77,6 +77,25 @@ class ProductService:
             result = sess.execute(stmt).first()
             return result
 
+
+    @staticmethod
+    def find_select_product(category, search, cpg):
+        stnum = (cpg - 1) * 10
+        with Session() as sess:
+            stmt = select(Product.prdno, Product.prdname, Product.category, Product.stack,
+                          Product.price, Product.salepoint, PrdAttach.img1).join_from(Product,PrdAttach)
+
+            myfilter = and_(Product.prdname.like(search), Product.category.like(category))
+            if search == '' and category != '':  myfilter = Product.category.like(category)
+            elif search != '' and category == '': myfilter = Product.prdname.like(search)
+
+            stmt = stmt.filter(myfilter) \
+                .order_by(Product.prdno.desc()).offset(stnum).limit(10)
+            result = sess.execute(stmt)
+
+            cnt = sess.query(func.count(Product.prdno)).filter(myfilter).scalar() # 총 게시글 수
+
+        return result, cnt
 
 
     @staticmethod
