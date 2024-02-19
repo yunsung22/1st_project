@@ -40,7 +40,7 @@ def rgproduct(req: Request):
 
 @admin_router.post('/rgproduct')
 def rgproductok(dto: NewData):
-    pdto = NewProduct(prdname=dto.prdname, category=dto.category, stack=dto.stack, price=dto.price)
+    pdto = NewProduct(prdname=dto.prdname, category=dto.category, stack=dto.stack, price=dto.price, contents=dto.contents)
     result = ProductService.insert_product(pdto)
     padto = PrdAttach(prdno=result.inserted_primary_key[0], img1=dto.img1, img2=dto.img2, img3=dto.img3, img4=dto.img4)
     result = ProductService.insert_prdattach(padto)

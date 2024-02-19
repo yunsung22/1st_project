@@ -1,11 +1,12 @@
 from datetime import datetime
 
-from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey, Text
 from sqlalchemy.orm import DeclarativeBase, mapped_column
 
 
 class Base(DeclarativeBase):
     pass
+
 
 class Product(Base):
     __tablename__ = 'product'
@@ -16,6 +17,7 @@ class Product(Base):
     stack = Column(Integer, nullable=False)
     price = Column(Integer, nullable=False)
     salepoint = Column(Float, default=0.0)
+    contents = Column(Text, nullable=False)
     regdate = Column(DateTime, default=datetime.now(), nullable=True) # 상품등록일
 
 
