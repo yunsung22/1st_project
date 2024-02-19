@@ -6,6 +6,10 @@
             font-family: 'Courier Prime';
             color:black;
         }
+        td a {
+            color: black; /* Set the color to black */
+            text-decoration: none; /* Remove underline */
+        }
     </style>
 {% endblock%}
 
@@ -116,8 +120,8 @@
     if (findurl[4] !== undefined) {             //검색어가 입력됐다면
         // 검색어를 검색 UI에 자동삽입
         document.querySelector('#fkey').value = decodeURI(findurl[3]);
-        document.querySelector('#fkey').className = 'form-control bg-warning text-white'
-        document.querySelector('#ftype').className = 'form-control bg-warning text-white'
+        document.querySelector('#fkey').className = 'form-control  text-black'
+        document.querySelector('#ftype').className = 'form-control  text-black'
 
 
         // 검색 유형을 select 태그에 반영 : selectedIndex 이용
