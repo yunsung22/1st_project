@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+        nav, main, footer {
+            font-family: 'Courier Prime';
+            color: black;
+        }
+        /* 설명과 사이즈 표의 스타일 */
+        .product-description,
+        .product-size,
+        .shipping-returns {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f8f9fa; /* 배경색 추가 */
+            border-radius: 8px; /* 모서리를 둥글게 만듦 */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+        }
+        .product-description h2,
+        .product-size h2,
+        .shipping-returns h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .product-description p,
+        .shipping-returns p {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .product-size table {
+            margin-top: 20px;
+        }
+    </style>
+{% endblock%}
+
+{% block main %}
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Product</h2>
+                    <!-- 사진 표시 -->
+                    <div id="cnts" class="mb-3">
+                        <img src="http://localhost/cdn/{{ pd.img1 }}" class="img-fluid" alt="...">
+                    </div>
+                    <div id="cnts" class="mb-3">
+                        <img src="http://localhost/cdn/{{ pd.img2 }}" class="img-fluid" alt="...">
+                    </div>
+                    <div id="cnts" class="mb-3">
+                        <img src="http://localhost/cdn/{{ pd.img3 }}" class="img-fluid" alt="...">
+                    </div>
+                    <div id="cnts" class="mb-3">
+                        <img src="http://localhost/cdn/{{ pd.img4 }}" class="img-fluid" alt="...">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- 상품 설명 -->
+                    <div class="product-description">
+                        <h2>Description</h2>
+                        <p>{{ p.contents }}</p>
+                    </div>
+                    <!-- 상품 사이즈 표 -->
+                    <div class="product-size">
+                        <h2>Size</h2>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Size</th>
+                                <th>Neck</th>
+                                <th>Shoulder</th>
+                                <th>Chest</th>
+                                <th>Length</th>
+                                <th>Sleeve</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>XS</td>
+                                <td>13.5"</td>
+                                <td>17"</td>
+                                <td>38"</td>
+                                <td>29"</td>
+                                <td>32"</td>
+                            </tr>
+                            <tr>
+                                <td>S</td>
+                                <td>14.5"</td>
+                                <td>18"</td>
+                                <td>41"</td>
+                                <td>30"</td>
+                                <td>33"</td>
+                            </tr>
+                            <tr>
+                                <td>M</td>
+                                <td>15.5"</td>
+                                <td>19"</td>
+                                <td>44"</td>
+                                <td>31"</td>
+                                <td>34"</td>
+                            </tr>
+                            <tr>
+                                <td>L</td>
+                                <td>16.5"</td>
+                                <td>20"</td>
+                                <td>47"</td>
+                                <td>32"</td>
+                                <td>35"</td>
+                            </tr>
+                            <tr>
+                                <td>XL</td>
+                                <td>17.5"</td>
+                                <td>21"</td>
+                                <td>50"</td>
+                                <td>33"</td>
+                                <td>36"</td>
+                            </tr>
+                            <tr>
+                                <td>XXL</td>
+                                <td>18.5"</td>
+                                <td>22"</td>
+                                <td>54"</td>
+                                <td>33.5"</td>
+                                <td>36"</td>
+                            </tr>                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 배송 및 반품 정보 -->
+                    <div class="shipping-returns">
+                        <h2>SHIPPING & RETURNS</h2>
+                        <p>We offer free shipping for all orders within the USA and international orders over $300. International orders under $300 are shipped at a flat rate of $30. Returns and exchanges will be gladly accepted within our policy guidelines. To view our full returns and exchanges policy, please visit our FAQ page.</p>
+                        <p>International customers will be responsible for all import customs clearance, duties, and taxes upon delivery.</p>
+                        <p>For more information, please visit our FAQ.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

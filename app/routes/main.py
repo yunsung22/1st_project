@@ -30,11 +30,30 @@ def lookbook(req: Request):
 def about(req: Request):
     return templates.TemplateResponse('About.html', {'request': req})
 
-# wintersale 들어가는 경로
+# oxfords 들어가는 경로
 @main_router.get('/oxfords', response_class=HTMLResponse)
 def oxfords(req: Request):
     pdlist = ProductService.select_product()
     return templates.TemplateResponse('oxfords.html', {'request': req, 'pdlist': pdlist})
+
+# knitwear 들어가는 경로
+@main_router.get('/knitwear', response_class=HTMLResponse)
+def knitwear(req: Request):
+    pdlist = ProductService.select_product()
+    return templates.TemplateResponse('knitwear.html', {'request': req, 'pdlist': pdlist})
+
+# checkered 들어가는 경로
+@main_router.get('/checkered', response_class=HTMLResponse)
+def checkered(req: Request):
+    pdlist = ProductService.select_product()
+    return templates.TemplateResponse('checkered.html', {'request': req, 'pdlist': pdlist})
+
+# carryover 들어가는 경로
+@main_router.get('/carryover', response_class=HTMLResponse)
+def carryover(req: Request):
+    pdlist = ProductService.select_product()
+    return templates.TemplateResponse('carryover.html', {'request': req, 'pdlist': pdlist})
+
 
 
 @main_router.get('/itemview/{prdno}', response_class=HTMLResponse)
