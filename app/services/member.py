@@ -1,8 +1,18 @@
 from app.models.member import Member
 from sqlalchemy import insert, select, update
 from app.dbfactory import Session
+import hashlib
 
 class MemberService:
+
+    @staticmethod
+    def sha256_hash(passwd):
+        """
+        SHA-256 암호화 함수
+        """
+        hash_object = hashlib.sha256()
+        hash_object.update(passwd.encode('utf-8'))
+        return hash_object.hexdigest()
 
     @staticmethod
     def member_convert(mdto):
@@ -10,7 +20,7 @@ class MemberService:
         mb = Member(**data)
         data = {
             'userid': mb.userid,
-            'passwd': mb.passwd,
+            'passwd': MemberService.sha256_hash(mb.passwd),
             'name': mb.name,
             'email': mb.email,
             'addr': mb.addr,
@@ -57,7 +67,7 @@ class MemberService:
         with Session() as sess:
             result = sess.query(Member).filter_by(userid=userid).scalar()
 
-            if result and result.passwd == passwd:
+            if result and result.passwd == MemberService.sha256_hash(passwd):
                 return result
             else:
                 return None
