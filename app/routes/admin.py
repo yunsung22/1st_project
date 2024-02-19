@@ -25,9 +25,17 @@ def mgproduct(req: Request, cpg: int):
         'cpg': cpg, 'stpg': stpg, 'allpage': allpage, 'baseurl': '/admin/mgproduct/'})
 
 
-@admin_router.post('/mgproduct')
+@admin_router.post('/mgproduct1')
 def mgproductok(rows_data: Dict[int, RowData]):
     result = ProductService.update_product(rows_data)
+    res_url = '/error'
+    if result.rowcount > 0: res_url = '/admin/mgproduct/1'
+    return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
+
+
+@admin_router.post('/mgproduct2')
+def deleteprd(del_data: Dict[str, List[int]]):
+    result = ProductService.delete_product(del_data)
     res_url = '/error'
     if result.rowcount > 0: res_url = '/admin/mgproduct/1'
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
@@ -54,6 +62,10 @@ def rgproductok(dto: NewData):
 async def upload(images: List[UploadFile] = File()):
     list = await ProductService.process_upload(images)
     return {"message":"이미지업로드 성공", "filename" : list}
+
+
+
+
 
 
 @admin_router.get('/mguser', response_class=HTMLResponse)

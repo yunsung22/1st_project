@@ -1,7 +1,7 @@
 import os
 
 from app.models.product import Product, PrdAttach
-from sqlalchemy import insert, select, update, func
+from sqlalchemy import insert, select, update, func, delete
 from app.dbfactory import Session
 
 UPLOAD_DIR = r'C:\Java\nginx-1.25.3\html\cdn'
@@ -95,7 +95,7 @@ class ProductService:
 
     @staticmethod
     def update_product(rows_data):
-        with (Session() as sess):
+        with Session() as sess:
             for row_data in rows_data.values():
                 print(row_data.salepoint, row_data.prdno)
                 stmt = update(Product).where(Product.prdno == row_data.prdno) \
@@ -103,5 +103,18 @@ class ProductService:
                 result = sess.execute(stmt)
                 sess.commit()
 
+        return result
+
+    @staticmethod
+    def delete_product(del_data):
+        prdnos = list(del_data.values())[0]
+        print(prdnos)
+        with Session() as sess:
+            for prdno in prdnos:
+                stmt = delete(Product).where(Product.prdno == prdno)
+                sess.execute(stmt)
+                stmt2 = delete(PrdAttach).where(PrdAttach.prdno == prdno)
+                result = sess.execute(stmt2)
+                sess.commit()
         return result
 
