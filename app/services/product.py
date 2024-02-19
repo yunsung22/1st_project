@@ -1,7 +1,7 @@
 import os
 
 from app.models.product import Product, PrdAttach
-from sqlalchemy import insert, select
+from sqlalchemy import insert, select, update, func
 from app.dbfactory import Session
 
 UPLOAD_DIR = r'C:\Java\nginx-1.25.3\html\cdn'
@@ -56,16 +56,17 @@ class ProductService:
         return result
 
     @staticmethod
-    def select_product():
+    def select_product(cpg):
+        stnum = (cpg - 1) * 15
         with Session() as sess:
+            cnt = sess.query(func.count(Product.prdno)).scalar()
             stmt = select(Product.prdno, Product.prdname, Product.category, Product.stack,
                           Product.price, Product.salepoint, PrdAttach.img1)\
             .join_from(Product, PrdAttach) \
-            .order_by(Product.prdno.desc()).offset(0).limit(10)
+            .order_by(Product.prdno.desc()).offset(stnum).limit(15)
             result = sess.execute(stmt)
-            sess.commit()
 
-        return result
+        return result, cnt
 
 
     @staticmethod
@@ -90,4 +91,16 @@ class ProductService:
 
         return list
 
+
+    @staticmethod
+    def update_product(rows_data):
+        with (Session() as sess):
+            for row_data in rows_data.values():
+                print(row_data.salepoint, row_data.prdno)
+                stmt = update(Product).where(Product.prdno == row_data.prdno) \
+                    .values(prdname=row_data.prdname, stack=row_data.stack, price=row_data.price, salepoint=row_data.salepoint)
+                result = sess.execute(stmt)
+                sess.commit()
+
+        return result
 

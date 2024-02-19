@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Union
 
 from pydantic import BaseModel
 
@@ -39,10 +39,21 @@ class NewData(BaseModel):
     stack: int
     price: int
 
+
 class NewProduct(BaseModel):
     prdname: str
     category: str
     stack: int
     price: int
+
+
+class RowData(BaseModel):
+    prdno: int
+    prdname: str
+    stack: int
+    price: int
+    salepoint: Union[int, float]
+
+
 
 

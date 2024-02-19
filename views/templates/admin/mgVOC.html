@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>고객문의 관리</title>
+{% extends 'base.html' %}
+{% block style %}
     <style>
         table {border : 1px solid black; border-collapse: collapse; width : 800px; table-layout: fixed}
         th, td {border : 1px solid black; overflow: hidden; white-space: nowrap;
@@ -16,10 +13,10 @@
         #searchbar > div:first-child {width: 400px; display: inline-block}
         #searchbar > div:last-child {width: 380px; display: inline-block; text-align: right}
 
-
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block main %}
     <main>
         <h1>고객문의 관리 페이지</h1>
 
@@ -84,5 +81,6 @@
 
         </section>
     </main>
-</body>
-</html>
+{% endblock %}
+
+{% block script %}

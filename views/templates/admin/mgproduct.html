@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>상품 관리</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+{% extends 'base.html' %}
+{% block style %}
     <style>
+        {#base.html에 적용한 스타일 제거#}
+        main div {margin-bottom: 0}
+        table th {background-color: white;}
+
         table {table-layout: fixed; border-top-color: white}
-        th, td {text-align: center}
+        th, td {text-align: center; vertical-align: middle}
 
         {#searchbox 양식#}
         tr:first-child td {border : none; padding: 20px 0;}
         tr:first-child td:last-child {text-align: right}
 
-        {#searchbox 안의 폼요소#}
-        .searchbox > div > div {padding-right: 0;}
+        {#searchbox2 안의 폼요소#}
+        .searchbox2 > div > div {padding-right: 0;}
 
         {# 제출버튼 #}
-        #submitbtn {text-align: right; padding: 10px 0}
-        #submitbtn button {margin: 0}
+        #buttonbar {text-align: right; padding: 10px 0}
+        #buttonbar button {margin: 0}
 
         {#테이블 내 form요소 사이즈#}
+        .stackinfrm {width:80%; height : 30px; margin : 5px 0}
         .numinfrm {width:80%; height : 30px; margin : 5px 0}
 
         /* 페이지네이션 스타일*/
@@ -29,103 +30,178 @@
         .nameform {width : 60%}
         .name {padding: 0; text-align: left}
 
-
+        {#footer와 main겹침 현상 방지를 위한 div편성#}
+        #lastblock {height : 100px}
     </style>
-</head>
-<body>
-    <header></header>
-    <nav></nav>
+{% endblock %}
 
+{% block main %}
     <main>
         <h2>상품관리</h2>
-        <table class="table-bordered w-75 container mt-5">
-            <colgroup>
-                <col style="width:5%">
-                <col style="width:8%">
-                <col style="width:30%">
-                <col style="width:8%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-                <col style="width:7%">
-            </colgroup>
-            <tr>
-                <td colspan="3" class="searchbox">
-                    <div class="row">
-                        <div class="col-auto">
-                            <select class="form-select" name="category" id="category" >
-                                <option>전체분류</option>
-                                <option value="noraml">normal</option>
-                                <option value="oxford">oxford</option>
-                                <option value="knitwear">knitwear</option>
-                                <option value="neckwear">neckwear</option>
-                            </select>
+        <form name="dataForm">
+            <table class="table-bordered w-75 container mt-5">
+                <colgroup>
+                    <col style="width:5%">
+                    <col style="width:8%">
+                    <col style="width:30%">
+                    <col style="width:8%">
+                    <col style="width:7%">
+                    <col style="width:7%">
+                    <col style="width:7%">
+                    <col style="width:7%">
+                    <col style="width:7%">
+                    <col style="width:7%">
+                </colgroup>
+                <tr>
+                    <td colspan="3" class="searchbox2">
+                        <div class="row">
+                            <div class="col-auto">
+                                <select class="form-select" name="category" id="category" >
+                                    <option>전체분류</option>
+                                    <option value="noraml">normal</option>
+                                    <option value="oxford">oxford</option>
+                                    <option value="knitwear">knitwear</option>
+                                    <option value="neckwear">neckwear</option>
+                                </select>
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" name="search" id="search" class="form-control" placeholder="상품명">
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-success" id="searchbtn"> 검색 </button>
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            <input type="text" name="search" id="search" class="form-control" placeholder="상품명">
-                        </div>
-                        <div class="col-auto">
-                            <button type="button" class="btn btn-success" id="searchbtn"> 검색 </button>
-                        </div>
-                    </div>
-                </td>
-                <td colspan="7">
-                    <a href="/admin/rgproduct" class="btn btn-dark text-white">상품등록</a>
-                </td>
-            </tr>
-            <tr>
-                <th>선택</th>
-                <th>상품코드</th>
-                <th>상품명</th>
-                <th>카테고리</th>
-                <th>재고량</th>
-                <th>재고수정</th>
-                <th>단가</th>
-                <th>단가수정</th>
-                <th>할인율</th>
-                <th>가격</th>
-            </tr>
-            {% for pd in pdlist %}
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>{{ pd.prdno }}</td>
-                <td class="name">
-                    <img src="http://localhost/cdn/{{ pd.img1 }}" alt="">
-                    <input type="text" class="nameform" value="{{ pd.prdname }}">
-                </td>
-                <td>{{ pd.category }}</td>
-                <td>{{ pd.stack }}</td>
-                <td><input type="text" class="numinfrm" value="0"></td>
-                <td>{{ pd.price }}</td>
-                <td><input type="text" class="numinfrm" value="0"></td>
-                <td><input type="text" class="numinfrm" value="{{ pd.salepoint }}"></td>
-                <td>{{ pd.price * (1 - pd.salepoint) | int }} </td>
-            </tr>
-            {% endfor %}
-        </table>
+                    </td>
+                    <td colspan="7">
+                        <a href="/admin/rgproduct" class="btn btn-dark text-white">상품등록</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>선택</th>
+                    <th>상품코드</th>
+                    <th>상품명</th>
+                    <th>카테고리</th>
+                    <th>재고량</th>
+                    <th>재고수정</th>
+                    <th>단가</th>
+                    <th>단가수정</th>
+                    <th>할인율</th>
+                    <th>가격</th>
+                </tr>
+                {% for pd in pdlist %}
+                <tr>
+                    <td><input type="checkbox" class="rowCheckbox"></td>
+                    <td>{{ pd.prdno }}</td>
+                    <td class="name">
+                        <img src="http://localhost/cdn/{{ pd.img1 }}" alt="">
+                        <input type="text" class="nameform" value="{{ pd.prdname }}">
+                    </td>
+                    <td>{{ pd.category }}</td>
+                    <td>{{ pd.stack }}</td>
+                    <td><input type="text" class="stackinfrm" value="{{ pd.stack }}"></td>
+                    <td>{{ pd.price }}</td>
+                    <td><input type="text" class="numinfrm" id="price" value="{{ pd.price }}"></td>
+                    <td><input type="text" class="numinfrm" id="salepoint" value="{{ pd.salepoint }}"></td>
+                    <td>{{ pd.price * (1 - pd.salepoint) }} </td>
+                </tr>
+                {% endfor %}
+            </table>
 
-        <div class="container w-75 border border-color-dark" id="submitbtn">
-            <button type="button" class="btn btn-primary">수정하기</button>
-            <button type="button" class="btn btn-danger">삭제하기</button>
-        </div>
+            <div class="container w-75" id="buttonbar">
+                <button type="button" class="btn btn-primary" id="updatebtn">수정하기</button>
+                <button type="button" class="btn btn-danger" id="deletebtn">삭제하기</button>
+            </div>
+        </form>
 
         <ul class="pagination justify-content-center mt-4">
-            <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item"><a class="page-link" href="#">6</a></li>
-            <li class="page-item"><a class="page-link" href="#">7</a></li>
-            <li class="page-item"><a class="page-link" href="#">8</a></li>
-            <li class="page-item"><a class="page-link" href="#">9</a></li>
-            <li class="page-item"><a class="page-link" href="#">10</a></li>
-            <li class="page-item"><a class="page-link" href="#">다음</a></li>
-        </ul>
-    </main>
+            {% if cpg == 1 %}
+                <li class="page-item disabled">
+                    {% else %}
+                <li class="page-item">
+            {% endif %}
+            <a class="page-link" href="{{ baseurl }}{{ cpg - 1 }}">이전</a></li>
 
-</body>
-</html>
+            {% for idx in range(stpg, stpg + 10) %}
+                <!-- idx가  allpage보다 같거나 작으면 페이지네이션 출력 -->
+                {% if idx <= allpage %}
+                    {% if cpg == idx %} <!-- 현재 페이지가 마지막 페이지라면 이전 버튼 비활성 -->
+                        <li class="page-item active">
+                            {% else %}
+                        <li class="page-item">
+                    {% endif %}
+                <a class="page-link" href="{{ baseurl }}{{ idx }}">{{ idx }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if cpg == allpage %} <!-- 현재 페이지가 마지막 페이지라면 이전 버튼 비활성 -->
+            <li class="page-item disabled">
+                {% else %}
+            <li class="page-item">
+            {% endif %}
+            <a class="page-link" href="{{ baseurl }}{{ cpg + 1 }}">다음</a></li>
+        </ul>
+        <div id="lastblock">
+
+        </div>
+    </main>
+{% endblock %}
+
+{% block script %}
+<script>
+let checkboxes = document.querySelectorAll('.rowCheckbox');
+let updatebtn = document.querySelector('#updatebtn');
+let deletebtn = document.querySelector('#deletebtn');
+let numinfrms = document.querySelectorAll('.numinfrm');
+
+
+{#blur가 발생하면 단가와 할인비율이 실시간으로 반영되어 가격을 나타내는 기능 #}
+numinfrms.forEach((input) => {
+    input.addEventListener('blur', () => {
+        let row = input.closest('tr');
+        let price = row.querySelector('#price').value;
+        let salepoint = row.querySelector('#salepoint').value;
+        row.cells[9].innerText = price * (1 - salepoint);
+    })
+})
+
+{#체크박스된 행 데이터 보내기#}
+updatebtn.addEventListener('click', ()=> {
+    let jsondata = {};
+
+    let getRowData = (row) => {
+        return {
+            prdno : row.cells[1].innerText,
+            prdname : row.cells[2].querySelector('input').value,
+            // data3 : row.cells[3].innerText, // 카테고리
+            stack : row.cells[5].querySelector('input').value,
+            price : row.cells[7].querySelector('input').value,
+            salepoint : row.cells[8].querySelector('input').value}
+    };
+
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {      // 체크박스가 체크되었다면 getRowData라는 함수로 그 행의 데이터를 수집
+            let rowData = getRowData(checkbox.closest('tr'));
+            jsondata[rowData.prdno] = rowData;
+        }
+    });
+    console.log(jsondata)
+
+    fetch('http://127.0.0.1:8000/admin/mgproduct', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsondata),
+        redirect: 'follow'
+    })
+        .then((res) => {
+            if (res.redirected) location.href = res.url
+        })
+        .catch((err) => console.log(err));
+})
+
+</script>
+{% endblock %}
+
+
