@@ -1,7 +1,7 @@
 import os
 
 from app.models.product import Product, PrdAttach
-from sqlalchemy import insert, select
+from sqlalchemy import insert, select, update
 from app.dbfactory import Session
 
 UPLOAD_DIR = r'C:\Java\nginx-1.25.3\html\cdn'
@@ -79,3 +79,15 @@ class ProductService:
                 f.write(content)
 
         return list
+
+    @staticmethod
+    def update_product(rows_data):
+        with (Session() as sess):
+            for row_data in rows_data.values():
+                print(row_data.salepoint, row_data.prdno)
+                stmt = update(Product).where(Product.prdno == row_data.prdno) \
+                    .values(prdname=row_data.prdname, stack=row_data.stack, price=row_data.price, salepoint=row_data.salepoint)
+                result = sess.execute(stmt)
+                sess.commit()
+
+        return result

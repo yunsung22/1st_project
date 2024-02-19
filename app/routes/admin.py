@@ -23,8 +23,9 @@ def mgproduct(req: Request):
 
 @admin_router.post('/mgproduct')
 def mgproductok(rows_data: Dict[int, RowData]):
-    print(rows_data)
-    res_url = '/admin/mgproduct'
+    result = ProductService.update_product(rows_data)
+    res_url = '/error'
+    if result.rowcount > 0: res_url = '/admin/mgproduct'
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
 

@@ -94,11 +94,11 @@
                     </td>
                     <td>{{ pd.category }}</td>
                     <td>{{ pd.stack }}</td>
-                    <td><input type="text" class="numinfrm" value="0"></td>
+                    <td><input type="text" class="numinfrm" value="{{ pd.stack }}"></td>
                     <td>{{ pd.price }}</td>
-                    <td><input type="text" class="numinfrm" value="0"></td>
+                    <td><input type="text" class="numinfrm" value="{{ pd.price }}"></td>
                     <td><input type="text" class="numinfrm" value="{{ pd.salepoint }}"></td>
-                    <td>{{ pd.price * (1 - pd.salepoint) | int }} </td>
+                    <td>{{ pd.price * (1 - pd.salepoint) }} </td>
                 </tr>
                 {% endfor %}
             </table>
@@ -131,28 +131,32 @@
 let checkboxes = document.querySelectorAll('.rowCheckbox');
 let updatebtn = document.querySelector('#updatebtn');
 let deletebtn = document.querySelector('#deletebtn');
+let numinfrms = document.querySelectorAll('.numinfrm');
 
+{#numinfrms.forEach((input, index) => {#}
+{#    input.addEventListener('blur', (event) => {#}
+{#        let value = event.target.value;#}
+{#    })#}
+
+
+{#체크박스된 행 데이터 보내기#}
 updatebtn.addEventListener('click', ()=> {
     let jsondata = {};
 
     let getRowData = (row) => {
         return {
-            data1 : row.cells[1].innerText,
-            data2 : row.cells[2].querySelector('input').value,
-            data3 : row.cells[3].innerText,
-            data4 : row.cells[4].innerText,
-            data5 : row.cells[5].querySelector('input').value,
-            data6 : row.cells[6].innerText,
-            data7 : row.cells[7].querySelector('input').value,
-            data8 : row.cells[8].querySelector('input').value
-        }
-
+            prdno : row.cells[1].innerText,
+            prdname : row.cells[2].querySelector('input').value,
+            // data3 : row.cells[3].innerText, // 카테고리
+            stack : row.cells[5].querySelector('input').value,
+            price : row.cells[7].querySelector('input').value,
+            salepoint : row.cells[8].querySelector('input').value}
     };
 
     checkboxes.forEach((checkbox) => {
         if (checkbox.checked) {      // 체크박스가 체크되었다면 getRowData라는 함수로 그 행의 데이터를 수집
             let rowData = getRowData(checkbox.closest('tr'));
-            jsondata[rowData.data1] = rowData;
+            jsondata[rowData.prdno] = rowData;
         }
     });
     console.log(jsondata)
