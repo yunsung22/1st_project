@@ -3,6 +3,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
+from app.services.product import ProductService
+
 main_router = APIRouter()
 
 # jinja2 설정
@@ -27,6 +29,18 @@ def lookbook(req: Request):
 @main_router.get('/about', response_class=HTMLResponse)
 def about(req: Request):
     return templates.TemplateResponse('About.html', {'request': req})
+
+# wintersale 들어가는 경로
+@main_router.get('/oxfords', response_class=HTMLResponse)
+def oxfords(req: Request):
+    pdlist = ProductService.select_product()
+    return templates.TemplateResponse('oxfords.html', {'request': req, 'pdlist': pdlist})
+
+
+@main_router.get('/itemview/{prdno}', response_class=HTMLResponse)
+def view(req: Request, prdno: str):
+    pd = ProductService.selectone_product(prdno)
+    return templates.TemplateResponse('item_detail.html', {'request': req, 'p': pd[0], 'pd': pd[1]})
 
 
 # 푸터 #
