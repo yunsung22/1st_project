@@ -36,8 +36,8 @@
         <div class="col-auto"><input type="text" name="userid" id="userid" value="{{ member.userid }}" maxlength="50" disabled="disabled" autocomplete="off" class="form-control"></div>
     </div>
     <div class="row">
-        <div class="col-auto"><label for="passwd" class="col-form-label">Password</label></div>
-        <div class="col-auto"><input type="password" name="passwd" value="{{ member.passwd }}" id="passwd" maxlength="50" autocomplete="off" class="form-control"></div>
+        <div class="col-auto"><label for="passwd" class="col-form-label">New Password</label></div>
+        <div class="col-auto"><input type="password" name="passwd" id="passwd" placeholder="새로운 비밀번호 입력" maxlength="50" autocomplete="off" class="form-control"></div>
     </div>
     <div class="row">
         <div class="col-auto"><label for="name" class="col-form-label">Name</label></div>
@@ -88,12 +88,6 @@
         if (!userId) {
             alert('userId 를 입력해주세요.');
             joinfrm.userid.focus();
-            return;
-        }
-
-        if (!password) {
-            alert('password 를 입력해주세요.');
-            joinfrm.password.focus();
             return;
         }
 
