@@ -1,63 +1,149 @@
 {% extends 'base.html' %}
 
-{% block main %}
-<main>
-    <h1>Winter Sale</h1>
-    <h>Enjoy deep discounts on all items listed below.</h><br>
-    <h>*Please note items discounted by 50% are final sale.</h>
-    <main>
-        <main>
-            <div class="clothing-grid">
-                <div class="clothing-item">
-                    <img src="옷1.jpg" alt="옷1">
-                    <h3>옷 제목 1</h3>
-                    <span>₩50,000</span>
-                </div>
-                <div class="clothing-item">
-                    <img src="옷2.jpg" alt="옷2">
-                    <h3>옷 제목 2</h3>
-                    <span>₩40,000</span>
-                </div>
-                <div class="clothing-item">
-                    <img src="옷3.jpg" alt="옷3">
-                    <h3>옷 제목 3</h3>
-                    <span>₩60,000</span>
-                </div>
-                <!-- 추가적인 옷들은 이어서 추가합니다. -->
-                <div class="clothing-item">
-                    <img src="옷4.jpg" alt="옷4">
-                    <h3>옷 제목 4</h3>
-                    <span>₩55,000</span>
-                </div>
-                <div class="clothing-item">
-                    <img src="옷5.jpg" alt="옷5">
-                    <h3>옷 제목 5</h3>
-                    <span>₩45,000</span>
-                </div>
-                <div class="clothing-item">
-                    <img src="옷6.jpg" alt="옷6">
-                    <h3>옷 제목 6</h3>
-                    <span>₩70,000</span>
-                </div>
+{% block style %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+        nav, main, footer {
+            font-family: 'Courier Prime';
+            color: black;
+        }
 
-                <div class="clothing-item">
-                    <img src="옷7.jpg" alt="옷7">
-                    <h3>옷 제목 7</h3>
-                    <span>₩80,000</span>
+        /* 헤더 스타일 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* 다른 요소들보다 위에 표시되도록 설정 */
+        }
+
+        /* 비디오 컨테이너 스타일 */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 비율 */
+            margin-top: 0px; /* 헤더의 높이와 같게 조정 */
+            z-index: 1; /* 헤더 아래에 표시되도록 설정 */
+        }
+
+        /* 비디오 스타일 */
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+        }
+
+        .content h4 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* 이미지 스타일 */
+        .image-grid img {
+            max-width: 100%; /* 이미지의 최대 너비를 설정하여 화면에 맞게 조절 */
+            height: auto; /* 가로 세로 비율 유지 */
+            display: block; /* 이미지가 다른 요소와 겹치지 않도록 블록 요소로 설정 */
+            margin-bottom: 20px; /* 이미지 사이에 간격 추가 */
+        }
+
+        /* 추가적인 이미지 그리드 스타일 */
+        .additional-images {
+            margin-top: 40px;
+        }
+
+        .additional-images h4 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .additional-images p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .row {
+            margin-top: -80px;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <main>
+        <div class="container content">
+            <h1>Welcome to Vintage Shirts</h1>
+            <p>Discover the finest collection of vintage shirts for men.</p>
+        </div>
+        <!-- 비디오 컨테이너 -->
+        <div class="container video-container">
+            <iframe src="https://player.vimeo.com/video/176470932?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+
+        <!-- 추가 콘텐츠 -->
+
+
+        <!-- 이미지 그리드 -->
+        <div class="container image-grid">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <img src="../static/img/index(1).png" alt="Image 1">
                 </div>
-                <div class="clothing-item">
-                    <img src="옷8.jpg" alt="옷8">
-                    <h3>옷 제목 8</h3>
-                    <span>₩75,000</span>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <img src="../static/img/index(2).png" alt="Image 2">
                 </div>
-                <div class="clothing-item">
-                    <img src="옷9.jpg" alt="옷9">
-                    <h3>옷 제목 9</h3>
-                    <span>₩65,000</span>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <img src="../static/img/index(3).png" alt="Image 3">
                 </div>
             </div>
-        </main>
+            <div class="row additional-images">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <h4>Unmatched Quality</h4>
+                    <p>Each shirt is carefully selected to ensure the highest standards of quality.</p>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <h4>Vintage Elegance</h4>
+                    <p>Experience the timeless elegance of our vintage shirt collection.</p>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <h4>Authentic Style</h4>
+                    <p>Our shirts embody the authentic style and spirit of a bygone era.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <img src="../static/img/index(4).png" alt="Image 4">
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <img src="../static/img/index(5).png" alt="Image 5">
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <img src="../static/img/index(6).png" alt="Image 6">
+                </div>
+            </div>
+            <div class="row additional-images">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <h4>Distinctive Designs</h4>
+                    <p>Discover unique designs that reflect the essence of vintage fashion.</p>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <h4>Timeless Appeal</h4>
+                    <p>Indulge in the timeless appeal of our carefully curated vintage shirts.</p>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <h4>Heritage Craftsmanship</h4>
+                    <p>Experience the heritage craftsmanship behind each meticulously crafted shirt.</p>
+                </div>v
+            </div>
 
+        </div>
     </main>
-</main>
 {% endblock %}

@@ -2,8 +2,13 @@
 
 {% block style %}
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+    nav,main,footer {
+        font-family: 'Courier Prime';
+        color:black;
+    }
     /* 회원가입폼에 대한 스타일 */
-    form { width: 365px; margin: 100px auto; }
+    form { max-width: 650px; margin: 100px auto; }
     form div { margin-bottom: 5px; }
     form label { font-weight: bold; width: 110px; text-align: right; }
     form button:first-child { margin-left: 135px }
@@ -31,8 +36,8 @@
         <div class="col-auto"><input type="text" name="userid" id="userid" value="{{ member.userid }}" maxlength="50" disabled="disabled" autocomplete="off" class="form-control"></div>
     </div>
     <div class="row">
-        <div class="col-auto"><label for="passwd" class="col-form-label">Password</label></div>
-        <div class="col-auto"><input type="password" name="passwd" value="{{ member.passwd }}" id="passwd" maxlength="50" autocomplete="off" class="form-control"></div>
+        <div class="col-auto"><label for="passwd" class="col-form-label">New Password</label></div>
+        <div class="col-auto"><input type="password" name="passwd" id="passwd" placeholder="새로운 비밀번호 입력" maxlength="50" autocomplete="off" class="form-control"></div>
     </div>
     <div class="row">
         <div class="col-auto"><label for="name" class="col-form-label">Name</label></div>
@@ -86,12 +91,6 @@
             return;
         }
 
-        if (!password) {
-            alert('password 를 입력해주세요.');
-            joinfrm.password.focus();
-            return;
-        }
-
         if (!name) {
             alert('name 를 입력해주세요.');
             joinfrm.name.focus();
@@ -112,7 +111,7 @@
 
         let useridRegex = /^[a-zA-Z0-9]{6,50}$/; // 영문자와 숫자로 이루어진 6자 이상, 50자 이하의 문자열을 허용하는 정규표현식
 
-        if (useridRegex.test(userId)) {
+        if (!useridRegex.test(userId)) {
             alert('아이디는 영문자와 숫자로 이루어진 6자 이상, 50자 이하의 형태로 입력해주세요.');
             joinfrm.userid.focus();
             return;

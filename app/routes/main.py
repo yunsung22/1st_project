@@ -3,6 +3,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
+from app.services.product import ProductService
+
 main_router = APIRouter()
 
 # jinja2 설정
@@ -28,6 +30,37 @@ def lookbook(req: Request):
 def about(req: Request):
     return templates.TemplateResponse('About.html', {'request': req})
 
+# oxfords 들어가는 경로
+@main_router.get('/oxfords', response_class=HTMLResponse)
+def oxfords(req: Request):
+    pdlist = ProductService.select_product()
+    return templates.TemplateResponse('oxfords.html', {'request': req, 'pdlist': pdlist})
+
+# knitwear 들어가는 경로
+@main_router.get('/knitwear', response_class=HTMLResponse)
+def knitwear(req: Request):
+    pdlist = ProductService.select_product()
+    return templates.TemplateResponse('knitwear.html', {'request': req, 'pdlist': pdlist})
+
+# checkered 들어가는 경로
+@main_router.get('/checkered', response_class=HTMLResponse)
+def checkered(req: Request):
+    pdlist = ProductService.select_product()
+    return templates.TemplateResponse('checkered.html', {'request': req, 'pdlist': pdlist})
+
+# carryover 들어가는 경로
+@main_router.get('/carryover', response_class=HTMLResponse)
+def carryover(req: Request):
+    pdlist = ProductService.select_product()
+    return templates.TemplateResponse('carryover.html', {'request': req, 'pdlist': pdlist})
+
+
+
+@main_router.get('/itemview/{prdno}', response_class=HTMLResponse)
+def view(req: Request, prdno: str):
+    pd = ProductService.selectone_product(prdno)
+    return templates.TemplateResponse('item_detail.html', {'request': req, 'p': pd[0], 'pd': pd[1]})
+
 
 # 푸터 #
 
@@ -52,7 +85,7 @@ def legal(req: Request):
 @main_router.get('/policy', response_class=HTMLResponse)
 def policy(req: Request):
     return templates.TemplateResponse('policy.html', {'request': req})
-# 장바구니 #
-@main_router.get('/bag', response_class=HTMLResponse)
-def giftcards(req: Request):
-    return templates.TemplateResponse('bag.html', {'request': req})
+
+
+
+

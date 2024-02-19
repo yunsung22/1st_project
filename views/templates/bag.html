@@ -1,113 +1,265 @@
-
-
 {% extends 'base.html' %}
 {% block style %}
-    <link rel="stylesheet" href="../static/css/bag.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+        nav, main, footer {
+            font-family: 'Courier Prime', monospace;
+            color: black;
+        }
+        ul {
+            list-style-type: none;
+        }
+        li {
+            display: inline-block;
+        }
+        form {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .cart {
+            margin-top: 50px;
+        }
+        .item-details {
+            display: flex;
+            align-items: center;
+        }
+        .item-details img {
+            width: 80px;
+            height: 60px;
+            margin-right: 20px;
+            border-radius: 5px;
+
+
+        }
+        .item-details p {
+            margin: 0;
+            font-size: 16px;
+        }
+        .cart-table {
+            border-collapse: collapse; /* 밑줄이 끊어지는 문제 해결 */
+            width: 100%;
+            padding-bottom: -50px;
+        }
+        .cart-table th, .cart-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        .cart-table th.col-5 {
+            text-align: left;
+        }
+        .cart-table td.col-3 .quantity-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 55px;
+        }
+        .cart-table td.col-3 button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            margin: 0 5px;
+        }
+        .cart-table td.col-3 button:focus {
+            outline: none;
+        }
+        .cart-table td.col-3 button:hover {
+            color: #1E5E14;
+        }
+        .cart-table td.col-3 button i {
+            vertical-align: middle;
+        }
+        .subtotal {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        .subtotal span {
+            font-weight: bold;
+        }
+
+        .link {
+            color: #16400B;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+
+        #boardfrm {
+            margin-top: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        #boardfrm textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+
+        .cart-table {
+            border-collapse: separate; /* collapse에서 separate로 변경 */
+            width: 100%;
+        }
+        .cart-table th, .cart-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd; /* 테이블 아래쪽에만 선을 그립니다. */
+            border-right: 1px solid #ddd; /* 테이블 오른쪽에도 선을 추가합니다. */
+            text-align: center;
+        }
+        .cart-table th.col-5, .cart-table td.col-5 { /* col-5 클래스에도 적용합니다. */
+            border-right: none; /* 오른쪽 선을 제거하여 테이블의 가장 우측 셀에는 선이 그려지지 않도록 합니다. */
+        }
+
+        table.cart-table {
+            border-collapse: separate; /* collapse에서 separate로 변경 */
+            width: 100%;
+        }
+        table.cart-table th, table.cart-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd; /* 테이블 아래쪽에만 선을 그립니다. */
+            border-right: 1px solid #ddd; /* 테이블 오른쪽에도 선을 추가합니다. */
+            text-align: center;
+        }
+        table.cart-table th.col-5, table.cart-table td.col-5 { /* col-5 클래스에도 적용합니다. */
+            border-right: none; /* 오른쪽 선을 제거하여 테이블의 가장 우측 셀에는 선이 그려지지 않도록 합니다. */
+        }
+
+        .quantity-box button {
+            display: block; /* 화살표 버튼을 블록 레벨 요소로 변경하여 위아래로 정렬될 수 있도록 합니다. */
+            margin: 5px auto; /* 위아래 여백을 조절하여 화살표가 가운데 정렬되도록 합니다. */
+        }
+
+        .cart-table th.col-5, .cart-table td.col-4 {
+            text-align: left; /* 텍스트를 왼쪽으로 정렬합니다. */
+        }
+
+        button {background: #16400B; border: darkgreen;
+            transition: 0.3s ease; border-radius: 5px; width: 160px; height: 60px;
+            font-size: x-large;}
+
+        #jumunbtn:hover{background: #1d560f}
+
+    </style>
 {% endblock %}
 
 {% block main %}
-
-<main>
-    <div>
-        <section data-reactroot="" class="outer">
-            <div class="page__title mt2">
-                <div class="container--m">
-                    <h1 class="h1 mb075 align-c">Your Bag</h1></div>
-            </div>
-            <div class="container--m">
-                <div class="cart w1">
-                    <ul id="li1">
-                        <li class="col-5" style="text-align: left";>Item</li>
-                        <li id='price' class="col-2">Price</li>
-                        <li class="col-2">Quantity</li>
-                        <li class="col-2">Total</li>
-                    </ul>
-                    <ul id="ul2" class="quantity-list" style="list-style-type: none; padding: 0;">
-                        <li class="col-5 item-details" style=" text-align: left">
-                            <div style="display: flex; align-items: center;">
-                                <img src="{{ url_for('static',path='/img/shirt2.png')}}" alt="Ecru Reverse-Denim Western">
-                                <div style="text-align: left; margin-left: 10px;" class="pt-5">
-                                    <p>Ecru Reverse-Denim Western</p><br>
-                                    <p>Size : s</p>
-                                </div>
+    <main>
+        <div class="container--m">
+            <h1 class="h1 mb075 align-c">Your Bag</h1>
+            <table class="cart-table">
+                <thead>
+                <tr>
+                    <th class="col-5">Item</th>
+                    <th class="col-2">Price</th>
+                    <th class="col-2">Quantity</th>
+                    <th class="col-2">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="col-4">
+                        <div class="item-details">
+                            <img src="{{ url_for('static',path='/img/shirt2.png')}}" alt="Ecru Reverse-Denim Western">
+                            <div>
+                                <p>Ecru Reverse-Denim Western</p>
                             </div>
-                        </li>
-                        <li class="col-2 inline-block">$142</li>
-                        <li class="col-2 inline-block" id = "quanbox"  >
-                            <button type="button" id="decrease_btn" name="decrease_btn" style="border:None">
-                                <i class="bi bi-caret-down-fill"></i></button>
+                        </div>
+                    </td>
+                    <td class="col-2">$142</td>
+                    <td class="col-3">
+                        <div class="quantity-box" id="quanbox">
+                            <button type="button" id="increase_btn" name="increase_btn"><i class="bi bi-caret-up-fill"></i></button>
                             <p class="quantity">1</p>
-                            <button type="button" id="increase_btn" name="increase_btn" style="border:None">
-                                <i class="bi bi-caret-up-fill"></i></button>
-                        </li>
-                        <li class="col-2">$142</li>
-                    </ul>
-                </div>
-
-                <form name="boardfrm" id="boardfrm">
-                    <div class="row">
-                        <div class="col-auto" style="margin-bottom: 0; font-size: small">
-                            <label for="contents" class="dragup" class="col-form-label">Special Instructions</label>
+                            <button type="button" id="decrease_btn" name="decrease_btn"><i class="bi bi-caret-down-fill"></i></button>
                         </div>
-                        <div class="col-auto">
-                            <textarea style="border: 1px solid #000;border-radius: 2px;" name="contents" id="contents" cols="50" rows="4" class="form-control"></textarea>
-                        </div>
-                    </div>
-                </form>
+                    </td>
+                    <td class="col-2">$142</td>
+                </tr>
+                </tbody>
+            </table>
 
+            <form name="boardfrm" id="boardfrm">
                 <div>
-                    <h1>Subtotal : $120</h1>
+                    <label for="contents">Special Instructions</label>
                 </div>
-                <p>Total excludes shipping and taxes.
-                    <a href="#" id="shippingCalculatorToggle" class="link">Show shipping calculator.</a>
-                </p><br>
-                <p>
-                    <a href="/" class="link">Keep Shopping</a>
-                </p>
-                <p id="radius1">
-                    <a href="/index">
-                        <button type="button" id="radius" style="font-size: large">
-                            <i class="bi bi-success"></i>Checkout
-                        </button>
-                    </a>
-                </p>
+                <div>
+                    <textarea name="contents" id="contents" rows="2" class="form-control"></textarea>
+                </div>
+            </form>
+
+            <div class="subtotal">
+                <h2>Subtotal: <span>$120</span></h2>
+                <h>Total excludes shipping and taxes. <a href="#" id="shippingCalculatorToggle" class="link">Show shipping calculator.</a></h>
             </div>
 
-
-        </section>
-
-
-
-        <form name = "foot" style="height: 300px; padding-top: 100px" >
-            <h3>STAY UP TO DATE</h3>
-            <h>Sign up for our newsletter to be the first to</h><br>
-            <h>know about new products, exclusive releases</h><br>
-            <h>and promotions.</h>
-
-            <div class = "colspan 2" style="padding-left: 90px; margin: 10px;">
-
-                <div class = "input-group" id="submit1">
-                    <input id="Email-Address" class="inline-block" placeholder="Email Address">
-                    <input type="submit" value="Submit" class="button" id="submitbtn">
-                </div>
+            <div>
+                <a href="/jumun">
+                    <button type="button" id="jumunbtn" class="text-white" style="font-size: large;">
+                        <i class="bi bi-success"></i>Checkout
+                    </button>
+                </a>
             </div>
-        </form>
-    </div>
 
-</main>
+            <div>
+                <a href="/" class="link">Keep Shopping</a>
+            </div>
+        </div>
+    </main>
 {% endblock %}
 
 {% block script %}
-    <script src="../static/js/Lookbook_script.js"></script>
     <script>
-        let increase_btn = document.querySelector('#increase_btn')
-        let decrease_btn = document.querySelector('#decrease_btn')
-        increase_btn.addEventListener('click', ()=>{
+        document.addEventListener("DOMContentLoaded", function() {
+            const decreaseBtn = document.getElementById('decrease_btn');
+            const increaseBtn = document.getElementById('increase_btn');
+            const quantityElement = document.querySelector('.quantity');
+            const resetBtn = document.getElementById('reset_btn');
 
-        })
+            let quantity = 1;
 
+            function updateQuantityDisplay() {
+                quantityElement.textContent = quantity;
+            }
 
+            function increaseQuantity() {
+                quantity++;
+                updateQuantityDisplay();
+            }
+
+            function decreaseQuantity() {
+                if (quantity > 1) {
+                    quantity--;
+                    updateQuantityDisplay();
+                }
+            }
+
+            function resetQuantity() {
+                quantity = 1;
+                updateQuantityDisplay();
+            }
+
+            increaseBtn.addEventListener('click', increaseQuantity);
+            decreaseBtn.addEventListener('click', decreaseQuantity);
+            resetBtn.addEventListener('click', resetQuantity);
+        });
     </script>
-
 {% endblock %}
-

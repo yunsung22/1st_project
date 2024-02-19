@@ -68,6 +68,16 @@ class ProductService:
 
         return result, cnt
 
+
+    @staticmethod
+    def selectone_product(prdno):
+        with Session() as sess:
+            stmt = select(Product, PrdAttach).join_from(Product,PrdAttach).filter_by(prdno=prdno)
+            result = sess.execute(stmt).first()
+            return result
+
+
+
     @staticmethod
     async def process_upload(images):
         list = []
@@ -81,6 +91,7 @@ class ProductService:
 
         return list
 
+
     @staticmethod
     def update_product(rows_data):
         with (Session() as sess):
@@ -92,3 +103,4 @@ class ProductService:
                 sess.commit()
 
         return result
+
