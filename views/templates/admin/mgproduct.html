@@ -20,6 +20,7 @@
         #buttonbar button {margin: 0}
 
         {#테이블 내 form요소 사이즈#}
+        .stackinfrm {width:80%; height : 30px; margin : 5px 0}
         .numinfrm {width:80%; height : 30px; margin : 5px 0}
 
         /* 페이지네이션 스타일*/
@@ -28,6 +29,9 @@
         td img {height: 100px; width: 100px; margin: 0}
         .nameform {width : 60%}
         .name {padding: 0; text-align: left}
+
+        {#footer와 main겹침 현상 방지를 위한 div편성#}
+        #lastblock {height : 100px}
     </style>
 {% endblock %}
 
@@ -94,10 +98,10 @@
                     </td>
                     <td>{{ pd.category }}</td>
                     <td>{{ pd.stack }}</td>
-                    <td><input type="text" class="numinfrm" value="{{ pd.stack }}"></td>
+                    <td><input type="text" class="stackinfrm" value="{{ pd.stack }}"></td>
                     <td>{{ pd.price }}</td>
-                    <td><input type="text" class="numinfrm" value="{{ pd.price }}"></td>
-                    <td><input type="text" class="numinfrm" value="{{ pd.salepoint }}"></td>
+                    <td><input type="text" class="numinfrm" id="price" value="{{ pd.price }}"></td>
+                    <td><input type="text" class="numinfrm" id="salepoint" value="{{ pd.salepoint }}"></td>
                     <td>{{ pd.price * (1 - pd.salepoint) }} </td>
                 </tr>
                 {% endfor %}
@@ -123,6 +127,9 @@
             <li class="page-item"><a class="page-link" href="#">10</a></li>
             <li class="page-item"><a class="page-link" href="#">다음</a></li>
         </ul>
+        <div id="lastblock">
+
+        </div>
     </main>
 {% endblock %}
 
@@ -133,11 +140,16 @@ let updatebtn = document.querySelector('#updatebtn');
 let deletebtn = document.querySelector('#deletebtn');
 let numinfrms = document.querySelectorAll('.numinfrm');
 
-{#numinfrms.forEach((input, index) => {#}
-{#    input.addEventListener('blur', (event) => {#}
-{#        let value = event.target.value;#}
-{#    })#}
 
+{#blur가 발생하면 단가와 할인비율이 실시간으로 반영되어 가격을 나타내는 기능 #}
+numinfrms.forEach((input) => {
+    input.addEventListener('blur', () => {
+        let row = input.closest('tr');
+        let price = row.querySelector('#price').value;
+        let salepoint = row.querySelector('#salepoint').value;
+        row.cells[9].innerText = price * (1 - salepoint);
+    })
+})
 
 {#체크박스된 행 데이터 보내기#}
 updatebtn.addEventListener('click', ()=> {
@@ -174,9 +186,6 @@ updatebtn.addEventListener('click', ()=> {
             if (res.redirected) location.href = res.url
         })
         .catch((err) => console.log(err));
-
-
-
 })
 
 </script>
