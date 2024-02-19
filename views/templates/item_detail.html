@@ -10,7 +10,8 @@
         /* 설명과 사이즈 표의 스타일 */
         .product-description,
         .product-size,
-        .shipping-returns {
+        .shipping-returns,
+        .product-price {
             margin-top: 40px;
             padding: 20px;
             background-color: #f8f9fa; /* 배경색 추가 */
@@ -33,35 +34,77 @@
         .product-size table {
             margin-top: 20px;
         }
+        div .mb-3 {
+            margin-right: 8px;
+        }
+        .buy-button {
+            background-color: black; /* 배경색을 검정색으로 설정합니다. */
+            color: white; /* 텍스트 색상을 흰색으로 설정합니다. */
+            padding: 10px 20px; /* 버튼의 내부 여백을 설정합니다. */
+            border: none; /* 테두리를 없앱니다. */
+            border-radius: 5px; /* 버튼의 모서리를 둥글게 만듭니다. */
+            cursor: pointer; /* 마우스 커서를 포인터로 설정합니다. */
+            text-decoration: none; /* 기본 링크 스타일을 없앱니다. */
+            font-size: 18px; /* 폰트 크기를 설정합니다. */
+            margin-top: 20px; /* 위쪽 여백을 추가합니다. */
+        }
+        .small-image-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .small-image-container img {
+            width: 200px; /* 작은 이미지의 너비 설정 */
+            height: 200px; /* 작은 이미지의 높이 설정 */
+        }
     </style>
-{% endblock%}
+{% endblock %}
 
 {% block main %}
     <main>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h2>Product</h2>
-                    <!-- 사진 표시 -->
+
                     <div id="cnts" class="mb-3">
                         <img src="http://localhost/cdn/{{ pd.img1 }}" class="img-fluid" alt="...">
-                    </div>
-                    <div id="cnts" class="mb-3">
-                        <img src="http://localhost/cdn/{{ pd.img2 }}" class="img-fluid" alt="...">
-                    </div>
-                    <div id="cnts" class="mb-3">
-                        <img src="http://localhost/cdn/{{ pd.img3 }}" class="img-fluid" alt="...">
-                    </div>
-                    <div id="cnts" class="mb-3">
-                        <img src="http://localhost/cdn/{{ pd.img4 }}" class="img-fluid" alt="...">
+                        <!-- 배송 및 반품 정보 -->
+                        <div class="shipping-returns">
+                            <h2>SHIPPING & RETURNS</h2>
+                            <p>We offer free shipping for all orders within the USA and international orders over $300. International orders under $300 are shipped at a flat rate of $30. Returns and exchanges will be gladly accepted within our policy guidelines. To view our full returns and exchanges policy, please visit our FAQ page.</p>
+                            <p>International customers will be responsible for all import customs clearance, duties, and taxes upon delivery.</p>
+                            <p>For more information, please visit our FAQ.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <!-- 상품 설명 -->
-                    <div class="product-description">
-                        <h2>Description</h2>
-                        <p>{{ p.contents }}</p>
+
+                    <!-- 상품 가격 -->
+                    <div class="product-price">
+                        <h1>{{ p.prdname }}</h1>
+                        <h3>${{ p.price }}</h3>
+                        <br>
+                        <a href="#" class="buy-button">Add bag</a>
+                        <a href="#" class="buy-button">Buy it</a>
+
                     </div>
+                    <div class="product-description">
+                        <h2>Detail</h2>
+                        <p>{{ p.contents }}</p>
+                    <!-- 사진 표시 -->
+                    <div class="small-image-container">
+                        <div id="cnts" class="mb-3">
+                            <img src="http://localhost/cdn/{{ pd.img2 }}" class="img-fluid" alt="...">
+                        </div>
+                        <div id="cnts" class="mb-3">
+                            <img src="http://localhost/cdn/{{ pd.img3 }}" class="img-fluid" alt="...">
+                        </div>
+                        <div id="cnts" class="mb-3">
+                            <img src="http://localhost/cdn/{{ pd.img4 }}" class="img-fluid" alt="...">
+                        </div>
+                    </div>
+                </div>
+
                     <!-- 상품 사이즈 표 -->
                     <div class="product-size">
                         <h2>Size</h2>
@@ -128,13 +171,7 @@
                         </table>
                     </div>
 
-                    <!-- 배송 및 반품 정보 -->
-                    <div class="shipping-returns">
-                        <h2>SHIPPING & RETURNS</h2>
-                        <p>We offer free shipping for all orders within the USA and international orders over $300. International orders under $300 are shipped at a flat rate of $30. Returns and exchanges will be gladly accepted within our policy guidelines. To view our full returns and exchanges policy, please visit our FAQ page.</p>
-                        <p>International customers will be responsible for all import customs clearance, duties, and taxes upon delivery.</p>
-                        <p>For more information, please visit our FAQ.</p>
-                    </div>
+
                 </div>
             </div>
         </div>
