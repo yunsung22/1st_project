@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 {% block style %}
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+        nav,main,footer {
+            font-family: 'Courier Prime';
+            color:black;
+        }
         {#base.html에 적용한 스타일 제거#}
         main div {margin-bottom: 0}
         {#footer와 main겹침 현상 방지를 위한 div편성#}
         #lastblock {height : 100px}
 
-        table {table-layout: fixed; border-top-color: white}
-        th, td {text-align: center;  vertical-align: middle}
+        table {table-layout: fixed; border-top-color: white;  }
+        th, td {text-align: center;  vertical-align: middle;overflow-wrap: break-word}
         tr:first-child td:last-child {text-align: right}
 
         /* 사용자 검색바 */
@@ -30,11 +35,22 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            padding: 20px;
+            padding: 30px;
             background-color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             z-index: 1;
+            border-radius: 15px;
         }
+
+        #myModal > div { margin-bottom: 20px}
+        {#색상 추후 수정예정#}
+        #userinfo {width : 700px; table-layout: fixed; white-space: nowrap; }
+        #userinfo tr:nth-child(odd) {background: #f0f0f0}
+        #userinfo td {border : 1px solid black; text-align: center}
+
+        #userfrm > div:last-child {margin-top: 20px}
+
+
 
         /* 어두운 배경 생성 */
         #overlay {
@@ -52,14 +68,14 @@
 
 {% block main %}
     <main>
-        <h2>사용자관리</h2>
+        <h2>Managing User</h2>
         <table class="table container mt-5" id="tb">
             <colgroup>
                 <col style="width:5%">
                 <col style="width:8%">
+                <col style="width:9%">
                 <col style="width:10%">
-                <col style="width:7%">
-                <col style="width:18%">
+                <col style="width:15%">
                 <col style="width:12%">
                 <col style="width:10%">
                 <col style="width:10%">
@@ -70,28 +86,27 @@
                 <td colspan="4" class="searchbox1">
                     <div class="row">
                         <div class="col-auto" id="searchbar">
-                            <input type="text" name="search" id="search" placeholder="검색">
+                            <input type="text" name="search" id="search" placeholder="search">
                             <button type="button" id="execSearch"><i class="bi bi-search"></i></button>
                         </div>
                     </div>
                 </td>
                 <td colspan="6">
-                    <button onclick="openModal()" class="btn btn-success text-white">사용자등록</button>
-                    <button class="btn btn-primary text-white">사용자수정</button>
-                    <button class="btn btn-danger text-white">사용자삭제</button>
+                    <button onclick="openModal1()" class="btn btn-primary text-white">Authority Change</button>
+                    <button id="deletebtn" class="btn btn-danger text-white">Delete User</button>
                 </td>
             </tr>
             <tr>
-                <th>선택</th>
-                <th>회원번호</th>
-                <th>닉네임</th>
-                <th>이름</th>
-                <th>이메일</th>
-                <th>주소</th>
-                <th>생년월일</th>
-                <th>전화번호</th>
-                <th>적립금</th>
-                <th>회원가입일</th>
+                <th></th>
+                <th>number</th>
+                <th>nickname</th>
+                <th>name</th>
+                <th>email</th>
+                <th>address</th>
+                <th>birth</th>
+                <th>phone</th>
+                <th>point</th>
+                <th>regdate</th>
             </tr>
             {% for ud in udlist %}
             <tr>
@@ -110,10 +125,63 @@
         </table>
 
         <div id="myModal">
-            <h2>Modal Content</h2>
-            <p>This is a sample modal content.</p>
-            <!-- 모달 닫기 버튼 -->
-            <button onclick="closeModal()">Close Modal</button>
+            <div>
+                <h3>Information of User</h3>
+                <table id="userinfo">
+                    <colgroup>
+                        <col style="width:15%">
+                        <col style="width:20%">
+                        <col style="width:12%">
+                        <col style="">
+                        <col style="">
+                    </colgroup>
+                    <tr>
+                        <td>Number</td>
+                        <td>Nickname</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Addr</td>
+                    </tr>
+                    <tr>
+                        <td id="mno">3</td>
+                        <td>hello3</td>
+                        <td>tdsf</td>
+                        <td>sukku@naver.com	</td>
+                        <td>충청남도 대전시 중구</td>
+                    </tr>
+                    <tr>
+                        <td>UserType</td>
+                        <td>Phone</td>
+                        <td>Point</td>
+                        <td colspan="2">Registered Date</td>
+                    </tr>
+                    <tr>
+                        <td>member</td>
+                        <td>01022254333</td>
+                        <td>7000</td>
+                        <td colspan="2">2024-02-19 11:57</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h3>Modifying User</h3>
+                <form name="userfrm" id="userfrm">
+                    <div>
+                        <label for="usertype">UserType</label>
+                        <select name="usertype" id="usertype">
+                            <option value="member">member</option>
+                            <option value="manager">manager</option>
+                            <option value="admin">admin</option>
+                        </select>
+                        <p>Name의 사용자 권한을 'admin'으로 변경합니다</p>
+                    </div>
+
+                    <div>
+                        <button onclick="closeModal()" type="button">Close</button>
+                        <button type="button" id="usersubmit">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
         <div id="overlay"></div>
 
@@ -124,7 +192,7 @@
 {% block script %}
     <script>
         // 모달 열기 함수
-        let openModal = () => {
+        let openModal1 = () => {
             document.getElementById("myModal").style.display = "block";
             document.getElementById("overlay").style.display = "block";
         }
@@ -134,6 +202,33 @@
             document.getElementById("myModal").style.display = "none";
             document.getElementById("overlay").style.display = "none";
         }
+    </script>
+    <script>
+        let mno = document.querySelector('#mno');
+        let usersubmit = document.querySelector('#usersubmit');
+        let usertype = document.querySelector('#usertype');
+
+        usersubmit.addEventListener('click', () => {
+            let jsondata = {};
+            jsondata['mno'] = mno.textContent;
+            jsondata['usertype'] = usertype.value;
+
+
+            fetch('http://127.0.0.1:8000/admin/mguser1', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsondata),
+                redirect: 'follow'
+            })
+                .then((res) => {
+                    if (res.redirected) location.href = res.url
+                })
+                .catch((err) => console.log(err));
+
+        });
     </script>
 {% endblock %}
 
