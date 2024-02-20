@@ -12,10 +12,12 @@ from app.routes.jumun import jumun_router
 
 
 from app.routes.admin import admin_router
-
-from app.routes.main import  main_router
 from app.routes.board import board_router
+from app.routes.main_footer import mf_router
+from app.routes.main_header import mh_router
 from app.routes.member import member_router
+from app.routes.shop import shop_router
+
 
 # 서버 시작 시 DB 생성
 @asynccontextmanager
@@ -27,14 +29,16 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     SessionMiddleware,
-    secret_key='test12341234',
+    secret_key='20240216103735',
 )
 
 app.include_router(member_router)
 app.include_router(admin_router, prefix='/admin')
 app.include_router(board_router)
-app.include_router(main_router)
 app.include_router(jumun_router)
+app.include_router(mh_router)
+app.include_router(mf_router)
+app.include_router(shop_router)
 
 
 
@@ -47,7 +51,7 @@ app.mount('/static', StaticFiles(directory='views/static'), name='static')
 
 @app.get("/", response_class=HTMLResponse)
 async def index(req: Request):
-    return templates.TemplateResponse('index.html', {'request': req})
+    return templates.TemplateResponse('/main_header/index.html', {'request': req})
 
 
 # 파이썬 코드로

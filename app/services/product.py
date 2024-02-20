@@ -62,7 +62,7 @@ class ProductService:
             stmt = select(Product.prdno, Product.prdname, Product.category, Product.stack,
                           Product.price, Product.salepoint, PrdAttach.img1) \
                 .join_from(Product, PrdAttach) \
-                .order_by(Product.prdno.desc()).offset(0).limit(10)
+                .order_by(Product.prdno.desc()).offset(0).limit(36)
             result = sess.execute(stmt)
             sess.commit()
 
