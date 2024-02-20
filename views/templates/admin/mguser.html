@@ -92,7 +92,7 @@
                     </div>
                 </td>
                 <td colspan="6">
-                    <button onclick="openModal1()" class="btn btn-primary text-white">Authority Change</button>
+                    <button onclick="openModal()" class="btn btn-primary text-white">Authority Change</button>
                     <button id="deletebtn" class="btn btn-danger text-white">Delete User</button>
                 </td>
             </tr>
@@ -110,7 +110,7 @@
             </tr>
             {% for ud in udlist %}
             <tr>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox" class="rowCheckbox"></td>
                 <td>{{ ud.mno }}</td>
                 <td>{{ ud.userid }}</td>
                 <td>{{ ud.name }}<br>({{ ud.usertype }})</td>
@@ -143,11 +143,11 @@
                         <td>Addr</td>
                     </tr>
                     <tr>
-                        <td id="mno">3</td>
-                        <td>hello3</td>
-                        <td>tdsf</td>
-                        <td>sukku@naver.com	</td>
-                        <td>충청남도 대전시 중구</td>
+                        <td id="number">3</td>
+                        <td id="nickname">hello3</td>
+                        <td id="name">tdsf</td>
+                        <td id="email">sukku@naver.com</td>
+                        <td id="address">충청남도 대전시 중구</td>
                     </tr>
                     <tr>
                         <td>UserType</td>
@@ -156,10 +156,10 @@
                         <td colspan="2">Registered Date</td>
                     </tr>
                     <tr>
-                        <td>member</td>
-                        <td>01022254333</td>
-                        <td>7000</td>
-                        <td colspan="2">2024-02-19 11:57</td>
+                        <td id="usertype">member</td>
+                        <td id="phone">01022254333</td>
+                        <td id="point">7000</td>
+                        <td id="regdate" colspan="2">2024-02-19 11:57</td>
                     </tr>
                 </table>
             </div>
@@ -191,10 +191,48 @@
 
 {% block script %}
     <script>
-        // 모달 열기 함수
-        let openModal1 = () => {
+        let checkboxes = document.querySelectorAll('.rowCheckbox');
+        // 모달 열기 시 체크박스된 내용을 불러오기
+        let openModal = () => {
+            // 체크박스가 하나만 실행시키기 위해 count
+            let checkedCount = 0;
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                    checkdata = checkbox;
+                }
+            });
+            if (checkedCount !== 1) {
+                alert('권한 변경 시 1개의 체크박스를 선택해주세요.');
+                return false;
+            }
+
+            let getData = (row) => {
+                let data = row.cells[3].innerText;
+                let parts = data.split('\n');
+                let name = parts[0].trim();
+                let usertype = parts[1].replace("(", "").replace(")", "").trim();
+                return {
+                    number : row.cells[1].innerText,
+                    nickname : row.cells[2].innerText,
+                    name : name,
+                    usertype : usertype,
+                    email : row.cells[4].innerText,
+                    address : row.cells[5].innerText,
+                    birth : row.cells[6].innerText,
+                    phone : row.cells[7].innerText,
+                    point : row.cells[8].innerText,
+                    regdate : row.cells[9].innerText
+                };
+            };
+
+            let result = getData(checkdata.closest('tr'));
+            document.getElementById("myModal")
+
+
             document.getElementById("myModal").style.display = "block";
             document.getElementById("overlay").style.display = "block";
+
         }
 
         // 모달 닫기 함수
@@ -204,15 +242,15 @@
         }
     </script>
     <script>
-        let mno = document.querySelector('#mno');
         let usersubmit = document.querySelector('#usersubmit');
-        let usertype = document.querySelector('#usertype');
 
         usersubmit.addEventListener('click', () => {
+
             let jsondata = {};
+            let mno = document.querySelector('#mno');
+            let usertype = document.querySelector('#usertype');
             jsondata['mno'] = mno.textContent;
             jsondata['usertype'] = usertype.value;
-
 
             fetch('http://127.0.0.1:8000/admin/mguser1', {
                 method: 'POST',
@@ -229,6 +267,42 @@
                 .catch((err) => console.log(err));
 
         });
+    </script>
+    <script>
+    let deletentn = document.querySelector('#deletebtn');
+    let checkboxes = document.querySelectorAll('.rowCheckbox');
+
+    deletentn.addEventListener('click', () => {
+        let listdata = [];
+        let getPrdNo = (row) => {
+            return row.cells[1].innerText
+        };
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                let mno = getPrdNo(checkbox.closest('tr'));
+                listdata.push(mno);
+            }
+        });
+
+        // 예시) jsondata = {mno : [1, 2, 5, 6]}
+        let jsondata = {};
+        jsondata['mno'] = listdata;
+
+        fetch('http://127.0.0.1:8000/admin/mguser2', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsondata),
+            redirect: 'follow'
+        })
+            .then((res) => {
+                if (res.redirected) location.href = res.url
+            })
+            .catch((err) => console.log(err));
+
+    })
     </script>
 {% endblock %}
 

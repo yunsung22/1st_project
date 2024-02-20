@@ -56,9 +56,6 @@ def deleteprd(del_data: Dict[str, List[int]]):
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
 
-
-
-
 @admin_router.post('/rgproduct')
 def rgproductok(dto: NewData):
     pdto = NewProduct(prdname=dto.prdname, category=dto.category, stack=dto.stack, price=dto.price, contents=dto.contents)
@@ -82,6 +79,7 @@ def mguser(req: Request):
     udlist = UserService.select_user()
     return templates.TemplateResponse('admin/mguser.html', {'request': req, 'udlist': udlist})
 
+
 @admin_router.post('/mguser1', response_class=HTMLResponse)
 def autoritychange(acdto: Dict[str, str]):
     result = UserService.update_user(acdto)
@@ -91,8 +89,10 @@ def autoritychange(acdto: Dict[str, str]):
 
 
 @admin_router.post('/mguser2', response_class=HTMLResponse)
-def deleteuser(req: Request):
-    res_url = '/admin/mguser'
+def deleteuser(dudto : Dict[str, List[int]]):
+    result = UserService.delete_user(dudto)
+    res_url = '/error'
+    if result.rowcount > 0: res_url = '/admin/mguser'
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
 

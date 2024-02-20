@@ -1,4 +1,4 @@
-from sqlalchemy import func, select, update
+from sqlalchemy import func, select, update, delete
 
 from app.dbfactory import Session
 from app.models.member import Member, User
@@ -40,4 +40,16 @@ class UserService:
             result = sess.execute(stmt)
             sess.commit()
 
+        return result
+
+
+    @staticmethod
+    def delete_user(dudto):
+        with Session() as sess:
+            for mno in dudto['mno']:
+                stmt = delete(Member).where(Member.mno == mno)
+                sess.execute(stmt)
+                stmt2 = delete(User).where(User.mno == mno)
+                result = sess.execute(stmt2)
+                sess.commit()
         return result
