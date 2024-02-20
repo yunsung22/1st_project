@@ -61,7 +61,7 @@
     </div>
     <div class="row">
         <div class="col-auto">
-            <button type="button" class="btn btn-success btn-lg" id="modifybtn">Modify Account</button>
+            <button type="button" class="btn btn-success btn-lg" id="modifybtn">Modify Account <i class="bi bi-pencil"></i></button>
         </div>
     </div>
 </form>
@@ -107,6 +107,11 @@
             alert('phone 를 입력해주세요.');
             joinfrm.phone.focus();
             return;
+        }
+
+        if (!birth) {
+            alert('birth 를 입력해주세요.');
+            return false;
         }
 
         let useridRegex = /^[a-zA-Z0-9]{6,50}$/; // 영문자와 숫자로 이루어진 6자 이상, 50자 이하의 문자열을 허용하는 정규표현식

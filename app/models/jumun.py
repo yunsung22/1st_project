@@ -1,8 +1,11 @@
 from datetime import datetime
 
-from sqlalchemy import Column, Integer, String,  DateTime
 from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import Column, Integer, String, DateTime
+from datetime import datetime
 
+from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey
+from sqlalchemy.orm import DeclarativeBase, mapped_column
 
 class Base(DeclarativeBase):
     pass
@@ -10,9 +13,16 @@ class Base(DeclarativeBase):
 class Jumun(Base):
     __tablename__ = 'jumun'
 
-    jmno = Column(Integer,primary_key=True, autoincrement=True)
-    userno = Column(Integer, nullable=False, unique=True)
-    userloca = Column(String(50), nullable=False)
-    prno = Column(Integer, nullable=False)
-    quantity = Column(Integer,nullable=False, unique=True)
-    jumundate = Column(DateTime, default=datetime.now )
+    jmno = Column(Integer, primary_key=True, autoincrement=True)  # 주문번호
+    userno = Column(Integer,nullable=False)  # 회원아이디 (member 연동)
+    jpno = Column(Integer, nullable=False)  # 회원 주소 (member 연동)
+    size = Column(String(50), nullable=False)  # 가격 (product 연동)
+    price = Column(Integer, nullable=False)  # 제품 번호 (product 연동)
+    stack = Column(Integer, nullable=False)
+    postcode = Column(Integer, nullable=False)
+    addr = Column(String(100), nullable=False)
+    phone = Column(Integer, nullable=False)
+    regdate = Column(DateTime, default=datetime.now(), nullable=True)
+
+
+

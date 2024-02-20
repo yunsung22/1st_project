@@ -1,7 +1,9 @@
 from app.models.member import Member
 from sqlalchemy import insert, select, update, func
 from app.dbfactory import Session
-import hashlib
+import hashlib, random, string
+import random
+import string
 
 class MemberService:
 
@@ -56,8 +58,6 @@ class MemberService:
     def update_member(mdto, mno):
         data = MemberService.member_convert(mdto)
 
-        print('new_passwd', data['passwd'])
-
         # 비밀번호 암호화
         new_passwd = None
         if data['passwd']:
@@ -103,3 +103,29 @@ class MemberService:
         with Session() as sess:
             row_count = sess.query(func.count()).filter(Member.userid == userid).scalar()
             return row_count
+
+    @staticmethod
+    def generate_temp_password(length=8):
+        characters = string.ascii_letters + string.digits
+        return ''.join(random.choice(characters) for i in range(length))
+
+    @staticmethod
+    def update_member_passwd(mdto, new_passwd):
+        data = mdto.model_dump()
+        mb = Member(**data)
+        data = {
+            'userid': mb.userid,
+            'passwd': MemberService.sha256_hash(new_passwd),
+            'email': mb.email,
+            'birth': mb.birth,
+            'phone': mb.phone
+        }
+
+        with Session() as sess:
+            stmt = update(Member).filter_by(userid=data['userid'], email=data['email'], birth=data['birth'], phone=data['phone'])
+            stmt = stmt.values(passwd=data['passwd'])
+
+            result = sess.execute(stmt)
+            sess.commit()
+
+        return result
