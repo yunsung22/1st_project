@@ -1,7 +1,8 @@
 from datetime import datetime
 
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy.orm import DeclarativeBase, mapped_column
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+
 
 class Base(DeclarativeBase):
     pass
@@ -9,9 +10,9 @@ class Base(DeclarativeBase):
 class Cart(Base):
     __tablename__ = 'cart'
 
-    cno = Column(Integer, primary_key=True, autoincrement=True) #회원번호
+    cno = Column(Integer, primary_key=True, autoincrement=True) #카트번호
+    mno = mapped_column(Integer, nullable=False)
     jpno = Column(Integer, nullable=False)
-    jpname = Column(String(50), nullable=False)
     size = Column(String(20), nullable=False)
+    qty = Column(Integer, nullable=False)
     price = Column(Integer, nullable=False)
-    stack = Column(Integer, nullable=False)

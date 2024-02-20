@@ -5,11 +5,11 @@ from pydantic import BaseModel
 
 class Cart(BaseModel):
     cno = int
+    mno = int
     jpno = int
-    jpname = str
     size = str
+    qty = int
     price = int
-    stack = int
 
 
     class Config:

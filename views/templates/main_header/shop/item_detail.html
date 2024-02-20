@@ -176,7 +176,7 @@
             </div>
         </div>
         <input type="hidden"  id="prdno" value="{{ p.prdno }}">
-        <input type="hidden"  id="userid" value="{{ request.session['userid'] }}">
+        <input type="hidden"  id="mno" value="{{ request.session['mno'] }}">
 
     </main>
 {% endblock %}
@@ -186,11 +186,11 @@
         let prdno = document.querySelector('#prdno');
         let userid = document.querySelector('#userid');
         buybtn.addEventListener('click',()=>{
-            location.href = `/jumunok/${prdno.value}/${userid.value}`;
+            location.href = `/jumunok/${prdno.value}/${mno.value}`;
         });
         let addbtn=document.querySelector('#addbtn');
         addbtn.addEventListener('click',()=>{
-            location.href = `/bagok/${prdno.value}/${userid.value}`;
+            location.href = `/bagok/${prdno.value}/${mno.value}`;
         });
     </script>
 
