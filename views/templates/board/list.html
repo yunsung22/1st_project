@@ -10,6 +10,8 @@
             color: black; /* Set the color to black */
             text-decoration: none; /* Remove underline */
         }
+
+        .table-responsive { margin-top: -100px;}
     </style>
 {% endblock%}
 
@@ -30,11 +32,11 @@
             <div class="col-md-6 mb-3">
                 <div class="input-group">
                     <input type="text" name="fkey" id="fkey" class="form-control" placeholder="검색어를 입력하세요">
-                    <button class="btn btn-success" type="button" id="findbtn">Search</button>
+                    <button class="btn btn-success" type="button" id="findbtn"><i class="bi bi-search"></i></button>
                 </div>
             </div>
             <div class="col-md-2 mb-3">
-                <a href="/write" class="btn btn-dark text-white">Write</a>
+                <a href="/write" class="btn btn-dark text-white"><i class="bi bi-pencil-square"></i></a>
             </div>
         </div>
 
@@ -77,7 +79,7 @@
                     {%else%}
                 <li class="page-item">
             {% endif %}
-            <a class="page-link" href="{{ baseurl }}{{ cpg - 1 }}">이전</a></li>
+            <a class="page-link" href="{{ baseurl }}{{ cpg - 1 }}"><i class="bi bi-arrow-left"></i></a></li>
             {% for idx in range(stpg, stpg + 10) %}
                 <!--        idx 가 allpage보다 같거나 작으면 페이지네이션 출력 -->
                 {% if idx <= allpage %}
@@ -91,7 +93,7 @@
             <!--    현재 페이지가 마지막 페이지면 이전버튼 비활성-->
             {% if cpg == allpage %}<li class="page-item disabled">
             {%else%}<li class="page-item">{% endif %}
-            <a class="page-link" href="{{ baseurl }}{{ cpg + 1}}">다음</a></li>
+            <a class="page-link" href="{{ baseurl }}{{ cpg + 1}}"><i class="bi bi-arrow-right"></i></a></li>
         </ul></div>
 </main>
 
