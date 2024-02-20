@@ -1,15 +1,29 @@
 {% extends 'base.html' %}
 
+{% block style %}
+    <style>
+        {#base.html에 적용한 스타일 제거#}
+        main div {margin-bottom: 0}
+        {#footer와 main겹침 현상 방지를 위한 div편성#}
+        #lastblock {height : 100px}
+    </style>
+{% endblock %}
+
+{% block main %}
     <main>
         <form id="adminfrm">
             <div>
-                <button type="button" id="pdbtn"><a href="mgproduct.html">상품 관리</a></button>
+                <button type="button" id="pdbtn"><a href="mgproduct/1">상품 관리</a></button>
             </div>
             <div>
-                <button type="button" id="userbtn"><a href="mguser.html">사용자 관리</a></button>
+                <button type="button" id="userbtn"><a href="mguser">사용자 관리</a></button>
             </div>
             <div>
-                <button type="button" id="VOCbtn"><a href="mgVOC.html">고객문의 관리</a></button>
+                <button type="button" id="VOCbtn"><a href="mgVOC">고객문의 관리</a></button>
             </div>
         </form>
+        <div id="lastblock">
+
+        </div>
     </main>
+{% endblock %}
