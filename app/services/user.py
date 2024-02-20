@@ -1,4 +1,4 @@
-from sqlalchemy import func, select
+from sqlalchemy import func, select, update
 
 from app.dbfactory import Session
 from app.models.member import Member, User
@@ -32,12 +32,12 @@ class UserService:
 
         return result
 
-    # @staticmethod
-    # def insert_product(pdto):
-    #     data = ProductService.product_convert(pdto)
-    #     with Session() as sess:
-    #         stmt = insert(Product).values(data)
-    #         result = sess.execute(stmt)
-    #         sess.commit()
-    #
-    #     return result
+    @staticmethod
+    def update_user(acdto):
+        with Session() as sess:
+            stmt = update(User).where(User.mno == int(acdto['mno'])) \
+                .values(usertype=acdto['usertype'])
+            result = sess.execute(stmt)
+            sess.commit()
+
+        return result

@@ -56,9 +56,7 @@ def deleteprd(del_data: Dict[str, List[int]]):
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
 
-@admin_router.get('/rgproduct', response_class=HTMLResponse)
-def rgproduct(req: Request):
-    return templates.TemplateResponse('admin/rgproduct.html', {'request': req})
+
 
 
 @admin_router.post('/rgproduct')
@@ -83,6 +81,19 @@ async def upload(images: List[UploadFile] = File()):
 def mguser(req: Request):
     udlist = UserService.select_user()
     return templates.TemplateResponse('admin/mguser.html', {'request': req, 'udlist': udlist})
+
+@admin_router.post('/mguser1', response_class=HTMLResponse)
+def autoritychange(acdto: Dict[str, str]):
+    result = UserService.update_user(acdto)
+    res_url = '/error'
+    if result.rowcount > 0: res_url = '/admin/mguser'
+    return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
+
+
+@admin_router.post('/mguser2', response_class=HTMLResponse)
+def deleteuser(req: Request):
+    res_url = '/admin/mguser'
+    return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
 
 @admin_router.get('/mgVOC', response_class=HTMLResponse)

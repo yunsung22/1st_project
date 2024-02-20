@@ -27,6 +27,6 @@ class User(Base):
 
     userno = Column(Integer, primary_key=True, autoincrement=True)  # 사용자번호
     mno = mapped_column(Integer, ForeignKey('member.mno'))            # 회원번호 - 외래키
-    usertype = Column(String(50), default='member')                 # 사용자유형(domain) - member, manager
+    usertype = Column(String(50), default='member')                 # 사용자유형(domain) - member, manager, admin
     regdate = Column(DateTime, default=datetime.now(), nullable=True)       # 회원등록일
     lastmodfidate = Column(DateTime, default=datetime.now(), nullable=True) # 회원수정일
