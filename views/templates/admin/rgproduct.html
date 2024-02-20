@@ -32,6 +32,9 @@
         /* float 성질 제거 */
         .clearfix { content : ""; display: block;
             clear: both; }
+
+        {#footer와 main겹침 현상 방지를 위한 div편성#}
+        #lastblock {height : 100px}
     </style>
 {% endblock %}
 
@@ -66,6 +69,12 @@
             </div>
             <div class="clearfix">
                 <div>
+                    <label for="contents">상품 상세설명</label>
+                    <textarea id="contents" name="contents"></textarea>
+                </div>
+            </div>
+            <div>
+                <div>
                     <label for="image1">첨부파일1</label>
                 </div>
                 <input type="file" id="image1">
@@ -93,6 +102,9 @@
                 <button type="button" id="registerbtn">등록하기</button>
             </div>
         </form>
+        <div id="lastblock">
+
+        </div>
     </main>
 {% endblock %}
 

@@ -17,6 +17,12 @@
         margin-top: 60px; /* Adjust this value based on the height of your navigation bar */
     }
 
+    /* Remove border from the rightmost list items */
+    .right {
+        margin-right: 10px;
+        border: none !important;
+    }
+
 </style>
 <header></header>
 <nav>
@@ -26,7 +32,7 @@
                 <a href="/oxfords">Shop ▼</a>
                 <ul id="shopDropdown" class="dropdown">
                     <li><a href="/oxfords">Oxfords</a></li>
-                    <li><a href="/checkered">Knitwear</a></li>
+                    <li><a href="/knitwear">Knitwear</a></li>
                     <li><a href="/checkered">Checkered</a></li>
                     <li><a href="/carryover">Carryover</a></li>
                 </ul>
@@ -42,6 +48,7 @@
     <div class="right">
         <ul id="right1">
             {% if 'userid' in request.session %}
+                <li class="col-2"><a href="/admin/mgproduct/1">Admin</a></li>
                 <li class="col-2"><a href="/member/logout">Log Out</a></li>
                 <li class="col-2"><a href="/member/myinfo">My Account</a></li>
             {% else %}

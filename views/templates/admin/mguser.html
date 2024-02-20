@@ -6,8 +6,14 @@
             font-family: 'Courier Prime';
             color:black;
         }
-        table {table-layout: fixed; border-top-color: white}
-        th, td {text-align: center}
+
+        {#base.html에 적용한 스타일 제거#}
+        main div {margin-bottom: 0}
+        {#footer와 main겹침 현상 방지를 위한 div편성#}
+        #lastblock {height : 100px}
+
+        table {table-layout: fixed; border-top-color: white;  }
+        th, td {text-align: center;  vertical-align: middle;overflow-wrap: break-word}
         tr:first-child td:last-child {text-align: right}
 
         /* 사용자 검색바 */
@@ -23,19 +29,54 @@
         /* 테이블 */
         #tb {width : 80%}
 
+        /* 모달 */
+        #myModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            border-radius: 15px;
+        }
+
+        #myModal > div { margin-bottom: 20px}
+        {#색상 추후 수정예정#}
+        #userinfo {width : 700px; table-layout: fixed; white-space: nowrap; }
+        #userinfo tr:nth-child(odd) {background: #f0f0f0}
+        #userinfo td {border : 1px solid black; text-align: center}
+
+        #userfrm > div:last-child {margin-top: 20px}
+
+
+
+        /* 어두운 배경 생성 */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
     </style>
 {% endblock %}
 
 {% block main %}
     <main>
-        <h2>사용자관리</h2>
+        <h2>Managing User</h2>
         <table class="table container mt-5" id="tb">
             <colgroup>
                 <col style="width:5%">
                 <col style="width:8%">
+                <col style="width:9%">
                 <col style="width:10%">
-                <col style="width:7%">
-                <col style="width:18%">
+                <col style="width:15%">
                 <col style="width:12%">
                 <col style="width:10%">
                 <col style="width:10%">
@@ -43,70 +84,245 @@
                 <col style="width:10%">
             </colgroup>
             <tr>
-                <td colspan="4" class="searchbox">
+                <td colspan="4" class="searchbox1">
                     <div class="row">
                         <div class="col-auto" id="searchbar">
-                            <input type="text" name="search" id="search" placeholder="검색">
+                            <input type="text" name="search" id="search" placeholder="search">
                             <button type="button" id="execSearch"><i class="bi bi-search"></i></button>
                         </div>
                     </div>
                 </td>
                 <td colspan="6">
-                    <a href="#" class="btn btn-success text-white">사용자등록</a>
-                    <a href="#" class="btn btn-primary text-white">사용자수정</a>
-                    <a href="#" class="btn btn-danger text-white">사용자삭제</a>
+                    <button onclick="openModal()" class="btn btn-primary text-white">Authority Change</button>
+                    <button id="deletebtn" class="btn btn-danger text-white">Delete User</button>
                 </td>
             </tr>
             <tr>
-                <th>선택</th>
-                <th>회원번호</th>
-                <th>닉네임</th>
-                <th>이름</th>
-                <th>이메일</th>
-                <th>주소</th>
-                <th>생년월일</th>
-                <th>전화번호</th>
-                <th>적립금</th>
-                <th>회원가입일</th>
+                <th></th>
+                <th>number</th>
+                <th>nickname</th>
+                <th>name</th>
+                <th>email</th>
+                <th>address</th>
+                <th>birth</th>
+                <th>phone</th>
+                <th>point</th>
+                <th>regdate</th>
             </tr>
+            {% for ud in udlist %}
             <tr>
-                <td><input type="checkbox"></td>
-                <td>1</td>
-                <td>bamyam</td>
-                <td>서승재</td>
-                <td>bamyam@naver.com</td>
-                <td>서울시 관악구</td>
-                <td>1998-07-06</td>
-                <td>010-2176-8424</td>
-                <td>3000원</td>
-                <td>2024-02-07 14:27:03</td>
+                <td><input type="checkbox" class="rowCheckbox"></td>
+                <td>{{ ud.mno }}</td>
+                <td>{{ ud.userid }}</td>
+                <td>{{ ud.name }}<br>({{ ud.usertype }})</td>
+                <td>{{ ud.email }}</td>
+                <td>{{ ud.addr }}</td>
+                <td>{{ ud.birth }}</td>
+                <td>{{ ud.phone }}</td>
+                <td>{{ ud.point }}원</td>
+                <td>{{ ud.regdate.strftime('%Y-%m-%d %H:%M') }}</td>
             </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>2</td>
-                <td>bamyam</td>
-                <td>두루미</td>
-                <td>bamyam@naver.com</td>
-                <td>서울시 관악구</td>
-                <td>1998-07-06</td>
-                <td>010-2176-8424</td>
-                <td>3000원</td>
-                <td>2024-02-07 14:27:03</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>3</td>
-                <td>bamyam</td>
-                <td>여우</td>
-                <td>bamyam@naver.com</td>
-                <td>서울시 관악구</td>
-                <td>1998-07-06</td>
-                <td>010-2176-8424</td>
-                <td>3000원</td>
-                <td>2024-02-07 14:27:03</td>
-            </tr>
+            {% endfor %}
         </table>
+
+        <div id="myModal">
+            <div>
+                <h3>Information of User</h3>
+                <table id="userinfo">
+                    <colgroup>
+                        <col style="width:15%">
+                        <col style="width:20%">
+                        <col style="width:12%">
+                        <col style="">
+                        <col style="">
+                    </colgroup>
+                    <tr>
+                        <td>Number</td>
+                        <td>Nickname</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Addr</td>
+                    </tr>
+                    <tr>
+                        <td id="number">3</td>
+                        <td id="nickname">hello3</td>
+                        <td id="name">tdsf</td>
+                        <td id="email">sukku@naver.com</td>
+                        <td id="address">충청남도 대전시 중구</td>
+                    </tr>
+                    <tr>
+                        <td>UserType</td>
+                        <td>Phone</td>
+                        <td>Point</td>
+                        <td colspan="2">Registered Date</td>
+                    </tr>
+                    <tr>
+                        <td id="usertype">member</td>
+                        <td id="phone">01022254333</td>
+                        <td id="point">7000</td>
+                        <td id="regdate" colspan="2">2024-02-19 11:57</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <h3>Modifying User</h3>
+                <form name="userfrm" id="userfrm">
+                    <div>
+                        <label for="choose">UserType</label>
+                        <select name="choose" id="choose">
+                            <option value="member">member</option>
+                            <option value="manager">manager</option>
+                            <option value="admin">admin</option>
+                        </select>
+                        <p id="notice"></p>
+                    </div>
+
+                    <div>
+                        <button onclick="closeModal()" type="button">Close</button>
+                        <button type="button" id="usersubmit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="overlay"></div>
+
+        <div id="lastblock"></div>
     </main>
 {% endblock %}
 
 {% block script %}
+    <script>
+        let checkboxes = document.querySelectorAll('.rowCheckbox');
+
+        // 모달 열기 시 체크박스된 내용을 불러오기
+        let openModal = () => {
+            // 체크박스가 하나만 실행시키기 위해 count
+            let checkedCount = 0;
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                    checkdata = checkbox;
+                }
+            });
+            if (checkedCount !== 1) {
+                alert('권한 변경 시 1개의 체크박스를 선택해주세요.');
+                return false;
+            }
+
+            let getData = (row) => {
+                let data = row.cells[3].innerText;
+                let parts = data.split('\n');
+                let name = parts[0].trim();
+                let usertype = parts[1].replace("(", "").replace(")", "").trim();
+                return {
+                    'number' : row.cells[1].innerText,
+                    'nickname' : row.cells[2].innerText,
+                    'name' : name,
+                    'usertype' : usertype,
+                    'email' : row.cells[4].innerText,
+                    'address' : row.cells[5].innerText,
+                    'birth' : row.cells[6].innerText,
+                    'phone' : row.cells[7].innerText,
+                    'point' : row.cells[8].innerText,
+                    'regdate' : row.cells[9].innerText
+                };
+            };
+
+            let result = getData(checkdata.closest('tr'));
+            console.log(result, result.number, result['name'], result['usertype']);
+
+            document.getElementById("number").innerText = result['number'];
+            document.getElementById("nickname").innerText = result['nickname'];
+            document.getElementById("name").innerText = result['name'];
+            document.getElementById("usertype").innerText = result['usertype'];
+            document.getElementById("email").innerText = result['email'];
+            document.getElementById("address").innerText = result['address'];
+            document.getElementById("phone").innerText = result['phone'];
+            document.getElementById("point").innerText = result['point'];
+            document.getElementById("regdate").innerText = result['regdate'];
+
+
+            document.getElementById("myModal").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        // 모달 닫기 함수
+        let closeModal = () => {
+            document.getElementById("myModal").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
+        }
+    </script>
+    <script>
+        let choose = document.getElementById("choose");
+        choose.addEventListener('change', () => {
+            let selectValue = choose.value;
+            document.getElementById("notice").innerText =
+                document.getElementById("name").innerText +'의 사용자 권한을 ' + selectValue + '로 변경합니다.'
+        })
+
+    </script>
+
+    <script>
+        let usersubmit = document.querySelector('#usersubmit');
+
+        usersubmit.addEventListener('click', () => {
+
+            let jsondata = {};
+            let mno = document.querySelector('#mno');
+            let usertype = document.querySelector('#usertype');
+            jsondata['mno'] = mno.textContent;
+            jsondata['usertype'] = usertype.value;
+
+            fetch('http://127.0.0.1:8000/admin/mguser1', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsondata),
+                redirect: 'follow'
+            })
+                .then((res) => {
+                    if (res.redirected) location.href = res.url
+                })
+                .catch((err) => console.log(err));
+
+        });
+    </script>
+    <script>
+    let deletentn = document.querySelector('#deletebtn');
+
+    deletentn.addEventListener('click', () => {
+        let listdata = [];
+        let getPrdNo = (row) => {
+            return row.cells[1].innerText
+        };
+        checkboxes.forEach((checkbox) => {
+            if (checkbox.checked) {
+                let mno = getPrdNo(checkbox.closest('tr'));
+                listdata.push(mno);
+            }
+        });
+
+        // 예시) jsondata = {mno : [1, 2, 5, 6]}
+        let jsondata = {};
+        jsondata['mno'] = listdata;
+
+        fetch('http://127.0.0.1:8000/admin/mguser2', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsondata),
+            redirect: 'follow'
+        })
+            .then((res) => {
+                if (res.redirected) location.href = res.url
+            })
+            .catch((err) => console.log(err));
+
+    })
+    </script>
+{% endblock %}
+
