@@ -23,6 +23,30 @@
         /* 테이블 */
         #tb {width : 80%}
 
+        /* 모달 */
+        #myModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        /* 어두운 배경 생성 */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
     </style>
 {% endblock %}
 
@@ -52,9 +76,9 @@
                     </div>
                 </td>
                 <td colspan="6">
-                    <a href="#" class="btn btn-success text-white">사용자등록</a>
-                    <a href="#" class="btn btn-primary text-white">사용자수정</a>
-                    <a href="#" class="btn btn-danger text-white">사용자삭제</a>
+                    <button onclick="openModal()" class="btn btn-success text-white">사용자등록</button>
+                    <button class="btn btn-primary text-white">사용자수정</button>
+                    <button class="btn btn-danger text-white">사용자삭제</button>
                 </td>
             </tr>
             <tr>
@@ -84,7 +108,32 @@
             </tr>
             {% endfor %}
         </table>
+
+        <div id="myModal">
+            <h2>Modal Content</h2>
+            <p>This is a sample modal content.</p>
+            <!-- 모달 닫기 버튼 -->
+            <button onclick="closeModal()">Close Modal</button>
+        </div>
+        <div id="overlay"></div>
+
         <div id="lastblock"></div>
     </main>
+{% endblock %}
+
+{% block script %}
+    <script>
+        // 모달 열기 함수
+        let openModal = () => {
+            document.getElementById("myModal").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        // 모달 닫기 함수
+        let closeModal = () => {
+            document.getElementById("myModal").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
+        }
+    </script>
 {% endblock %}
 
