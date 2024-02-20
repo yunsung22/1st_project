@@ -33,3 +33,9 @@ class ModifyMember(BaseModel):
     addr: str
     birth: str
     phone: str
+
+class TempMember(BaseModel):
+    userid: str
+    email: str
+    birth: str
+    phone: str
