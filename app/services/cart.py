@@ -1,6 +1,7 @@
 import os
 from sqlalchemy import insert, select
 from app.models.jumun import Jumun
+from sqlalchemy import func
 from app.models.cart import Cart
 from app.dbfactory import Session
 from sqlalchemy import select
@@ -9,18 +10,11 @@ from app.services.product import UPLOAD_DIR
 
 class CartService:
 
-    @staticmethod
-    def cart_convert(cdto):
-        # 클라이언트에서 전달받은 데이터를 dict형으로 변환
-        data = cdto.model_dump()
-        c = Cart(**data)
-        data = {'jpname': c.jpname, 'size': c.size, 'price': c.price, 'stack': c.stack}
-        return data
 
     @staticmethod
     def insert_cart(cdto):
 
-        data = CartService.cart_convert(cdto)
+        data = {''}
 
         with Session() as sess:
             stmt = insert(Cart).values(data)
@@ -30,9 +24,26 @@ class CartService:
         return result
 
     @staticmethod
-    def selectone_cart(jpname):
-        with Session() as sess:
-            result = sess.query(Cart).filter_by(jpname=jpname).scalar()
-            return result
+    def select_card(cpg):
+        stnum=(cpg-1)*10
+
+        with (Session() as sess):
 
 
+            cnt= sess.query(func.count(Cart.bno)).scalar()
+
+            stmt = select(Cart.cno,Cart.jpno,Cart.jpname,
+                          Cart.size,Cart.price,Cart.stack)\
+                .order_by(Cart.bno.desc()).offset(stnum).limit(25)
+            result = sess.execute(stmt)
+
+        return result, cnt
+
+    @staticmethod
+    def selectone_cart(cno):
+
+        with (Session() as sess):
+
+            stmt = select(Cart).filter_by(cno=cno)
+            result = sess.execute(stmt).first()
+        return result

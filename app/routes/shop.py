@@ -3,6 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
+from app.services.cart import CartService
 from app.services.product import ProductService
 
 shop_router = APIRouter()
@@ -42,3 +43,8 @@ def view(req: Request, prdno: str):
     pd = ProductService.selectone_product(prdno)
     return templates.TemplateResponse('main_header/shop/item_detail.html', {'request': req, 'p': pd[0], 'pd': pd[1]})
 
+
+@shop_router.get('/bag/{cno}', response_class=HTMLResponse)
+def cart(req: Request, cno:int):
+    c=CartService.selectone_cart(cno)[0]
+    return templates.TemplateResponse('bag.html',{'request':req, 'c':c})

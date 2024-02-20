@@ -6,10 +6,10 @@ from sqlalchemy import Column, Integer, String, DateTime
 class Base(DeclarativeBase):
     pass
 
-class Bag(Base):
-    __tablename__ = 'bag'
+class Cart(Base):
+    __tablename__ = 'cart'
 
-    bno = Column(Integer, primary_key=True, autoincrement=True) #회원번호
+    cno = Column(Integer, primary_key=True, autoincrement=True) #회원번호
     jpno = Column(Integer, nullable=False)
     jpname = Column(String(50), nullable=False)
     size = Column(String(20), nullable=False)
