@@ -4,6 +4,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse
 
+from app.services.cart import CartService
 from app.services.jumun import JumunService
 
 jumun_router = APIRouter()
@@ -16,13 +17,19 @@ jumun_router.mount('/static', StaticFiles(directory='views/static'), name='stati
 def bagx(req: Request):
     if 'userid' not in req.session:
         return RedirectResponse(url='/member/login', status_code=status.HTTP_303_SEE_OTHER)
-    elif 'bag' in req.session:
-        bno = req.session['bno']
-        bag = JumunService.select_jumun(bno)[0]
-        return templates.TemplateResponse('bag.html', {'request': req, 'bag': bag})
+    elif 'cno' in req.session:
+        cno = req.session['cno']
+        cart = CartService.select_cart(cno)
+        return templates.TemplateResponse('bag.html', {'request': req, 'cart': cart})
     else:
         return templates.TemplateResponse('bagx.html', {'request': req})
 
+
+
+# @shop_router.get('/bagok/{prdno}/{userid}', response_class=HTMLResponse)
+# def cart(req: Request, prdno:str, userid:str):
+#     c=CartService.insert_cart(cno)[0]
+#     return templates.TemplateResponse('bag.html',{'request':req, 'prdno':prdno,'userid':userid})
 
 
 
