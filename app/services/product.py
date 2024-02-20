@@ -57,19 +57,7 @@ class ProductService:
         return result
 
     @staticmethod
-    def select_product(cpg):
-        stnum = (cpg - 1) * 15
-        with Session() as sess:
-            cnt = sess.query(func.count(Product.prdno)).scalar()
-            stmt = select(Product.prdno, Product.prdname, Product.category, Product.stack,
-                          Product.price, Product.salepoint, PrdAttach.img1) \
-                .join_from(Product, PrdAttach) \
-                .order_by(Product.prdno.desc()).offset(stnum).limit(15)
-            result = sess.execute(stmt)
-        return result, cnt
-
-    @staticmethod
-    def select2_product():
+    def select_product():
         with Session() as sess:
             stmt = select(Product.prdno, Product.prdname, Product.category, Product.stack,
                           Product.price, Product.salepoint, PrdAttach.img1) \
@@ -79,6 +67,7 @@ class ProductService:
             sess.commit()
 
         return result
+
 
     @staticmethod
     def selectone_product(prdno):
