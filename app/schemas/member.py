@@ -33,3 +33,14 @@ class ModifyMember(BaseModel):
     addr: str
     birth: str
     phone: str
+
+
+class User(BaseModel):
+    userno: int
+    mno: int
+    usertype: str
+    regdate: datetime
+    lastmodifidate: datetime
+
+    class Config:
+        from_attributes = True

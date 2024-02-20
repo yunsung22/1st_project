@@ -8,12 +8,18 @@ from fastapi.staticfiles import StaticFiles
 
 from app.schemas.product import NewData, NewProduct, PrdAttach, RowData
 from app.services.product import ProductService
+from app.services.user import UserService
 
 admin_router = APIRouter()
 
 # jinja2 설정
 templates = Jinja2Templates(directory='views/templates')
 admin_router.mount('/static', StaticFiles(directory='views/static'), name='static')
+
+
+@admin_router.get('/', response_class=HTMLResponse)
+def admin(req: Request):
+    return templates.TemplateResponse('admin/admin.html', {'request': req})
 
 
 @admin_router.get('/mgproduct/{cpg}', response_class=HTMLResponse)
@@ -73,13 +79,10 @@ async def upload(images: List[UploadFile] = File()):
     return {"message":"이미지업로드 성공", "filename" : list}
 
 
-
-
-
-
 @admin_router.get('/mguser', response_class=HTMLResponse)
 def mguser(req: Request):
-    return templates.TemplateResponse('admin/mguser.html', {'request': req})
+    udlist = UserService.select_user()
+    return templates.TemplateResponse('admin/mguser.html', {'request': req, 'udlist': udlist})
 
 
 @admin_router.get('/mgVOC', response_class=HTMLResponse)
