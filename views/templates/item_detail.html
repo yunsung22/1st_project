@@ -84,8 +84,8 @@
                         <h1>{{ p.prdname }}</h1>
                         <h3>${{ p.price }}</h3>
                         <br>
-                        <a href="#" class="buy-button">Add bag</a>
-                        <a href="#" class="buy-button">Buy it</a>
+                        <button type="button" id="addbtn" class="buy-button">Add bag</button>
+                        <button type="button" id="buybtn" class="buy-button">Buy it</button>
 
                     </div>
                     <div class="product-description">
@@ -175,5 +175,25 @@
                 </div>
             </div>
         </div>
+        <input type="hidden"  id="prdno" value="{{ p.prdno }}">
+        <input type="hidden"  id="userid" value="{{ request.session['userid'] }}">
+        <input type="hidden"  id="mno" value="{{ m.mno }}">
+
     </main>
+{% endblock %}
+{% block script %}
+<script>
+    let buybtn=document.querySelector('#buybtn');
+    let prdno = document.querySelector('#prdno');
+    let userid = document.querySelector('#userid');
+    buybtn.addEventListener('click',()=>{
+        location.href = `/jumunok/${prdno.value}/${userid.value}`;
+    });
+    let addbtn=document.querySelector('#addbtn');
+        addbtn.addEventListener('click',()=>{
+            location.href = `/bagok/${prdno.value}/${userid.value}`;
+    });
+</script>
+
+
 {% endblock %}

@@ -21,6 +21,20 @@ class JumunService:
         return data
 
 
+
+    @staticmethod
+    def insert_jumun(jmdto):
+
+        data = JumunService.jumun_convert(jmdto)
+
+        with Session() as sess:
+            stmt = insert(Jumun).values(data)
+            result = sess.execute(stmt)
+            sess.commit()
+
+        return result
+
+
     @staticmethod
     def select_jumun():
         with Session() as sess:
@@ -32,6 +46,10 @@ class JumunService:
             result = sess.execute(stmt)
             sess.commit()
             return result
+
+    @staticmethod
+    def insert_jumun(prdno, userid):
+        pass
 
 
 

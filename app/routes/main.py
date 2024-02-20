@@ -3,6 +3,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
+from app.services.cart import CartService
+from app.services.jumun import JumunService
 from app.services.product import ProductService
 
 main_router = APIRouter()
@@ -61,6 +63,20 @@ def view(req: Request, prdno: str):
     pd = ProductService.selectone_product(prdno)
     return templates.TemplateResponse('item_detail.html', {'request': req, 'p': pd[0], 'pd': pd[1]})
 
+@main_router.get('/bagok/{prdno}/{userid}', response_class=HTMLResponse)
+def bagok(req: Request, prdno: str, userid: str):
+
+    pd = CartService.insert_cart(prdno, userid)
+    pd = None
+    return "templates.TemplateResponse('bag.html', {'request': req})"
+    # return "templates.TemplateResponse('item_detail.html', {'request': req})"
+
+@main_router.get('/jumunok/{prdno}/{userid}', response_class=HTMLResponse)
+def jumunok(req: Request, prdno: str, userid: str):
+    pd = JumunService.insert_jumun(prdno, userid)
+    pd = None
+    return "templates.TemplateResponse('bag.html', {'request': req})"
+    # return "templates.TemplateResponse('item_detail.html', {'request': req})"
 
 # 푸터 #
 
