@@ -167,13 +167,13 @@
                 <h3>Modifying User</h3>
                 <form name="userfrm" id="userfrm">
                     <div>
-                        <label for="usertype">UserType</label>
-                        <select name="usertype" id="usertype">
+                        <label for="choose">UserType</label>
+                        <select name="choose" id="choose">
                             <option value="member">member</option>
                             <option value="manager">manager</option>
                             <option value="admin">admin</option>
                         </select>
-                        <p>Name의 사용자 권한을 'admin'으로 변경합니다</p>
+                        <p id="notice"></p>
                     </div>
 
                     <div>
@@ -192,6 +192,7 @@
 {% block script %}
     <script>
         let checkboxes = document.querySelectorAll('.rowCheckbox');
+
         // 모달 열기 시 체크박스된 내용을 불러오기
         let openModal = () => {
             // 체크박스가 하나만 실행시키기 위해 count
@@ -213,26 +214,35 @@
                 let name = parts[0].trim();
                 let usertype = parts[1].replace("(", "").replace(")", "").trim();
                 return {
-                    number : row.cells[1].innerText,
-                    nickname : row.cells[2].innerText,
-                    name : name,
-                    usertype : usertype,
-                    email : row.cells[4].innerText,
-                    address : row.cells[5].innerText,
-                    birth : row.cells[6].innerText,
-                    phone : row.cells[7].innerText,
-                    point : row.cells[8].innerText,
-                    regdate : row.cells[9].innerText
+                    'number' : row.cells[1].innerText,
+                    'nickname' : row.cells[2].innerText,
+                    'name' : name,
+                    'usertype' : usertype,
+                    'email' : row.cells[4].innerText,
+                    'address' : row.cells[5].innerText,
+                    'birth' : row.cells[6].innerText,
+                    'phone' : row.cells[7].innerText,
+                    'point' : row.cells[8].innerText,
+                    'regdate' : row.cells[9].innerText
                 };
             };
 
             let result = getData(checkdata.closest('tr'));
-            document.getElementById("myModal")
+            console.log(result, result.number, result['name'], result['usertype']);
+
+            document.getElementById("number").innerText = result['number'];
+            document.getElementById("nickname").innerText = result['nickname'];
+            document.getElementById("name").innerText = result['name'];
+            document.getElementById("usertype").innerText = result['usertype'];
+            document.getElementById("email").innerText = result['email'];
+            document.getElementById("address").innerText = result['address'];
+            document.getElementById("phone").innerText = result['phone'];
+            document.getElementById("point").innerText = result['point'];
+            document.getElementById("regdate").innerText = result['regdate'];
 
 
             document.getElementById("myModal").style.display = "block";
             document.getElementById("overlay").style.display = "block";
-
         }
 
         // 모달 닫기 함수
@@ -241,6 +251,16 @@
             document.getElementById("overlay").style.display = "none";
         }
     </script>
+    <script>
+        let choose = document.getElementById("choose");
+        choose.addEventListener('change', () => {
+            let selectValue = choose.value;
+            document.getElementById("notice").innerText =
+                document.getElementById("name").innerText +'의 사용자 권한을 ' + selectValue + '로 변경합니다.'
+        })
+
+    </script>
+
     <script>
         let usersubmit = document.querySelector('#usersubmit');
 
@@ -270,7 +290,6 @@
     </script>
     <script>
     let deletentn = document.querySelector('#deletebtn');
-    let checkboxes = document.querySelectorAll('.rowCheckbox');
 
     deletentn.addEventListener('click', () => {
         let listdata = [];
