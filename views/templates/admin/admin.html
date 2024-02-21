@@ -2,28 +2,31 @@
 
 {% block style %}
     <style>
-        {#base.html에 적용한 스타일 제거#}
-        main div {margin-bottom: 0}
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+        nav,main,footer {
+            font-family: 'Courier Prime';
+            color:black;
+        }
+        main > div:first-child {margin-top: 120px; margin-bottom: 40px}
+
         {#footer와 main겹침 현상 방지를 위한 div편성#}
         #lastblock {height : 100px}
+
+
+        #pdbtn, #userbtn { width : 300px; height: 50px; background: white; border-radius: 15px;}
+        button > a { font-size: 20px; text-decoration: none; color : black}
     </style>
 {% endblock %}
 
 {% block main %}
     <main>
-        <form id="adminfrm">
-            <div>
-                <button type="button" id="pdbtn"><a href="mgproduct/1">상품 관리</a></button>
-            </div>
-            <div>
-                <button type="button" id="userbtn"><a href="mguser">사용자 관리</a></button>
-            </div>
-            <div>
-                <button type="button" id="VOCbtn"><a href="mgVOC">고객문의 관리</a></button>
-            </div>
-        </form>
+        <div>
+            <button type="button" id="pdbtn"><a href="mgproduct/1">Managing Product</a></button>
+        </div>
+        <div>
+            <button type="button" id="userbtn"><a href="mguser/1">Managing User</a></button>
+        </div>
         <div id="lastblock">
-
         </div>
     </main>
 {% endblock %}

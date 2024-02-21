@@ -6,7 +6,7 @@
             font-family: 'Courier Prime';
             color:black;
         }
-
+        h2 > a {text-decoration: none; color : black}
         {#base.html에 적용한 스타일 제거#}
         main div {margin-bottom: 0}
         {#footer와 main겹침 현상 방지를 위한 div편성#}
@@ -21,7 +21,8 @@
         #searchbar:hover {border:1px solid darkgray; box-sizing: border-box}
         #searchbar:focus {border:1px solid darkgray; box-sizing: border-box}
 
-        #search {border: none; margin: 5px; height: 35px; width:70%; outline:none}
+        #fkey {border: none; margin: 5px; height: 35px; width:70%; outline:none}
+        #ftype {width: 24%; margin-left: 10px; margin-right: 10px; margin-top:4px}
 
         #execSearch {border: none; border-radius: 15px;}
         #execSearch:hover {background: darkgrey;}
@@ -44,8 +45,8 @@
         }
 
         #myModal > div { margin-bottom: 20px}
-        {#색상 추후 수정예정#}
-        #userinfo {width : 700px; table-layout: fixed; white-space: nowrap; }
+
+        #userinfo {width : 700px; table-layout: fixed; overflow-wrap: break-word }
         #userinfo tr:nth-child(odd) {background: #f0f0f0}
         #userinfo td {border : 1px solid black; text-align: center}
 
@@ -69,7 +70,7 @@
 
 {% block main %}
     <main>
-        <h2>Managing User</h2>
+        <h2><a href="/admin/mguser/1">Managing User</a></h2>
         <table class="table container mt-5" id="tb">
             <colgroup>
                 <col style="width:5%">
@@ -84,15 +85,25 @@
                 <col style="width:10%">
             </colgroup>
             <tr>
-                <td colspan="4" class="searchbox1">
+                <td colspan="5" class="searchbox1">
                     <div class="row">
+                        <select name="ftype" id="ftype" class="form-select">
+                            <option value="number">number</option>
+                            <option value="nickname">nickname</option>
+                            <option value="name">name</option>
+                            <option value="usertype">usertype</option>
+                            <option value="email">email</option>
+                            <option value="address">address</option>
+                            <option value="birth">birth</option>
+                            <option value="phone">phone</option>
+                        </select>
                         <div class="col-auto" id="searchbar">
-                            <input type="text" name="search" id="search" placeholder="search">
+                            <input type="text" name="fkey" id="fkey" placeholder="search">
                             <button type="button" id="execSearch"><i class="bi bi-search"></i></button>
                         </div>
                     </div>
                 </td>
-                <td colspan="6">
+                <td colspan="5">
                     <button onclick="openModal()" class="btn btn-primary text-white">Authority Change</button>
                     <button id="deletebtn" class="btn btn-danger text-white">Delete User</button>
                 </td>
@@ -125,7 +136,35 @@
             {% endfor %}
         </table>
 
-        <div id="myModal">
+        <ul class="pagination justify-content-center mt-4" >
+            {% if cpg == 1 %}
+                <li class="page-item disabled">
+                    {% else %}
+                <li class="page-item">
+            {% endif %}
+            <a class="page-link" href="{{ baseurl }}{{ cpg - 1 }}">이전</a></li>
+
+            {% for idx in range(stpg, stpg + 10) %}
+                <!-- idx가  allpage보다 같거나 작으면 페이지네이션 출력 -->
+                {% if idx <= allpage %}
+                    {% if cpg == idx %} <!-- 현재 페이지가 마지막 페이지라면 이전 버튼 비활성 -->
+                        <li class="page-item active" style="z-index: 0">
+                            {% else %}
+                        <li class="page-item">
+                    {% endif %}
+                <a class="page-link" href="{{ baseurl }}{{ idx }}">{{ idx }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if cpg == allpage %} <!-- 현재 페이지가 마지막 페이지라면 이전 버튼 비활성 -->
+                <li class="page-item disabled">
+                    {% else %}
+                <li class="page-item">
+            {% endif %}
+            <a class="page-link" href="{{ baseurl }}{{ cpg + 1 }}">다음</a></li>
+        </ul>
+
+        <div id="myModal" style="z-index: 1">
             <div>
                 <h3>Information of User</h3>
                 <table id="userinfo">
@@ -192,6 +231,45 @@
 
 {% block script %}
     <script>
+        let execSearch = document.querySelector('#execSearch');
+
+        execSearch.addEventListener('click', () => {
+            let ftype = document.querySelector('#ftype').value;
+            let fkey = document.querySelector('#fkey').value;
+
+            let params = `/${ftype}/${fkey}/1`;
+            location.href = 'http://127.0.0.1:8000/admin/mguser' + params;
+        });
+
+        // 엔터키를 누르면 click과 같은 효과
+        execSearch.addEventListener('keyup', (event) => {
+            if (event.key === "Enter") {
+                execSearch.click();
+            }
+        });
+    </script>
+
+    <script>
+        let findurl = location.pathname.split('/');
+
+        if (findurl[4] !== undefined) {
+            document.querySelector('#fkey').value = decodeURI(findurl[4]);
+
+            let ftype = document.querySelector('#ftype');
+            switch (findurl[3]) {
+                case 'number' : ftype.selectedIndex = 0; break;
+                case 'nickname' : ftype.selectedIndex = 1; break;
+                case 'name' : ftype.selectedIndex = 2; break;
+                case 'usertype' : ftype.selectedIndex = 3; break;
+                case 'email' : ftype.selectedIndex = 4; break;
+                case 'address' : ftype.selectedIndex = 5; break;
+                case 'birth' : ftype.selectedIndex = 6; break;
+                case 'phone' : ftype.selectedIndex = 7; break;
+            }
+        }
+    </script>
+
+    <script>
         let checkboxes = document.querySelectorAll('.rowCheckbox');
 
         // 모달 열기 시 체크박스된 내용을 불러오기
@@ -214,6 +292,7 @@
                 let parts = data.split('\n');
                 let name = parts[0].trim();
                 let usertype = parts[1].replace("(", "").replace(")", "").trim();
+                let point = row.cells[8].innerText.replace("원", "")
                 return {
                     'number' : row.cells[1].innerText,
                     'nickname' : row.cells[2].innerText,
@@ -223,7 +302,7 @@
                     'address' : row.cells[5].innerText,
                     'birth' : row.cells[6].innerText,
                     'phone' : row.cells[7].innerText,
-                    'point' : row.cells[8].innerText,
+                    'point' : point,
                     'regdate' : row.cells[9].innerText
                 };
             };

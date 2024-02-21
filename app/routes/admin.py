@@ -32,7 +32,7 @@ def mgproduct(req: Request, cpg: int):
 
 
 @admin_router.get('/mgproduct/{category}/{search}/{cpg}', response_class=HTMLResponse)
-def mgproduct(req: Request, category: str, search: str, cpg: int):
+def mgproduct_find(req: Request, category: str, search: str, cpg: int):
     stpg = int((cpg - 1) / 10) * 10 + 1
     pdlist, cnt = ProductService.find_select_product(category, '%' + search + '%', cpg)
     allpage = ceil(cnt / 10)
@@ -74,10 +74,23 @@ async def upload(images: List[UploadFile] = File()):
     return {"message":"이미지업로드 성공", "filename" : list}
 
 
-@admin_router.get('/mguser', response_class=HTMLResponse)
-def mguser(req: Request):
-    udlist = UserService.select_user()
-    return templates.TemplateResponse('admin/mguser.html', {'request': req, 'udlist': udlist})
+@admin_router.get('/mguser/{cpg}', response_class=HTMLResponse)
+def mguser(req: Request, cpg: int):
+    stpg = int((cpg - 1) / 10) * 10 + 1
+    udlist, cnt = UserService.select_user(cpg)
+    allpage = ceil(cnt / 10)
+    return templates.TemplateResponse('admin/mguser.html',
+          {'request': req, 'udlist': udlist, 'cpg': cpg, 'stpg': stpg, 'allpage': allpage, 'baseurl': '/admin/mguser/'})
+
+
+@admin_router.get('/mguser/{ftype}/{fkey}/{cpg}', response_class=HTMLResponse)
+def search(req: Request, ftype: str, fkey: str, cpg: int):
+    print(ftype, fkey, cpg)
+    stpg = int((cpg - 1) / 10) * 10 + 1
+    udlist, cnt = UserService.search_select_user(ftype, '%' + fkey + '%', cpg)
+    allpage = ceil(cnt / 15)
+    return templates.TemplateResponse('admin/mguser.html',
+          {'request': req, 'udlist': udlist, 'cpg': cpg, 'stpg': stpg, 'allpage': allpage, 'baseurl': f'/admin/mguser/{ftype}/{fkey}/'})
 
 
 @admin_router.post('/mguser1', response_class=HTMLResponse)

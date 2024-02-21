@@ -6,63 +6,69 @@
             font-family: 'Courier Prime';
             color:black;
         }
+
+        h2 > a {text-decoration: none; color : black}
+
         {#base.html에 적용한 스타일 제거#}
         main div {margin-bottom: 0}
         table th {background-color: white;}
 
-        table {table-layout: fixed; border-top-color: white}
-        th, td {text-align: center; vertical-align: middle}
+        table {table-layout: fixed; border-top-color: white; overflow-wrap: break-word}
+        th, td {text-align: center; vertical-align: middle; font-weight: normal}
 
         {#searchbox 양식#}
         tr:first-child td {border : none; padding: 20px 0;}
         tr:first-child td:last-child {text-align: right}
+        #search {width : 200px}
 
         {#searchbox2 안의 폼요소#}
         .searchbox2 > div > div {padding-right: 0;}
 
         {# 제출버튼 #}
-        #buttonbar {text-align: right; padding: 10px 0}
+        #buttonbar {text-align: right; padding: 10px 0; margin-top: 10px}
         #buttonbar button {margin: 0}
 
         {#테이블 내 form요소 사이즈#}
         .stackinfrm {width:80%; height : 30px; margin : 5px 0}
-        .numinfrm {width:80%; height : 30px; margin : 5px 0}
+        .price {width:80%; height : 30px; margin : 5px 0}
+        .salepoint {width:60%; height : 30px; margin : 5px 0}
 
         /* 페이지네이션 스타일*/
         .pagination a:link {color : darkslategray}
 
         td img {height: 100px; width: 100px; margin: 0}
         .nameform {width : 60%}
-        .name {padding: 0; text-align: left}
+        .name {padding: 0; text-align: center}
+        .name > input {margin-left: 5px}
 
         {#footer와 main겹침 현상 방지를 위한 div편성#}
-        #lastblock {height : 100px}
+        #lastblock {height : 60px}
     </style>
 {% endblock %}
 
 {% block main %}
     <main>
-        <h2>상품관리</h2>
+        <h2><a href="/admin/mgproduct/1">Managing Product</a></h2>
         <form name="dataForm">
-            <table class="table-bordered w-75 container mt-5">
+            <table class="table-bordered container mt-5" style="width: 85%">
                 <colgroup>
                     <col style="width:5%">
+                    <col style="width:6%">
+                    <col style="width:34%">
+                    <col style="width:9%">
+                    <col style="width:7%">
                     <col style="width:8%">
-                    <col style="width:30%">
+                    <col style="width:7%">
                     <col style="width:8%">
-                    <col style="width:7%">
-                    <col style="width:7%">
-                    <col style="width:7%">
-                    <col style="width:7%">
-                    <col style="width:7%">
+                    <col style="width:9%">
                     <col style="width:7%">
                 </colgroup>
                 <tr>
-                    <td colspan="3" class="searchbox2">
+                    <td colspan="4" class="searchbox2">
                         <div class="row">
                             <div class="col-auto">
                                 <select class="form-select" name="category" id="category" >
-                                    <option>전체분류</option>
+                                    <option>Category</option>
                                     <option value="oxford">oxford</option>
                                     <option value="knitwear">knitwear</option>
                                     <option value="check">check</option>
@@ -70,28 +76,28 @@
                                 </select>
                             </div>
                             <div class="col-auto">
-                                <input type="text" name="search" id="search" class="form-control" placeholder="상품명">
+                                <input type="text" name="search" id="search" class="form-control" placeholder="product name">
                             </div>
                             <div class="col-auto">
-                                <button type="button" class="btn btn-success" id="searchbtn"> 검색 </button>
+                                <button type="button" class="btn btn-success" id="searchbtn"> search </button>
                             </div>
                         </div>
                     </td>
-                    <td colspan="7">
-                        <a href="/admin/rgproduct" class="btn btn-dark text-white">상품등록</a>
+                    <td colspan="6">
+                        <a href="/admin/rgproduct" class="btn btn-dark text-white">Register</a>
                     </td>
                 </tr>
                 <tr>
-                    <th>선택</th>
-                    <th>상품코드</th>
-                    <th>상품명</th>
-                    <th>카테고리</th>
-                    <th>재고량</th>
-                    <th>재고수정</th>
-                    <th>단가</th>
-                    <th>단가수정</th>
-                    <th>할인율</th>
-                    <th>가격</th>
+                    <th></th>
+                    <th>code</th>
+                    <th>name</th>
+                    <th>category</th>
+                    <th>stack</th>
+                    <th>fix stack</th>
+                    <th>price</th>
+                    <th>fix price</th>
+                    <th>salepoint</th>
+                    <th>price</th>
                 </tr>
                 {% for pd in pdlist %}
                 <tr>
@@ -105,16 +111,16 @@
                     <td>{{ pd.stack }}</td>
                     <td><input type="text" class="stackinfrm" value="{{ pd.stack }}"></td>
                     <td>{{ pd.price }}</td>
-                    <td><input type="text" class="numinfrm" id="price" value="{{ pd.price }}"></td>
-                    <td><input type="text" class="numinfrm" id="salepoint" value="{{ pd.salepoint }}"></td>
+                    <td><input type="text" class="price" id="price" value="{{ pd.price }}"></td>
+                    <td><input type="text" class="salepoint" id="salepoint" value="{{ pd.salepoint }}"></td>
                     <td>{{ pd.price * (1 - pd.salepoint) }} </td>
                 </tr>
                 {% endfor %}
             </table>
 
-            <div class="container w-75" id="buttonbar">
-                <button type="button" class="btn btn-primary" id="updatebtn">수정하기</button>
-                <button type="button" class="btn btn-danger" id="deletebtn">삭제하기</button>
+            <div class="container" id="buttonbar" style="width: 85%">
+                <button type="button" class="btn btn-primary" id="updatebtn">Modify Product</button>
+                <button type="button" class="btn btn-danger" id="deletebtn">Delete Product</button>
             </div>
         </form>
 
@@ -124,7 +130,7 @@
                     {% else %}
                 <li class="page-item">
             {% endif %}
-            <a class="page-link" href="{{ baseurl }}{{ cpg - 1 }}">이전</a></li>
+            <a class="page-link" href="{{ baseurl }}{{ cpg - 1 }}">back</a></li>
 
             {% for idx in range(stpg, stpg + 10) %}
                 <!-- idx가  allpage보다 같거나 작으면 페이지네이션 출력 -->
@@ -143,7 +149,7 @@
                 {% else %}
             <li class="page-item">
             {% endif %}
-            <a class="page-link" href="{{ baseurl }}{{ cpg + 1 }}">다음</a></li>
+            <a class="page-link" href="{{ baseurl }}{{ cpg + 1 }}">next</a></li>
         </ul>
         <div id="lastblock">
         </div>
