@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class Cart(BaseModel):
     cno = int
     mno = int
-    jpno = int
+    prdno = int
     size = str
     qty = int
     price = int

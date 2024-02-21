@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class Bag(BaseModel):
     bno = int
-    jpno = int
+    prdno = int
     jpname = str
     size = str
     price = int

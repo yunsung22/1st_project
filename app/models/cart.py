@@ -12,7 +12,7 @@ class Cart(Base):
 
     cno = Column(Integer, primary_key=True, autoincrement=True) #카트번호
     mno = mapped_column(Integer, nullable=False)
-    jpno = Column(Integer, nullable=False)
+    prdno = Column(Integer, nullable=False)
     size = Column(String(20), nullable=False)
     qty = Column(Integer, nullable=False)
     price = Column(Integer, nullable=False)
