@@ -1,4 +1,4 @@
-from app.models.member import Member
+from app.models.member import Member, User
 from sqlalchemy import insert, select, update, func
 from app.dbfactory import Session
 import hashlib, random, string
@@ -41,10 +41,19 @@ class MemberService:
 
         with Session() as sess:
             stmt = insert(Member).values(data)
+            sess.execute(stmt)
+
+            sess.commit()
+
+        with Session() as sess:
+            data = sess.query(Member.mno).filter_by(userid=data['userid']).scalar()
+            data_converted = {'mno': data}
+            stmt = insert(User).values(data_converted)
             result = sess.execute(stmt)
             sess.commit()
 
         return result
+
 
     @staticmethod
     def select_one(mno):
@@ -79,14 +88,16 @@ class MemberService:
 
     @staticmethod
     def check_login(userid, passwd):
-
         with Session() as sess:
-            result = sess.query(Member).filter_by(userid=userid).scalar()
+            stmt = select(Member, User.usertype).join_from(Member, User).filter(Member.userid == userid)
+            results = sess.execute(stmt)
+            for result in results:
 
-            if result and result.passwd == MemberService.sha256_hash(passwd):
-                return result
-            else:
-                return None
+                # result[0]에는 Member테이블 객체, # result[1]에는 User의 Usertype
+                if result[0] and result[0].passwd == MemberService.sha256_hash(passwd):
+                    return result[0], result[1]
+                else:
+                    return None, None
 
     @staticmethod
     def select_one_member(userid):
