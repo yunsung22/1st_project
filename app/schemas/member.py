@@ -44,3 +44,10 @@ class User(BaseModel):
 
     class Config:
         from_attributes = True
+
+class TempMember(BaseModel):
+    userid: str
+    email: str
+    birth: str
+    phone: str
+

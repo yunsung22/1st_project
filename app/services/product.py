@@ -65,10 +65,21 @@ class ProductService:
                           Product.price, Product.salepoint, PrdAttach.img1)\
             .join_from(Product, PrdAttach) \
             .order_by(Product.prdno.desc()).offset(stnum).limit(10)
-            result = sess.execute(stmt)
 
+            result = sess.execute(stmt)
         return result, cnt
 
+    @staticmethod
+    def select2_product():
+        with Session() as sess:
+            stmt = select(Product.prdno, Product.prdname, Product.category, Product.stack,
+                          Product.price, Product.salepoint, PrdAttach.img1) \
+                .join_from(Product, PrdAttach) \
+                .order_by(Product.prdno.desc()).offset(0).limit(36)
+            result = sess.execute(stmt)
+            sess.commit()
+
+        return result
 
     @staticmethod
     def selectone_product(prdno):

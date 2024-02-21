@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse, RedirectResponse
 
-from app.schemas.member import NewMember, ModifyMember
+from app.schemas.member import NewMember, ModifyMember, TempMember
 from app.services.member import MemberService
 
 member_router = APIRouter()
@@ -81,3 +81,21 @@ def modify_member(req: Request, mdto: ModifyMember):
 def check_id(req: Request, mdto: NewMember):
     member_count = MemberService.select_user_id_count(mdto)
     return member_count
+
+@member_router.get('/member/reset_passwd', response_class=HTMLResponse)
+def reset_passwd(req: Request):
+    return templates.TemplateResponse('/member/reset_passwd.html', {'request': req})
+
+@member_router.post('/member/reset_passwd')
+def reset_passwd(req: Request, mdto: TempMember):
+    new_password = MemberService.generate_temp_password()
+    result = MemberService.update_member_passwd(mdto, new_password)
+    update_cnt = result.rowcount
+
+    result_msg = ''
+    if update_cnt > 0 :
+        result_msg = f'임시비밀번호 {new_password}로 변경 되었습니다.'
+    else :
+        result_msg = '일치하는 회원정보가 없습니다. 다시 입력해 주세요.'
+
+    return JSONResponse(content={"result_msg": result_msg})
