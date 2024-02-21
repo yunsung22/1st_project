@@ -5,11 +5,11 @@ from pydantic import BaseModel
 
 class Jumun(BaseModel):
     jmno : int
-    userno  :int
-    jpno :int
+    mno  :int
+    prdno :int
     size  :int
     price:int
-    stack :int
+    qty :int
     postcode :int
     addr : str
     phone :int

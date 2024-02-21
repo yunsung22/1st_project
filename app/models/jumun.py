@@ -14,11 +14,11 @@ class Jumun(Base):
     __tablename__ = 'jumun'
 
     jmno = Column(Integer, primary_key=True, autoincrement=True)  # 주문번호
-    userno = Column(Integer,nullable=False)  # 회원아이디 (member 연동)
-    jpno = Column(Integer, nullable=False)  # 회원 주소 (member 연동)
+    mno = Column(Integer,nullable=False)  # 회원아이디 (member 연동)
+    prdno = Column(Integer, nullable=False)  # 회원 주소 (member 연동)
     size = Column(String(50), nullable=False)  # 가격 (product 연동)
+    qty = Column(Integer, nullable=False)
     price = Column(Integer, nullable=False)  # 제품 번호 (product 연동)
-    stack = Column(Integer, nullable=False)
     postcode = Column(Integer, nullable=False)
     addr = Column(String(100), nullable=False)
     phone = Column(Integer, nullable=False)

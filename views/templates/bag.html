@@ -175,48 +175,54 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% for c in cart %}
                 <tr>
                     <td class="col-4">
                         <div class="item-details">
-                            <img src="{{ url_for('static',path='/img/shirt2.png')}}" alt="Ecru Reverse-Denim Western">
+                            <img src="http://localhost/cdn/{{ c.img1 }}" alt="Ecru Reverse-Denim Western">
                             <div>
-                                <p>Ecru Reverse-Denim Western</p>
+                                <p>{{ c.prdname }}</p>
                             </div>
                         </div>
                     </td>
-                    <td class="col-2">$142</td>
+                    <td class="col-2">${{ c.price }}</td>
                     <td class="col-3">
                         <div class="quantity-box" id="quanbox">
                             <button type="button" id="increase_btn" name="increase_btn"><i class="bi bi-caret-up-fill"></i></button>
-                            <p class="quantity">1</p>
+                            <p class="quantity">{{ c.qty }}</p>
                             <button type="button" id="decrease_btn" name="decrease_btn"><i class="bi bi-caret-down-fill"></i></button>
                         </div>
                     </td>
-                    <td class="col-2">$142</td>
+                    <td class="col-2">${{ c.price }}</td>
+                    <input type="hidden" name="cno" value="{{ c.cno }}">
                 </tr>
+                {% endfor %}
                 </tbody>
             </table>
 
-            <form name="boardfrm" id="boardfrm">
+            <form name="jumunfrm" id="jumunfrm">
                 <div>
                     <label for="contents">Special Instructions</label>
                 </div>
                 <div>
                     <textarea name="contents" id="contents" rows="2" class="form-control"></textarea>
                 </div>
+                <input type="hidden" name="jmcno" id="jmcno">
+                <input type="hidden" name="jmmno" id="jmmno" value="{{ request.session['mno'] }}">
             </form>
 
             <div class="subtotal">
-                <h2>Subtotal: <span>$120</span></h2>
-                <h>Total excludes shipping and taxes. <a href="#" id="shippingCalculatorToggle" class="link">Show shipping calculator.</a></h>
+                {% for c in cart %}
+                <h2>Subtotal: <span>{{ c.price }}</span></h2>
+                <h>Total excludes shipping and taxes.
+                    <a href="#" id="shippingCalculatorToggle" class="link">Show shipping calculator.</a></h>
+                {% endfor %}
             </div>
 
             <div>
-                <a href="/jumun">
                     <button type="button" id="jumunbtn" class="text-white" style="font-size: large;">
                         <i class="bi bi-success"></i>Checkout
                     </button>
-                </a>
             </div>
 
             <div>
@@ -259,7 +265,27 @@
 
             increaseBtn.addEventListener('click', increaseQuantity);
             decreaseBtn.addEventListener('click', decreaseQuantity);
-            resetBtn.addEventListener('click', resetQuantity);
+            {#resetBtn.addEventListener('click', resetQuantity);#}
         });
     </script>
+
+    <script>
+        let jumunbtn = document.querySelector('#jumunbtn');
+        jumunbtn.addEventListener('click', () => {
+            let jumunfrm = document.querySelector('#jumunfrm');
+            let jmmno = document.querySelector('#jmmno');
+            let jmcno = document.querySelector('#jmcno');
+            let cnos = document.getElementsByName('cno');
+
+            console.log(cnos[0].value);
+            console.log(jmmno.value);
+
+            jmcno.value = cnos[0].value;
+            jumunfrm.method='POST';
+            jumunfrm.action='/jumun';
+            jumunfrm.submit();
+
+        });
+    </script>
+
 {% endblock %}
