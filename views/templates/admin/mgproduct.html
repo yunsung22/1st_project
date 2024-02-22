@@ -29,9 +29,9 @@
         #buttonbar button {margin: 0}
 
         {#테이블 내 form요소 사이즈#}
-        .stackinfrm {width:80%; height : 30px; margin : 5px 0}
-        .price {width:80%; height : 30px; margin : 5px 0}
-        .salepoint {width:60%; height : 30px; margin : 5px 0}
+        .stackinfrm {width:80%; height : 30px; margin : 5px 0; text-align: center}
+        .price {width:80%; height : 30px; margin : 5px 0; text-align: center}
+        .salepoint {width:60%; height : 30px; margin : 5px 0; text-align: center}
 
         /* 페이지네이션 스타일*/
         .pagination a:link {color : darkslategray}
@@ -111,9 +111,9 @@
                     <td>{{ pd.stack }}</td>
                     <td><input type="text" class="stackinfrm" value="{{ pd.stack }}"></td>
                     <td>{{ pd.price }}</td>
-                    <td><input type="text" class="price" id="price" value="{{ pd.price }}"></td>
-                    <td><input type="text" class="salepoint" id="salepoint" value="{{ pd.salepoint }}"></td>
-                    <td>{{ pd.price * (1 - pd.salepoint) }} </td>
+                    <td><input type="text" class="price numinfrm" id="price" value="{{ pd.price }}"></td>
+                    <td><input type="text" class="salepoint numinfrm" id="salepoint" value="{{ pd.salepoint }}"></td>
+                    <td>{{ (pd.price * (1 - pd.salepoint)) | int }} </td>
                 </tr>
                 {% endfor %}
             </table>
@@ -211,19 +211,17 @@ updatebtn.addEventListener('click', ()=> {
         return {
             prdno : row.cells[1].innerText,
             prdname : row.cells[2].querySelector('input').value,
-            // data3 : row.cells[3].innerText, // 카테고리
             stack : row.cells[5].querySelector('input').value,
             price : row.cells[7].querySelector('input').value,
             salepoint : row.cells[8].querySelector('input').value}
     };
 
     checkboxes.forEach((checkbox) => {
-        if (checkbox.checked) {      // 체크박스가 체크되었다면 getRowData라는 함수로 그 행의 데이터를 수집
+        if (checkbox.checked) {
             let rowData = getRowData(checkbox.closest('tr'));
             jsondata[rowData.prdno] = rowData;
         }
     });
-    console.log(jsondata)
 
     fetch('http://127.0.0.1:8000/admin/mgproduct1', {
         method: 'POST',

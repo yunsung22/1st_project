@@ -6,28 +6,49 @@
             font-family: 'Courier Prime';
             color:black;
         }
+
         main div {margin-bottom: 0}
         main {text-align: left}
-        form > div {width : 800px}
-        {#form > div > div > div {display: inline-block}#}
 
-        input {padding : 5px; width: 200px; margin-top: 5px}
-        select {padding : 5px; width : 150px; margin-top: 5px}
+        form > div {width : 500px; margin-bottom: 20px}
+        h2 {margin-bottom: 25px}
+
+        input {padding : 5px; width: 240px; margin-top: 5px; }
+        select {padding : 7px; width : 200px; margin-top: 5px}
+        textarea {margin-top: 5px;}
 
         #firstline {float : left; width : 700px; margin-bottom: 15px;}
-        #firstline > div {float : left;}
+        #firstline > div {display: inline-block}
         #firstline > div:first-child {margin-right: 20px}
         form > div > div > * {display: block;}
-        {##firstline > div > div:first-child {width:170px}#}
 
-        #secondline {float : left; width : 700px; margin-bottom: 1px;}
-        #secondline > div {float : left;}
+
+        #secondline {float : left; width : 700px; margin-bottom: 15px;}
+        #secondline > div {display: inline-block}
         #secondline > div:first-child {margin-right: 20px}
 
-        form > div:nth-child(3) {padding-top: 10px;}
+
+        /* attached */
+        #attached >  div {
+            display: flex; /* Flexbox 사용 */
+            align-items: center; /* 세로 방향 가운데 정렬 */
+
+        }
 
 
-        {##secondline > div > div:first-child {width:170px}#}
+
+        #attached > div > div:first-child {
+            margin-right: 20px; /* 왼쪽과의 간격 조절 */
+        }
+
+        #attached > div > div:last-child {
+            height:120px; width:100px;
+        }
+
+        #previous > a {text-decoration: none; color : white}
+        #previous > a:hover {text-decoration: none}
+
+
 
         /* float 성질 제거 */
         .clearfix { content : ""; display: block;
@@ -40,25 +61,25 @@
 
 {% block main %}
     <main>
-        <h2>상품등록</h2>
+        <h2>Register Product</h2>
         <form name="productfrm">
             <div id="firstline">
                 <div>
-                    <label for="prdname">상품이름</label>
+                    <label for="prdname">Product Name</label>
                     <input type="text" name="prdname" id="prdname" placeholder="상품 이름을 입력하세요">
                 </div>
                 <div>
-                    <label for="stack">상품수량</label>
+                    <label for="stack">Product Stack</label>
                     <input type="text" name="stack" id="stack" placeholder="상품 수량을 입력하세요">
                 </div>
             </div>
             <div id="secondline" class="clearfix">
                 <div>
-                    <label for="price">상품원가</label>
+                    <label for="price">Product Price</label>
                     <input type="text" name="price" id="price" placeholder="상품 원가를 입력하세요">
                 </div>
                 <div>
-                    <label for="category">상품 카테고리</label>
+                    <label for="category">Product Category</label>
                     <select name="category" id="category">
                         <option value="oxford">oxford</option>
                         <option value="knitwear">knitwear</option>
@@ -69,37 +90,61 @@
             </div>
             <div class="clearfix">
                 <div>
-                    <label for="contents">상품 상세설명</label>
-                    <textarea id="contents" name="contents"></textarea>
+                    <label for="contents">Product Contents</label>
+                    <textarea id="contents" name="contents" class="form-control" style="height:150px; width:500px"></textarea>
                 </div>
             </div>
-            <div>
+            <div id="attached">
                 <div>
-                    <label for="image1">첨부파일1</label>
+                    <div>
+                        <div>
+                            <label for="image1">Attached File1</label>
+                        </div>
+                        <input type="file" id="image1" class="image">
+                    </div>
+                    <div>
+                        <img id="preview1" src="#" alt="Preview" style="display: none; max-width: 100px; max-height: 120px ">
+                    </div>
                 </div>
-                <input type="file" id="image1">
-            </div>
-            <div>
                 <div>
-                    <label for="image2">첨부파일2</label>
+                    <div>
+                        <div>
+                            <label for="image2">Attached File2</label>
+                        </div>
+                        <input type="file" id="image2"  class="image">
+                    </div>
+                    <div>
+                        <img id="preview2" src="#" alt="Preview" style="display: none; max-width: 100px; max-height: 120px ">
+                    </div>
                 </div>
-                <input type="file" id="image2">
-            </div>
-            <div>
                 <div>
-                    <label for="image3">첨부파일3</label>
+                    <div>
+                        <div>
+                            <label for="image3">Attached File3</label>
+                        </div>
+                        <input type="file" id="image3"  class="image">
+                    </div>
+                    <div>
+                        <img id="preview3" src="#" alt="Preview" style="display: none; max-width: 100px; max-height: 120px ">
+                    </div>
                 </div>
-                <input type="file" id="image3">
-            </div>
-            <div>
                 <div>
-                    <label for="image4">첨부파일4</label>
+                    <div>
+                        <div>
+                            <label for="image4">Attached File4</label>
+                        </div>
+                        <input type="file" id="image4"  class="image">
+                    </div>
+                    <div>
+                        <img id="preview4" src="#" alt="Preview" style="display: none; max-width: 100px; max-height: 120px ">
+                    </div>
                 </div>
-                <input type="file" id="image4">
             </div>
-            <div>
-                <button type="button">이전 단계로</button>
-                <button type="button" id="registerbtn">등록하기</button>
+            <div style="text-align: right">
+                <button type="button" class="btn btn-secondary" id="previous">
+                    <a href="/admin/mgproduct/1" style="text-decoration: none;" >Previous</a>
+                </button>
+                <button type="button" id="registerbtn" class="btn btn-success">Register</button>
             </div>
         </form>
         <div id="lastblock">
@@ -109,6 +154,28 @@
 {% endblock %}
 
 {% block script %}
+    <script>
+        let image = document.querySelectorAll('.image');
+
+        image.forEach((input) => {
+            input.addEventListener('change', () => {
+                console.log(input);
+                let index = input.id.substring(input.id.length - 1, input.id.length);
+                if (input.files[0] instanceof File) {console.log('file있음')}
+                if (input.files && input.files[0]) {
+                    let reader = new FileReader();
+
+                    reader.onload = (e) => {
+                        document.getElementById('preview' + index).src = e.target.result;
+                        document.getElementById('preview' + index).style.display = 'block';
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        )})
+
+
+    </script>
     <script>
         let registerbtn = document.querySelector('#registerbtn');
         let productfrm = document.productfrm;
