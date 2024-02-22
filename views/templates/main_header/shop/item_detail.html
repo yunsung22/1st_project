@@ -83,7 +83,7 @@
                     <div class="product-price">
                         <h1>{{ p.prdname }}</h1>
                         <h3>{% if p.salepoint == 0 %}
-                            <span>${{ pd.price }}</span>
+                            <span>${{ p.price }}</span>
                         {% else %}
                             <span style="text-decoration: line-through; color:darkgray">${{ p.price }}</span>
                             <span>${{ (p.price * (1 - p.salepoint)) | int }}</span>
