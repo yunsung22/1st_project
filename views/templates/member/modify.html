@@ -144,7 +144,7 @@
         })
 
         if( confirm('회원 정보를 수정 하시겠습니까?') ){
-            let apiUrl = `http://127.0.0.1:8000/member/modify`;
+            let apiUrl = `/member/modify`;
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
