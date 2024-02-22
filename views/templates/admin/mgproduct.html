@@ -217,12 +217,11 @@ updatebtn.addEventListener('click', ()=> {
     };
 
     checkboxes.forEach((checkbox) => {
-        if (checkbox.checked) {      // 체크박스가 체크되었다면 getRowData라는 함수로 그 행의 데이터를 수집
+        if (checkbox.checked) {
             let rowData = getRowData(checkbox.closest('tr'));
             jsondata[rowData.prdno] = rowData;
         }
     });
-    console.log(jsondata)
 
     fetch('http://127.0.0.1:8000/admin/mgproduct1', {
         method: 'POST',

@@ -127,9 +127,9 @@ class ProductService:
     def update_product(rows_data):
         with Session() as sess:
             for row_data in rows_data.values():
-                print(row_data.salepoint, row_data.prdno)
                 stmt = update(Product).where(Product.prdno == row_data.prdno) \
-                    .values(prdname=row_data.prdname, stack=row_data.stack, price=row_data.price, salepoint=row_data.salepoint)
+                    .values(prdname=row_data.prdname, stack=row_data.stack,
+                            price=row_data.price, salepoint=row_data.salepoint)
                 result = sess.execute(stmt)
                 sess.commit()
 
