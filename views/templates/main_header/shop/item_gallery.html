@@ -57,7 +57,12 @@
                             <!-- 제목이 항상 두 줄로 표시되도록 설정 -->
                             <h5 class="card-title">{{ pd.prdname }}</h5>
                         </a>
+                        {% if pd.salepoint == 0 %}
                         <span>${{ pd.price }}</span>
+                        {% else %}
+                        <span style="text-decoration: line-through;color:darkgray">${{ pd.price }}</span>
+                        <span>${{ (pd.price * (1 - pd.salepoint)) | int }}</span>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
