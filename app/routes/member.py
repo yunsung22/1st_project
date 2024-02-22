@@ -42,6 +42,8 @@ def loginok(req: Request, userid: str = Form(), passwd: str = Form()):
         return RedirectResponse(url='/member/myinfo', status_code=status.HTTP_303_SEE_OTHER)
     elif result and usertype in ['admin', 'manager']:
         req.session['m'] = result.userid
+        req.session['userid'] = result.userid
+        req.session['mno'] = result.mno
         return RedirectResponse(url='/member/myinfo', status_code=status.HTTP_303_SEE_OTHER)
     else:
         return RedirectResponse(url='/member/login', status_code=status.HTTP_303_SEE_OTHER)
