@@ -56,6 +56,11 @@ def deleteprd(del_data: Dict[str, List[int]]):
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
 
+@admin_router.get('/rgproduct', response_class=HTMLResponse)
+def rgproduct(req: Request):
+    return templates.TemplateResponse('admin/rgproduct.html', {'request': req})
+
+
 @admin_router.post('/rgproduct')
 def rgproductok(dto: NewData):
     pdto = NewProduct(prdname=dto.prdname, category=dto.category, stack=dto.stack, price=dto.price, contents=dto.contents)
@@ -108,7 +113,3 @@ def deleteuser(dudto : Dict[str, List[int]]):
     if result.rowcount > 0: res_url = '/admin/mguser'
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
-
-@admin_router.get('/mgVOC', response_class=HTMLResponse)
-def mgVOC(req: Request):
-    return templates.TemplateResponse('admin/mgVOC.html', {'request': req})
