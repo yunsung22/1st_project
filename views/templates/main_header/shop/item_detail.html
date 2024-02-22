@@ -85,7 +85,7 @@
                         <h3>${{ p.price }}</h3>
                         <br>
                         <button type="button" id="addbtn" class="buy-button">Add bag</button>
-                        <button type="button" id="buybtn" class="buy-button">Buy it</button>
+{#                        <button type="button" id="buybtn" class="buy-button">Buy it</button>#}
 
                     </div>
                     <div class="product-description">
@@ -185,9 +185,9 @@
         let buybtn=document.querySelector('#buybtn');
         let prdno = document.querySelector('#prdno');
         let userid = document.querySelector('#userid');
-        buybtn.addEventListener('click',()=>{
-            location.href = `/jumunok/${prdno.value}/${mno.value}`;
-        });
+        {#buybtn.addEventListener('click',()=>{#}
+        {#    location.href = `/jumunok/${prdno.value}/${mno.value}`;});#}
+
         let addbtn=document.querySelector('#addbtn');
         addbtn.addEventListener('click',()=>{
             location.href = `/bagok/${prdno.value}/${mno.value}`;

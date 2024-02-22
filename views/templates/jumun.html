@@ -69,9 +69,9 @@
                     </div>
                 </div>
 
-            <form id="payfrm">
+            <form name="payfrm" style="text-align: center">
                 <div>
-                    <form style="text-align: center">
+                    <div style="text-align: center">
                         <div id="paybutton">
                             <div class="mt-3 ">
                                 <button type="button" class="col-3">
@@ -82,10 +82,10 @@
                             </div>
                         </div>
 
-                    </form>
+                    </div>
                 </div>
 
-                <div class="alternative-payment-separator" data-alternative-payment-separator="">
+                <div class="alternative-payment-separator">
                       <span class="alternative-payment-separator__content">
                         OR
                       </span>
@@ -131,25 +131,25 @@
                     </p>
                     <p class="mt-2">
                         <label for="postal" ><h3>Postal code</h3></label>
-                        <input type="text" id="postal" class="form-control mt-2"  placeholder="Postal code">
+                        <input type="text" name="postcode" id="postal" class="form-control mt-2" value="" placeholder="Postal code">
                     </p>
 
                     <p class="mt-2">
                         <label for="address" ><h3>Address</h3></label>
-                        <input type="text" id="address" class="form-control mt-2" value="{{ jmuser.addr }}" placeholder="Address">
+                        <input type="text" name="addr" id="address" class="form-control mt-2" value="{{ jmuser.addr }}" placeholder="Address">
                     </p>
                     <p class="mt-2">
                         <label for="phone" ><h3>Phone</h3></label>
-                        <input type="tel" id="phone" class="form-control mt-2" value="{{ jmuser.phone }}" placeholder="Phone">
+                        <input type="tel" name="phone" id="phone" class="form-control mt-2" value="{{ jmuser.phone }}" placeholder="Phone">
                     </p>
 
-                        <input type="hidden" name="mno" value="{{ jmuser.jmno }}">
+                        <input type="hidden" name="cno" value="{{ jmuser.cno }}">
 
                     {% endfor %}
 
                 </fieldset>
 
-                <div class="step__footer" data-step-footer="">
+                <div class="step__footer">
                     <button name="paybtn" type="button" id="paybtn" class="step__footer__continue-btn btn">Payment Complete</button></a>
 
                     <a class="step__footer__previous-link" href="index">
@@ -157,8 +157,17 @@
                             <path d="M8 1L7 0 3 4 2 5l1 1 4 4 1-1-4-4"></path>
                         </svg><span class="step__footer__previous-link-content">Return to cart</span></a>
                 </div>
-                <input type="hidden" name="pacno" id="pacno">
-                <input type="hidden" name="pamno" id="pamno" value="{{ request.session['mno'] }}">
+                <input type="hidden" name="mno" id="pamno" value="{{ request.session['mno'] }}">
+
+                {% for j in jmcart %}
+
+                        <input type="hidden" name="prdno" value="{{ j.prdno}}">
+                        <input type="hidden" name="size" value="Free">
+                        <input type="hidden" name="qty" value="{{ j.qty}}">
+                        <input type="hidden" name="price" value="{{ j.price}}">
+
+                {% endfor %}
+
             </form>
             </div>
         </div>
@@ -254,34 +263,42 @@
                             </div>
                         </div>
                     </div>
-
-
                 </fieldset>
             </div>
-
         </div>
-
-
     </div>
-
-
 </main>
 {% block script %}
 
     <script>
         let paybtn = document.querySelector('#paybtn');
-        paybtn.addEventListener('click', () => {
-            let payfrm = document.querySelector('#payfrm');
-            let pamno = document.querySelector('#pamno');
-            let pacno = document.querySelector('#pacno');
-            let mnos = document.getElementsByName('mno');
+        let payfrm = document.payfrm;
+        paybtn.addEventListener('click', () => {;
+            const formData = new FormData(payfrm);
 
-            console.log(pamno.value);
+            // 서버에 보내기 위해 JSON 객체로 변환
+            let jsondata = {}
+            formData.forEach(function (val,key){
+                jsondata[key] = val;
+            });
 
-            pacno.value = mnos[0].value;
-            payfrm.method='POST'
-            payfrm.action='/payment';
-            payfrm.submit();
+
+            console.log(jsondata);
+
+            fetch('http://127.0.0.1:8000/payment',{
+                method: 'POST',
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'},
+
+                body: JSON.stringify(jsondata) ,
+                redirect:'follow'
+            })
+                .then((res)=>{
+                    if (res.redirected) location.href = res.url;
+                })
+            .catch((err) => console.log(err));
+
 
         });
     </script>

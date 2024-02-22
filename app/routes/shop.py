@@ -56,12 +56,11 @@ def cart(req: Request, prdno:str, mno:str):
         res_url = f'/bag'
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
-# @shop_router.get('/jumunok/{prdno}/{mno}', response_class=HTMLResponse)
-# def cart(req: Request, prdno:str, mno:str):
-#     res_url = '/jumun_error'
-#     result=CartService.insert_jumun(prdno,mno)
-#
-#     if result.rowcount > 0:
-#         req.session['jmno'] = result.inserted_primary_key[0]
-#         res_url = f'/payment'
-#     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
+
+
+
+
+
+
+
+

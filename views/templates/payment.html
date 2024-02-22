@@ -26,9 +26,7 @@
 
             <div class="p-3">
 
-                <a href="/orderhistory" >
-                    <button type="button" id="cartbtn" class="text text-white">Cart</button>
-                </a>
+                    <button type="button" id="orderbtn" name="orderbtn" class="text text-white" style="font-size: small">Orderhistory</button>
 
             </div>
 
@@ -37,21 +35,35 @@
 
 
 
-        <fieldset name = "foot" style="height: 300px; padding-top: 100px; margin-top: 150px;">
-            <h3>STAY UP TO DATE</h3>
-            <h>Sign up for our newsletter to be the first to</h><br>
-            <h>know about new products, exclusive releases</h><br>
-            <h>and promotions.</h>
-
-            <div style="margin: 10px;">
-                <div id="submit1">
-                    <input id="Email-Address" class="inline-block" placeholder="Email Address">
-                    <input type="submit" value="Submit" class="button text text-white" id="submitbtn">
-                </div>
-            </div>
-
-        </fieldset>
+{#        <fieldset name = "foot" style="height: 300px; padding-top: 100px; margin-top: 150px;">#}
+{#            <h3>STAY UP TO DATE</h3>#}
+{#            <h>Sign up for our newsletter to be the first to</h><br>#}
+{#            <h>know about new products, exclusive releases</h><br>#}
+{#            <h>and promotions.</h>#}
+{##}
+{#            <div style="margin: 10px;">#}
+{#                <div id="submit1">#}
+{#                    <input id="Email-Address" class="inline-block" placeholder="Email Address">#}
+{#                    <input type="submit" value="Submit" class="button text text-white" id="submitbtn">#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#        </fieldset>#}
     </main>
 
+
+{% endblock %}
+
+{% block script %}
+
+    <script>
+        let orderbtn = document.querySelector('#orderbtn');
+        orderbtn.addEventListener('click', () => {
+            location.href = `/oderhistory`
+
+
+
+        });
+    </script>
 
 {% endblock %}

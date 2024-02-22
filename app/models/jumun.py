@@ -19,9 +19,9 @@ class Jumun(Base):
     size = Column(String(50), nullable=False)  # 가격 (product 연동)
     qty = Column(Integer, nullable=False)
     price = Column(Integer, nullable=False)  # 제품 번호 (product 연동)
-    postcode = Column(Integer, nullable=False)
+    postcode = Column(String(10), nullable=False)
     addr = Column(String(100), nullable=False)
-    phone = Column(Integer, nullable=False)
+    phone = Column(String(15), nullable=False)
     regdate = Column(DateTime, default=datetime.now(), nullable=True)
 
 
