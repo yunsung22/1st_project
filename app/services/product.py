@@ -70,11 +70,11 @@ class ProductService:
         return result, cnt
 
     @staticmethod
-    def select2_product():
+    def select2_product(category):
         with Session() as sess:
             stmt = select(Product.prdno, Product.prdname, Product.category, Product.stack,
                           Product.price, Product.salepoint, PrdAttach.img1) \
-                .join_from(Product, PrdAttach) \
+                .join_from(Product, PrdAttach).filter(Product.category == category)\
                 .order_by(Product.prdno.desc()).offset(0).limit(36)
             result = sess.execute(stmt)
             sess.commit()

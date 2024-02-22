@@ -46,6 +46,7 @@
 
 {% block main %}
     <main>
+        <h1 style="margin-bottom: 70px; margin-top: 0">{{ category[0].upper()+category[1:] }}</h1>
         <div class="row justify-content-center">
             {% for pd in pdlist %}
                 <div class="col-12 col-md-5 col-lg-5 card m-2" style="max-width: 18rem;">
@@ -56,7 +57,12 @@
                             <!-- 제목이 항상 두 줄로 표시되도록 설정 -->
                             <h5 class="card-title">{{ pd.prdname }}</h5>
                         </a>
+                        {% if pd.salepoint == 0 %}
                         <span>${{ pd.price }}</span>
+                        {% else %}
+                        <span style="text-decoration: line-through;color:darkgray">${{ pd.price }}</span>
+                        <span>${{ (pd.price * (1 - pd.salepoint)) | int }}</span>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
