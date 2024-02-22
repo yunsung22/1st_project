@@ -18,7 +18,7 @@ jumun_router.mount('/static', StaticFiles(directory='views/static'), name='stati
 def bagx(req: Request):
     if 'userid' not in req.session:
         return RedirectResponse(url='/member/login', status_code=status.HTTP_303_SEE_OTHER)
-    elif 'mno' in req.session:
+    elif 'mno' or 'm' in req.session:
         mno = req.session['mno']
         cart = CartService.select_cart(mno)
         if not cart:

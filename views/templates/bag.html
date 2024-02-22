@@ -200,20 +200,15 @@
                 </tbody>
             </table>
 
-            <form name="jumunfrm" id="jumunfrm">
-                <div>
-                    <label for="contents">Special Instructions</label>
-                </div>
-                <div>
-                    <textarea name="contents" id="contents" rows="2" class="form-control"></textarea>
-                </div>
+            <form name="jumunfrm" id="jumunfrm" style="display: none">
+
                 <input type="hidden" name="jmcno" id="jmcno">
                 <input type="hidden" name="jmmno" id="jmmno" value="{{ request.session['mno'] }}">
             </form>
 
             <div class="subtotal">
                 {% for c in cart %}
-                <h2>Subtotal: <span>{{ c.price }}</span></h2>
+                <h2>Subtotal: <span>${{ c.price }}</span></h2>
                 <h>Total excludes shipping and taxes.
                     <a href="#" id="shippingCalculatorToggle" class="link">Show shipping calculator.</a></h>
                 {% endfor %}

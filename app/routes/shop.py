@@ -16,7 +16,7 @@ shop_router.mount('/static', StaticFiles(directory='views/static'), name='static
 
 
 # oxfords 들어가는 경로
-@shop_router.get('/{category}', response_class=HTMLResponse)
+@shop_router.get('/shop/{category}', response_class=HTMLResponse)
 def shop_category(req: Request, category: str):
     pdlist = ProductService.select2_product(category)
     return templates.TemplateResponse('main_header/shop/item_gallery.html', {'request': req, 'pdlist': pdlist, 'category': category})
