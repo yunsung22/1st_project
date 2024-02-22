@@ -4,7 +4,9 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import RedirectResponse
 
+from app.schemas.jumun import Jumun, NewJumun
 from app.services.cart import CartService
+from app.services.jumun import JumunService
 
 jumun_router = APIRouter()
 # jinja2 설정
@@ -19,29 +21,40 @@ def bagx(req: Request):
     elif 'mno' in req.session:
         mno = req.session['mno']
         cart = CartService.select_cart(mno)
-        print(len(cart))
+        if not cart:
+            return templates.TemplateResponse('bagx.html', {'request': req})
         return templates.TemplateResponse('bag.html', {'request': req, 'cart': cart})
-    else:
-        return templates.TemplateResponse('bagx.html', {'request': req})
 
 
 
 
-
-#  장바구니에서 카트번호, 고객번호 전달 후
-#  결제페이지에서 다시 카트정보,고객정보 추출 후 출력
 @jumun_router.post('/jumun', response_class=HTMLResponse)
 def jumun(req: Request,jmcno=Form(), jmmno=Form()):
     jmcart = CartService.select_jumun_cart(jmcno)
     jmuser = CartService.select_jumun_user(jmmno)
     return templates.TemplateResponse('/jumun.html', {'request': req, 'jmcart':jmcart, 'jmuser':jmuser})
 
-@jumun_router.get('/payment', response_class=HTMLResponse)
-def payment(req: Request,pacno=Form(), pamno=Form()):
-    pacart = CartService.select_pay_cart(pacno)
-    pauser = CartService.select_pay_user(pamno)
-    return templates.TemplateResponse('/pament.html', {'request': req, 'pacart':pacart, 'pauser':pauser})
 
-# @jumun_router.get('/orderhistory', response_class=HTMLResponse)
-# def orderhistory(req: Request):
-#     return templates.TemplateResponse('orderhistory.html', {'request': req})
+
+@jumun_router.post('/payment')
+def payment(req: Request, jmdto: NewJumun):
+    res_url = '/jumun_error'
+    result = JumunService.insert_jumun(jmdto)
+    if result.rowcount > 0:
+        cno = jmdto.cno
+
+        delete_result = CartService.delete_cart(cno)
+        if delete_result:
+            res_url = '/payment'
+        else:
+            res_url ='/payment_error'
+    return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
+
+@jumun_router.get('/payment', response_class=HTMLResponse)
+def paymentok(req: Request):
+    return templates.TemplateResponse('/payment.html', {'request': req})
+
+@jumun_router.get('/oderhistory', response_class=HTMLResponse)
+def oderhistory(req: Request):
+    jmpay = JumunService.select_orderhistory(req.session['mno'])
+    return templates.TemplateResponse('/oderhistory.html', {'request': req, 'jmpay':jmpay})
