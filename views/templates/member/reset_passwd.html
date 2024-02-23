@@ -132,7 +132,7 @@
         })
 
         if( confirm('임시 비밀번호로 변경하시겠습니까?') ){
-            let apiUrl = `http://127.0.0.1/member/reset_passwd`;
+            let apiUrl = `http://127.0.0.1:8000/member/reset_passwd`;
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
