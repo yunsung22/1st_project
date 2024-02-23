@@ -241,8 +241,8 @@
             location.href = 'http://127.0.0.1:8000/admin/mguser' + params;
         });
 
-        // 엔터키를 누르면 click과 같은 효과
-        execSearch.addEventListener('keyup', (event) => {
+        fkey = document.querySelector('#fkey');
+        fkey.addEventListener('keyup', (event) => {
             if (event.key === "Enter") {
                 execSearch.click();
             }
@@ -308,7 +308,6 @@
             };
 
             let result = getData(checkdata.closest('tr'));
-            console.log(result, result.number, result['name'], result['usertype']);
 
             document.getElementById("number").innerText = result['number'];
             document.getElementById("nickname").innerText = result['nickname'];
@@ -319,7 +318,6 @@
             document.getElementById("phone").innerText = result['phone'];
             document.getElementById("point").innerText = result['point'];
             document.getElementById("regdate").innerText = result['regdate'];
-
 
             document.getElementById("myModal").style.display = "block";
             document.getElementById("overlay").style.display = "block";
@@ -338,7 +336,6 @@
             document.getElementById("notice").innerText =
                 document.getElementById("name").innerText +'의 사용자 권한을 ' + selectValue + '로 변경합니다.'
         })
-
     </script>
 
     <script>

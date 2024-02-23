@@ -89,8 +89,7 @@ def mguser(req: Request, cpg: int):
 
 
 @admin_router.get('/mguser/{ftype}/{fkey}/{cpg}', response_class=HTMLResponse)
-def search(req: Request, ftype: str, fkey: str, cpg: int):
-    print(ftype, fkey, cpg)
+def rgproduct_find(req: Request, ftype: str, fkey: str, cpg: int):
     stpg = int((cpg - 1) / 10) * 10 + 1
     udlist, cnt = UserService.search_select_user(ftype, '%' + fkey + '%', cpg)
     allpage = ceil(cnt / 15)
