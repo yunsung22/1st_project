@@ -12,7 +12,7 @@ class Member(Base):
 
     mno = Column(Integer, primary_key=True, autoincrement=True) #회원번호
     userid = Column(String(50), nullable=False, unique=True) #고객아이디
-    passwd = Column(String(50), nullable=False) #비밀번호
+    passwd = Column(String(200), nullable=False) #비밀번호
     name = Column(String(20), nullable=False)   #고객이름
     email = Column(String(50), nullable=False)  #이메일
     addr = Column(String(1000), nullable=False)  #회원주소
