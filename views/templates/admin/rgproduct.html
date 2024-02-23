@@ -81,9 +81,9 @@
                 <div>
                     <label for="category">Product Category</label>
                     <select name="category" id="category">
-                        <option value="oxford">oxford</option>
+                        <option value="oxfords">oxfords</option>
                         <option value="knitwear">knitwear</option>
-                        <option value="check">check</option>
+                        <option value="checkered">checkered</option>
                         <option value="carryover">carryover</option>
                     </select>
                 </div>
@@ -159,9 +159,7 @@
 
         image.forEach((input) => {
             input.addEventListener('change', () => {
-                console.log(input);
                 let index = input.id.substring(input.id.length - 1, input.id.length);
-                if (input.files[0] instanceof File) {console.log('file있음')}
                 if (input.files && input.files[0]) {
                     let reader = new FileReader();
 

@@ -51,16 +51,19 @@ class UserService:
             myfilter = Member.mno.like(fkey)
             if ftype == 'nickname': myfilter = Member.userid.like(fkey)
             elif ftype == 'name': myfilter = Member.name.like(fkey)
-            elif ftype == 'usertype': myfilter = User.usertype.like(fkey)
+            elif ftype == 'usertype':
+                myfilter = User.usertype.like(fkey)
+                cnt = sess.query(func.count(User.mno)).filter(myfilter).scalar()
+                stmt = stmt.filter(myfilter).order_by(Member.mno.desc()).offset(stnum).limit(15)
+                result = sess.execute(stmt)
+                return result, cnt
             elif ftype == 'email': myfilter = Member.email.like(fkey)
             elif ftype == 'address': myfilter = Member.addr.like(fkey)
             elif ftype == 'birth': myfilter = Member.birth.like(fkey)
             elif ftype == 'phone': myfilter = Member.phone.like(fkey)
 
             stmt = stmt.filter(myfilter).order_by(Member.mno.desc()).offset(stnum).limit(15)
-
             result = sess.execute(stmt)
-
             cnt = sess.query(func.count(Member.mno)).filter(myfilter).scalar()
 
         return result, cnt
