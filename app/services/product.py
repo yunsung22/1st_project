@@ -4,7 +4,8 @@ from app.models.product import Product, PrdAttach
 from sqlalchemy import insert, select, update, func, delete, and_
 from app.dbfactory import Session
 
-UPLOAD_DIR = r'C:\Java\nginx-1.25.3\html\cdn'
+# UPLOAD_DIR = r'C:\Java\nginx-1.25.3\html\cdn'
+UPLOAD_DIR = r'/usr/share/nginx/html/cdn'
 
 
 class ProductService:
@@ -138,7 +139,7 @@ class ProductService:
     @staticmethod
     def delete_product(del_data):
         prdnos = list(del_data.values())[0]
-        print(prdnos)
+
         with Session() as sess:
             for prdno in prdnos:
                 stmt = delete(Product).where(Product.prdno == prdno)

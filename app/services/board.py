@@ -3,7 +3,6 @@ from app.dbfactory import Session
 from sqlalchemy import insert, select, update, func, or_
 
 
-
 class BoardService():
     @staticmethod
     def board_convert(bdto):

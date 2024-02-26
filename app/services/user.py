@@ -20,9 +20,9 @@ class UserService:
 
     @staticmethod
     def update_user(acdto):
+        data = {'usertype': acdto['usertype']}
         with Session() as sess:
-            stmt = update(User).where(User.mno == int(acdto['mno'])) \
-                .values(usertype=acdto['usertype'])
+            stmt = update(User).where(User.mno == int(acdto['mno'])).values(data)
             result = sess.execute(stmt)
             sess.commit()
 

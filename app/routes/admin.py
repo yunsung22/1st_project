@@ -101,7 +101,7 @@ def rgproduct_find(req: Request, ftype: str, fkey: str, cpg: int):
 def autoritychange(acdto: Dict[str, str]):
     result = UserService.update_user(acdto)
     res_url = '/error'
-    if result.rowcount > 0: res_url = '/admin/mguser'
+    if result.rowcount > 0: res_url = '/admin/mguser/1'
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
 
@@ -109,6 +109,6 @@ def autoritychange(acdto: Dict[str, str]):
 def deleteuser(dudto : Dict[str, List[int]]):
     result = UserService.delete_user(dudto)
     res_url = '/error'
-    if result.rowcount > 0: res_url = '/admin/mguser'
+    if result.rowcount > 0: res_url = '/admin/mguser/1'
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 

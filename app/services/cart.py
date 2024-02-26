@@ -1,18 +1,16 @@
-import os
-from sqlalchemy import insert, select, delete
+from sqlalchemy import insert,  delete
+from sqlalchemy import select
+
 from app.models.jumun import Jumun
-from sqlalchemy import func
 from app.models.cart import Cart
 from app.models.product import PrdAttach,Product
 from app.dbfactory import Session
-from sqlalchemy import select
+
 from app.models.member import Member
-from app.services.product import UPLOAD_DIR
+
 
 
 class CartService:
-
-
     @staticmethod
     def insert_cart(prdno,mno):
 
@@ -41,19 +39,17 @@ class CartService:
 
     @staticmethod
     def selectone_cart(userid):
-
-
         with Session() as sess:
             result = sess.query(Cart).filter_by(userid=userid).scalar()
-            return result
+
+        return result
 
     @staticmethod
     def selectone_jumun(userid):
-
-
         with Session() as sess:
             result = sess.query(Jumun).filter_by(userid=userid).scalar()
-            return result
+
+        return result
 
     @staticmethod
     def select_jumun_cart(jmcno):
@@ -71,7 +67,6 @@ class CartService:
     @staticmethod
     def select_jumun_user(jmmno):
         with Session() as sess:
-
             stmt = select(Member.mno,Member.userid,Member.name,Member.email, Member.addr,Member.phone,
                           Cart.cno, Cart.prdno) \
                 .select_from(Member).join(Cart, Member.mno == Cart.mno) \

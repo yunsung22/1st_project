@@ -13,6 +13,7 @@ jumun_router = APIRouter()
 templates = Jinja2Templates(directory='views/templates')
 jumun_router.mount('/static', StaticFiles(directory='views/static'), name='static')
 
+
 # 장바구니 x
 @jumun_router.get('/bag', response_class=HTMLResponse)
 def bagx(req: Request):
@@ -26,8 +27,6 @@ def bagx(req: Request):
         return templates.TemplateResponse('bag.html', {'request': req, 'cart': cart})
 
 
-
-
 @jumun_router.post('/jumun', response_class=HTMLResponse)
 def jumun(req: Request,jmcno=Form(), jmmno=Form()):
     jmcart = CartService.select_jumun_cart(jmcno)
@@ -35,9 +34,8 @@ def jumun(req: Request,jmcno=Form(), jmmno=Form()):
     return templates.TemplateResponse('/jumun.html', {'request': req, 'jmcart':jmcart, 'jmuser':jmuser})
 
 
-
 @jumun_router.post('/payment')
-def payment(req: Request, jmdto: NewJumun):
+def payment(jmdto: NewJumun):
     res_url = '/jumun_error'
     result = JumunService.insert_jumun(jmdto)
     if result.rowcount > 0:
@@ -50,9 +48,11 @@ def payment(req: Request, jmdto: NewJumun):
             res_url ='/payment_error'
     return RedirectResponse(res_url, status_code=status.HTTP_302_FOUND)
 
+
 @jumun_router.get('/payment', response_class=HTMLResponse)
 def paymentok(req: Request):
     return templates.TemplateResponse('/payment.html', {'request': req})
+
 
 @jumun_router.get('/oderhistory', response_class=HTMLResponse)
 def oderhistory(req: Request):

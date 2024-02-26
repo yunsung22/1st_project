@@ -344,10 +344,10 @@
         usersubmit.addEventListener('click', () => {
 
             let jsondata = {};
-            let mno = document.querySelector('#mno');
+            let mno = document.querySelector('#number');
             let usertype = document.querySelector('#usertype');
-            jsondata['mno'] = mno.textContent;
-            jsondata['usertype'] = usertype.value;
+            jsondata['mno'] = mno.innerText;
+            jsondata['usertype'] = usertype.innerText;
 
             fetch('http://127.0.0.1:8000/admin/mguser1', {
                 method: 'POST',

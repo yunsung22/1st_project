@@ -1,11 +1,9 @@
-import os
-from sqlalchemy import insert, select
+from sqlalchemy import insert
 from app.models.jumun import Jumun
 from app.dbfactory import Session
 from sqlalchemy import select
 from app.models.product import Product
 from app.models.product import PrdAttach
-from app.services.product import UPLOAD_DIR
 
 
 class JumunService:
@@ -27,7 +25,6 @@ class JumunService:
     @staticmethod
     def insert_jumun(jmdto):
         data = JumunService.jumun_convert(jmdto)
-        print(data)
 
         with Session() as sess:
             stmt = insert(Jumun).values(data)
@@ -48,7 +45,7 @@ class JumunService:
                 .where(Jumun.mno == mno)
             result = sess.execute(stmt).fetchall()
 
-            return result
+        return result
 
 
 
