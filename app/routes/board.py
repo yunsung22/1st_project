@@ -15,6 +15,7 @@ board_router = APIRouter()
 templates = Jinja2Templates(directory='views/templates')
 board_router.mount('/static', StaticFiles(directory='views/static'), name='static')
 
+
 @board_router.get('/list/{cpg}', response_class=HTMLResponse)
 def list(req: Request, cpg: int):
     stpg = int((cpg -1) / 10 ) * 10 + 1   #페이지네이션 시작값
@@ -22,6 +23,7 @@ def list(req: Request, cpg: int):
     allpage = ceil(cnt / 25) # 총 페이지 수
     return templates.TemplateResponse('board/list.html',
                                       {'request': req, 'bdlist': bdlist, 'cpg':cpg, 'stpg':stpg, 'allpage': allpage, 'baseurl':'/list/'})
+
 
 @board_router.get('/list/{ftype}/{fkey}/{cpg}', response_class=HTMLResponse)
 def find(req: Request, ftype: str, fkey: str, cpg: int):

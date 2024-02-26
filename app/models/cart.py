@@ -1,7 +1,5 @@
-from datetime import datetime
-
 from sqlalchemy.orm import DeclarativeBase, mapped_column
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String
 
 
 class Base(DeclarativeBase):

@@ -14,22 +14,27 @@ member_router = APIRouter()
 templates = Jinja2Templates(directory='views/templates')
 member_router.mount('/static', StaticFiles(directory='views/static'), name='static')
 
+
 @member_router.get('/member/join', response_class=HTMLResponse)
 def join(req: Request):
     return templates.TemplateResponse('/member/join.html', {'request': req})
+
 
 @member_router.post('/member/join')
 def joincheck(mdto: NewMember):
     result = MemberService.insert_member(mdto)
     return result.rowcount
 
+
 @member_router.get('/member/joinok', response_class=HTMLResponse)
 def joinok(req: Request):
     return templates.TemplateResponse('/member/joinok.html', {'request': req})
 
+
 @member_router.get('/member/login', response_class=HTMLResponse)
 def login(req: Request):
     return templates.TemplateResponse('/member/login.html', {'request': req})
+
 
 @member_router.post('/member/login')
 def loginok(req: Request, userid: str = Form(), passwd: str = Form()):
@@ -48,10 +53,12 @@ def loginok(req: Request, userid: str = Form(), passwd: str = Form()):
     else:
         return RedirectResponse(url='/member/login', status_code=status.HTTP_303_SEE_OTHER)
 
+
 @member_router.get('/member/logout')
 def logout(req: Request):
     req.session.clear()
     return RedirectResponse(url='/', status_code=status.HTTP_303_SEE_OTHER)
+
 
 @member_router.get('/member/myinfo', response_class=HTMLResponse)
 def myinfo(req: Request):
@@ -61,6 +68,7 @@ def myinfo(req: Request):
     else:
         member = MemberService.select_one_member(req.session['userid'])
         return templates.TemplateResponse('/member/myinfo.html', {'request': req, 'member': member})
+
 
 @member_router.get('/member/modify', response_class=HTMLResponse)
 def modify(req: Request):
@@ -84,7 +92,7 @@ def modify_member(req: Request, mdto: ModifyMember):
         return JSONResponse(content={"update_cnt": update_cnt})
 
 @member_router.post('/member/check_id')
-def check_id(req: Request, mdto: NewMember):
+def check_id(mdto: NewMember):
     member_count = MemberService.select_user_id_count(mdto)
     return member_count
 
@@ -93,7 +101,7 @@ def reset_passwd(req: Request):
     return templates.TemplateResponse('/member/reset_passwd.html', {'request': req})
 
 @member_router.post('/member/reset_passwd')
-def reset_passwd(req: Request, mdto: TempMember):
+def reset_passwd(mdto: TempMember):
     new_password = MemberService.generate_temp_password()
     result = MemberService.update_member_passwd(mdto, new_password)
     update_cnt = result.rowcount
